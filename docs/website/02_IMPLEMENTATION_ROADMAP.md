@@ -24,14 +24,21 @@ Status as of 2026-11-10. Items marked ✅ have code and passing checks. Nothing 
 | ✅ Country-aware phone validation (E.164 digit counts) | `schema.ts`, `tests/unit/lead-schema.test.ts` |
 | Result | typecheck pass · eslint 0 problems · vitest 29/29 · build pass · Playwright 88 passed, 8 skipped |
 
-## Tranche 2b — still open (no external dependency)
+## Tranche 2b — done (2026-11-10)
 
-1. Feature comparison table for selected products.
-2. Solutions page: browse by business function and organisation size, then a solution finder.
-3. Cookie preferences UI. It is deliberately postponed until an analytics provider is chosen, because a banner with nothing behind it would be decorative.
-4. Per-page OG images.
-5. Measure Lighthouse / Core Web Vitals and record the results in doc 09. Not measured yet.
-6. Inspect the reference websites and write doc 03. Not done yet.
+| Item | Evidence |
+| --- | --- |
+| ✅ Solution finder on `/solutions#finder`: need, industry and organisation size map to products and services by transparent rules. Shows lifecycle badges and a "not a guarantee" note; never suggests drafts. | `src/features/finder/match.ts`, `SolutionFinder.tsx`, `tests/unit/finder.test.ts` (5 tests) |
+| ✅ Product comparison: "Compare" checkboxes on catalogue cards (max 3), sticky compare bar, `/compare-products?p=a,b` with a semantic table. Unknown slugs are ignored and the limit is enforced. | `src/features/compare/*`, `src/app/compare-products`, `tests/unit/compare.test.ts` (4 tests) |
+| ✅ Both added to site search and the sitemap; `/solutions` and `/compare-products` added to axe scans | `search-index.ts`, `sitemap.ts`, e2e specs |
+| Result | typecheck pass · eslint 0 problems · vitest 38/38 · build pass · Playwright 98 passed, 8 skipped (one test of mine was wrong, fixed and re-run) |
+
+## Tranche 2c — still open (no external dependency)
+
+1. Cookie preferences UI. It is deliberately postponed until an analytics provider is chosen, because a banner with nothing behind it would be decorative.
+1. Per-page OG images.
+2. Measure Lighthouse / Core Web Vitals and record the results in doc 09. Not measured yet.
+3. Inspect the reference websites and write doc 03. Not done yet.
 
 ## Tranche 3 — needs a decision or an external account
 

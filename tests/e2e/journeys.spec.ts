@@ -119,6 +119,41 @@ test.describe("search and company journeys", () => {
   });
 });
 
+test.describe("solution finder and comparison", () => {
+  test("solution finder recommends products and services, and never drafts", async ({ page }) => {
+    await page.goto("/solutions#finder");
+    const finder = page.locator("#finder");
+    await expect(finder.getByText(/suggestions will appear here/)).toBeVisible();
+    await finder.getByLabel("Run operations, inventory and finance").check();
+    await finder.getByLabel(/Which industry/).selectOption("logistics");
+    await finder.getByLabel(/How large/).selectOption("large");
+    await expect(finder.getByRole("link", { name: "Medhavya ERP" })).toBeVisible();
+    await expect(finder.getByRole("link", { name: "Consulting & Digital Transformation" })).toBeVisible();
+    await expect(finder.getByText("Medhavya HRMS")).toHaveCount(0);
+    await finder.getByRole("button", { name: "Start over" }).click();
+    await expect(finder.getByText(/suggestions will appear here/)).toBeVisible();
+  });
+
+  test("compare two products from the catalogue", async ({ page }) => {
+    await page.goto("/products");
+    await page.getByRole("checkbox", { name: /Compare Medhavya CRM/ }).check();
+    await expect(page.getByText(/choose at least 2 to compare/)).toBeVisible();
+    await page.getByRole("checkbox", { name: /Compare MediAI/ }).check();
+    await page.getByRole("link", { name: "Compare 2 products" }).click();
+    await expect(page).toHaveURL(/compare-products\?p=medhavya-crm,mediai/);
+    const table = page.getByRole("table");
+    await expect(table.getByRole("columnheader", { name: "Medhavya CRM" })).toBeVisible();
+    await expect(table.getByRole("columnheader", { name: "MediAI" })).toBeVisible();
+    await expect(table.getByRole("rowheader", { name: "Lifecycle stage" })).toBeVisible();
+  });
+
+  test("compare limits to three products and ignores unknown slugs", async ({ page }) => {
+    await page.goto("/compare-products?p=medhavya-crm,mediai,medhavya-erp,medhavya-agro,not-real");
+    await expect(page.getByRole("table").getByRole("columnheader")).toHaveCount(3);
+    await expect(page.getByRole("checkbox", { name: "Medhavya Agro" })).toBeDisabled();
+  });
+});
+
 test.describe("API boundaries", () => {
   test("lead API rejects privileged fields and invalid payloads", async ({ request }) => {
     const base = { name: "Api Test", email: "api@example.com", enquiryType: "General", message: "Testing the API boundary.", privacyAcknowledged: true };
