@@ -13,7 +13,7 @@ The brief's list (Home, About, Products, Services, Industries, Solutions, Resour
 | Home | `/` | Custom (3D hero, 10 sections, FAQ) |
 | Products | `/products`, `/products/[slug]`, `/product-categories/[slug]`, `/compare-products` | Catalogue, product detail, category, comparison |
 | Services | `/enterprise-solutions`, `/enterprise-solutions/[slug]` (9 services) | Overview and one reusable service template |
-| Industries | `/industries`, `/industries/[slug]` (7) | Overview and one reusable industry template |
+| Industries | `/industries`, `/industries/[slug]` (10) | Overview and one reusable industry template |
 | Solutions | `/solutions` (themes and the finder at `#finder`) | Custom |
 | Resources | `/resources`, `/resources/blog/[slug]` (3 articles) | Listing and article |
 | Company | `/about`, `/technology`, `/security`, `/careers`, `/partners`, `/contact`, `/request-demo` | Editorial pages with forms |
@@ -34,6 +34,6 @@ Typed records in `src/content/*.ts` (products, categories, industries, enterpris
 
 | Gap | Reason |
 | --- | --- |
-| Industries: Hospitality, Real Estate, Government | Scope and facts need founder confirmation |
+| Industries: Hospitality, Real Estate, Government | Pages now exist, written from generic industry knowledge; scope and facts still need founder confirmation |
 | Resources: case studies, whitepapers, reports, events, news | No verified material exists; none is invented |
 | Multi-language | No approved translations; no non-working language switcher is shown |

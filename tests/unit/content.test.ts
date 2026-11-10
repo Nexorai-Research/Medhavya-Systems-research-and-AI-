@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { categories } from "@/content/categories";
+import { industries } from "@/content/industries";
 import { products } from "@/content/products";
 import { LIFECYCLE_STATUSES } from "@/content/types";
 import { getCategories, getProduct, getProducts, getProductsBySlugs, toPublicProduct } from "@/lib/content";
@@ -44,6 +45,17 @@ describe("public content queries", () => {
       expect(seen.has(p.slug)).toBe(false);
       seen.add(p.slug);
     }
+  });
+
+  it("keeps industry and product cross-references valid", () => {
+    const published = new Set(products.filter((p) => p.publication === "Published").map((p) => p.slug));
+    const industrySlugs = new Set(industries.map((i) => i.slug));
+    expect(industrySlugs.size).toBe(industries.length);
+    for (const i of industries) {
+      expect(i.relatedProducts.length).toBeGreaterThan(0);
+      for (const slug of i.relatedProducts) expect(published.has(slug)).toBe(true);
+    }
+    for (const p of products) for (const slug of p.industries) expect(industrySlugs.has(slug)).toBe(true);
   });
 
   it("strips internal governance fields from public API shape", () => {

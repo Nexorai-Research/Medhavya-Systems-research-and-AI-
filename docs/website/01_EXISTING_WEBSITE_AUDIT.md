@@ -26,7 +26,7 @@ A Complete · B Needs improvement · C Incomplete · D Missing · E Defective ·
 | Product catalogue, filters, detail pages | `features/products`, `app/products` | A/B | Filtering works. No sorting, no comparison table. | P2 |
 | Product / industry / service data model | `content/*`, `lib/content.ts` | A | CMS-ready. Content is static until Phase 6. | — |
 | Services | `content/enterprise.ts`, `app/enterprise-solutions` | **C → improved** | Was 3 services. Now 9: added Web, Mobile, Cloud & DevOps, Data & Analytics, Consulting, Maintenance. "Enterprise software development" is covered by Custom Software, so it is not duplicated. | Done |
-| Industries (7) | `content/industries.ts` | B | Missing from the prompt: Hospitality, Real Estate, Government. Needs founder confirmation of scope before adding. | P2 |
+| Industries (10) | `content/industries.ts` | B | Hospitality, Real Estate and Government & Public Sector were added from generic industry knowledge and still need founder confirmation of scope and facts. "Business/Enterprise" and "Other" are covered by categories, not separate pages. | P2 |
 | Solutions page | `app/solutions` | B | Organised by industry only. The prompt also asks for business function, organisation size and a solution finder. | P2 |
 | Global search | `lib/search.ts`, `lib/search-index.ts`, `features/search`, `app/search` | **D → built** | Client-side ranked search over published content. Unit-tested. Static prerender preserved. | Done |
 | Contact routing | `features/leads/schema.ts`, `app/contact` | **B → improved** | Enquiry types were 4. Now 8: Sales, Service, Support and Career added. | Done |

@@ -51,7 +51,7 @@ Status as of 2026-11-10. Items marked ✅ have code and passing checks. Nothing 
 
 | Item | Blocked by |
 | --- | --- |
-| Hospitality, Real Estate and Government industry pages | Founder confirms scope and facts |
+| Hospitality, Real Estate and Government industry pages (added from generic industry knowledge) | Founder confirms scope and facts |
 | Real product facts, screenshots, case studies | Company input |
 | Payload CMS + PostgreSQL, lead administration, roles | Docker running or a Postgres URL |
 | Lead notification (email/CRM) | Provider choice |

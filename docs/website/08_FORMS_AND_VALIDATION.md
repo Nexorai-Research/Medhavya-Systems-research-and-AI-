@@ -49,5 +49,9 @@ The schema is `.strict()`: unknown or privileged keys (status, assignedTo, score
 
 - Local file store and in-memory rate limiter are not production-safe (see audit).
 - No file upload: deliberately omitted.
-- No email or CRM delivery: `LEAD_NOTIFIER` is `console` or `none`.
+- No built-in email or CRM delivery: `LEAD_NOTIFIER` is `console`, `none` or `webhook`.
+
+### Webhook notifier (privacy note)
+
+With `LEAD_NOTIFIER=webhook`, each new lead is POSTed as JSON (reference, enquiry type, name, email, phone, organization, message, product/category slug, source, campaign, marketing opt-in, created time) to `LEAD_WEBHOOK_URL`. **Personal data therefore leaves the site to the destination the owner configured**; choose it accordingly and list it in the privacy notice. The URL must be https (http only for localhost/127.0.0.1) and the app fails with a clear configuration error otherwise. If `LEAD_WEBHOOK_SECRET` is set, requests carry `X-Medhavya-Signature: sha256=<hex HMAC-SHA256 of the raw body>`. One attempt with a 5 second timeout; no retries in the request path. Failures are logged with the opaque reference and HTTP status only and never fail the visitor. The `fingerprint` and internal consent fields are never sent.
 - Validation messages are English only.
