@@ -45,7 +45,7 @@ test.describe("core visitor journeys", () => {
 
 test.describe("runtime health", () => {
   // Guards against render loops and client errors (e.g. a form effect re-running every render).
-  for (const path of ["/", "/products", "/products/mediai", "/product-categories/agriculture", "/enterprise-solutions", "/technology", "/security", "/about", "/contact", "/request-demo"]) {
+  for (const path of ["/", "/products", "/products/mediai", "/product-categories/agriculture", "/enterprise-solutions", "/technology", "/security", "/about", "/contact", "/request-demo", "/search?q=ai", "/careers", "/partners"]) {
     test(`no console errors on ${path}`, async ({ page }) => {
       const errors: string[] = [];
       page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
@@ -83,6 +83,39 @@ test.describe("lead workflows", () => {
     await form.getByRole("checkbox", { name: /privacy notice/ }).check();
     await form.getByRole("button", { name: "Request consultation" }).click();
     await expect(form.getByRole("status")).toContainText("we have your enquiry");
+  });
+});
+
+test.describe("search and company journeys", () => {
+  test("search finds a product, shows an empty state, and hides drafts", async ({ page }) => {
+    await page.goto("/search");
+    await page.getByRole("searchbox", { name: "Search Medhavya Systems" }).fill("mediai");
+    await page.getByRole("button", { name: "Search" }).click();
+    await expect(page).toHaveURL(/q=mediai/);
+    await expect(page.getByRole("link", { name: /MediAI/ }).first()).toBeVisible();
+
+    await page.getByRole("searchbox", { name: "Search Medhavya Systems" }).fill("zzzzqqqq");
+    await page.getByRole("button", { name: "Search" }).click();
+    await expect(page.getByText(/No results for/)).toBeVisible();
+
+    await page.getByRole("searchbox", { name: "Search Medhavya Systems" }).fill("hrms");
+    await page.getByRole("button", { name: "Search" }).click();
+    await expect(page.getByText(/No results for/)).toBeVisible();
+  });
+
+  test("new service pages exist and unknown ones return 404", async ({ request }) => {
+    expect((await request.get("/enterprise-solutions/cloud-devops")).status()).toBe(200);
+    expect((await request.get("/enterprise-solutions/not-a-service")).status()).toBe(404);
+  });
+
+  test("careers form submits as a Career enquiry", async ({ page }) => {
+    await page.goto("/careers");
+    await page.getByLabel("Full name").fill("E2E Candidate");
+    await page.getByLabel("Work email").fill(`career+${Date.now()}@example.com`);
+    await page.getByLabel("How can we help?").fill("Interested in engineering roles when they open.");
+    await page.getByRole("checkbox", { name: /privacy notice/ }).check();
+    await page.getByRole("button", { name: "Send introduction" }).click();
+    await expect(page.getByRole("status")).toContainText("we have your enquiry");
   });
 });
 

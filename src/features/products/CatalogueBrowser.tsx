@@ -23,10 +23,16 @@ export function CatalogueBrowser({ products, categories }: { products: Product[]
   const setLifecycle = (v: LifecycleStatus | "") => startTransition(() => setLifecycleState(v));
   const deferredQuery = useDeferredValue(query);
 
-  const results = useMemo(
-    () => filterProducts(products, { query: deferredQuery, category: category ?? undefined, lifecycle: lifecycle || undefined }),
-    [products, deferredQuery, category, lifecycle],
-  );
+  const [sort, setSortState] = useState<"featured" | "name" | "stage">("featured");
+  const setSort = (v: "featured" | "name" | "stage") => startTransition(() => setSortState(v));
+
+  const results = useMemo(() => {
+    const filtered = filterProducts(products, { query: deferredQuery, category: category ?? undefined, lifecycle: lifecycle || undefined });
+    if (sort === "name") return [...filtered].sort((a, b) => a.name.localeCompare(b.name));
+    // "Most mature first": later lifecycle stages come first.
+    if (sort === "stage") return [...filtered].sort((a, b) => LIFECYCLE_STATUSES.indexOf(b.lifecycle) - LIFECYCLE_STATUSES.indexOf(a.lifecycle) || a.name.localeCompare(b.name));
+    return filtered;
+  }, [products, deferredQuery, category, lifecycle, sort]);
   const byCategory = Object.fromEntries(categories.map((c) => [c.slug, c]));
   const counts = Object.fromEntries(categories.map((c) => [c.slug, products.filter((p) => p.categorySlug === c.slug).length]));
   const hasFilters = Boolean(query || category || lifecycle);
@@ -62,6 +68,15 @@ export function CatalogueBrowser({ products, categories }: { products: Product[]
           </select>
         </label>
       </div>
+
+      <label className="mt-4 flex items-center gap-2 text-sm text-muted">
+        Sort by
+        <select value={sort} onChange={(e) => setSort(e.target.value as "featured" | "name" | "stage")} className="h-10 rounded-[var(--radius-md)] border border-line bg-white px-3 text-sm text-ink">
+          <option value="featured">Featured</option>
+          <option value="name">Name (A–Z)</option>
+          <option value="stage">Most mature first</option>
+        </select>
+      </label>
 
       <div role="group" aria-label="Filter by category" className="mt-4 flex flex-wrap gap-2">
         <FilterChip pressed={category === null} onClick={() => setCategory(null)}>

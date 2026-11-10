@@ -12,16 +12,26 @@ Status as of 2026-11-10. Items marked ✅ have code and passing checks. Nothing 
 | Careers and Partners pages, honest copy, no fake roles or partners | `src/app/careers`, `src/app/partners` |
 | Checks | typecheck pass · eslint 0 problems · vitest 29/29 · build pass · Playwright 68 passed, 8 skipped |
 
-## Tranche 2 — next (no external dependency)
+## Tranche 2 — done (2026-11-10)
 
-1. Add `/search`, `/careers`, `/partners` to the axe and console-error e2e lists, plus a search journey test.
-2. Organization and Breadcrumb JSON-LD; per-page OG metadata.
-3. Home: FAQ section and a technology/integration section built only from facts in the content modules.
-4. Product catalogue: sorting, and a feature comparison table for selected products.
-5. Solutions page: browse by business function and organisation size, then a solution finder.
-6. Country-aware phone validation on the lead form.
-7. Cookie preferences UI (needed before enabling any analytics).
-8. Measure Lighthouse / Core Web Vitals and record the results in doc 09.
+| Item | Evidence |
+| --- | --- |
+| ✅ `/search`, `/careers`, `/partners`, `/enterprise-solutions/cloud-devops` added to axe scans; search and careers added to console-error checks | `tests/e2e/accessibility-responsive.spec.ts`, `journeys.spec.ts` |
+| ✅ Search, new-service 404 and careers-submission journeys | `tests/e2e/journeys.spec.ts` ("search and company journeys") |
+| ✅ Organization JSON-LD site-wide; BreadcrumbList JSON-LD on every page with a hero | `src/components/JsonLd.tsx`, `layout.tsx`, `PageHero.tsx` |
+| ✅ Home FAQ section with FAQPage JSON-LD (answers contain no unverified claims) | `src/app/page.tsx` |
+| ✅ Catalogue sorting (Featured, Name, Most mature first) | `CatalogueBrowser.tsx` |
+| ✅ Country-aware phone validation (E.164 digit counts) | `schema.ts`, `tests/unit/lead-schema.test.ts` |
+| Result | typecheck pass · eslint 0 problems · vitest 29/29 · build pass · Playwright 88 passed, 8 skipped |
+
+## Tranche 2b — still open (no external dependency)
+
+1. Feature comparison table for selected products.
+2. Solutions page: browse by business function and organisation size, then a solution finder.
+3. Cookie preferences UI. It is deliberately postponed until an analytics provider is chosen, because a banner with nothing behind it would be decorative.
+4. Per-page OG images.
+5. Measure Lighthouse / Core Web Vitals and record the results in doc 09. Not measured yet.
+6. Inspect the reference websites and write doc 03. Not done yet.
 
 ## Tranche 3 — needs a decision or an external account
 
