@@ -31,8 +31,12 @@ export function Stage3D({
     if (!camera || !scene) return;
     const base = { rx: baseRx, ry: baseRy };
     const range = { x: rangeX, y: rangeY };
-    scene.style.setProperty("--rx", `${base.rx}deg`);
-    scene.style.setProperty("--ry", `${base.ry}deg`);
+    // Write `transform` directly. Updating inherited custom properties (--rx/--ry) every frame
+    // invalidated style for the whole 3D subtree (measured: ~1.5 s of style recalc at 4x CPU throttle).
+    const apply = (rx: number, ry: number) => {
+      scene.style.transform = `rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+    };
+    apply(base.rx, base.ry);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const area = camera.closest("section") ?? camera;
@@ -57,8 +61,7 @@ export function Stage3D({
         ? { rx: base.rx - target.y * range.y, ry: base.ry + target.x * range.x }
         : { rx: base.rx + Math.sin(t * 0.5) * 2.2, ry: base.ry + Math.sin(t * 0.32) * 4.5 };
       cur = { rx: cur.rx + (goal.rx - cur.rx) * 0.06, ry: cur.ry + (goal.ry - cur.ry) * 0.06 };
-      scene.style.setProperty("--rx", `${cur.rx.toFixed(2)}deg`);
-      scene.style.setProperty("--ry", `${cur.ry.toFixed(2)}deg`);
+      apply(cur.rx, cur.ry);
       raf = visible ? requestAnimationFrame(tick) : 0;
     };
 

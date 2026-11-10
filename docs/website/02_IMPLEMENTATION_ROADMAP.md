@@ -45,7 +45,7 @@ Status as of 2026-11-10. Items marked ✅ have code and passing checks. Nothing 
 
 ## Open engineering issue found by measurement
 
-**P1: performance.** LCP is 4–6 s and blocking time 3–14 s in the lab. Profile `/products/mediai` and the shared shell, fix one candidate at a time, and re-measure (see doc 09).
+**P1: performance (partly fixed).** The 3D camera loop restyled the whole scene every frame; fixed by writing `transform` directly (style recalculation 1.5 s to 0.27 s in a trace). Lab LCP is still 3.7–4.5 s against a 2.5 s target, and Lighthouse is too noisy on this host to claim the end-to-end gain. Next: pause idle sway on touch, lazy-load vignettes, trim hydration (see doc 09).
 
 ## Tranche 3 — needs a decision or an external account
 

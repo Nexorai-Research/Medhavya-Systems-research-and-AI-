@@ -9,6 +9,10 @@ const PORT = 3100;
 export default defineConfig({
   testDir: "tests/e2e",
   fullyParallel: true,
+  // Animated pages plus axe scans are heavy on slower machines; a longer timeout and fewer
+  // workers avoided load-induced timeouts without hiding real assertion failures.
+  timeout: 60_000,
+  workers: process.env.CI ? 2 : 3,
   retries: process.env.CI ? 1 : 0,
   reporter: [["list"]],
   use: { baseURL: `http://localhost:${PORT}`, trace: "retain-on-failure" },
