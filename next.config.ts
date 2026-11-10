@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withPayload } from "@payloadcms/next/withPayload";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -31,7 +32,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  output: "standalone", // self-contained server for the Docker image
   cacheComponents: true,
+  experimental: { globalNotFound: true },
   partialPrefetching: true,
   poweredByHeader: false,
   turbopack: {
@@ -50,4 +53,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPayload(nextConfig);

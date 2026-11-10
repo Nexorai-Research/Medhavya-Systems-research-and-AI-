@@ -9,6 +9,8 @@ export const envSchema = z.object({
   NEXT_PUBLIC_SITE_URL: z.url().default("http://localhost:3000"),
   /** Allow search engines to index this deployment. Keep false on staging. */
   SITE_INDEXABLE: z.enum(["true", "false"]).default("false"),
+  /** PostgreSQL connection string. When set, leads are stored in PostgreSQL through the CMS; otherwise the local file store is used. */
+  DATABASE_URL: z.preprocess((v) => (v === "" ? undefined : v), z.string().min(1).optional()),
   /** Directory for the local file-based lead store (development only). */
   LEAD_STORE_DIR: z.string().min(1).default(".data"),
   /** Notification adapter for new leads: "console" logs an opaque reference only. */

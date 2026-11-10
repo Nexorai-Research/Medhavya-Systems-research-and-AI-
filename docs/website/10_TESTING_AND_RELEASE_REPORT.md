@@ -41,7 +41,7 @@ The suite is heavy on a slow machine: many animated pages, axe scans and `networ
 | Blocker | Type |
 | --- | --- |
 | Performance below target (LCP 3.7–4.5 s in lab after the fix; target 2.5 s; see doc 09) | Engineering, partly addressed |
-| Lead store is a local file; rate limiter is in-memory | Engineering (needs PostgreSQL / shared store) |
+| Content edits reach the site after `cms:publish` and a rebuild (automatable with `DEPLOY_HOOK_URL`) | Engineering |
 | No email or CRM delivery of leads | Needs provider |
 | All product facts are demonstration content | Company input |
 | Legal pages are drafts | Legal review |

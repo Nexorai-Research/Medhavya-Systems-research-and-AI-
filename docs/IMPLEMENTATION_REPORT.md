@@ -1,4 +1,4 @@
-# Implementation Report — Phases 0–5, 7–9 (partial 8)
+# Implementation Report — Phases 0–9 (Phase 6 added 2026-11-10)
 
 Date: 2026-10-31
 
@@ -13,7 +13,7 @@ Date: 2026-10-31
 | ADR | Decision |
 | --- | --- |
 | ADR-001 | Next.js/TypeScript baseline, adopted. Cache Components is enabled (scaffold default); public pages are prerendered. |
-| ADR-002 | **Deferred, which deviates from the docs:** Payload CMS + PostgreSQL. No database was available, so content lives in typed modules under `src/content`, using the collection shapes from Module 04. All reads go through `src/lib/content.ts`, so Payload can replace that layer without changing pages. |
+| ADR-002 | Payload CMS + PostgreSQL, **implemented in Phase 6** (see below). The site reads content through `src/lib/content.ts`, backed by a CMS snapshot. |
 | ADR-003 | Modular monolith, adopted. |
 | ADR-006 | Integrations go through adapters: `LeadRepository` (local file store now, Postgres later) and `LeadNotifier` (console/none now, email/CRM later). |
 | ADR-008 (new) | Framer Motion is not used. Motion is pure CSS, which keeps bundles small and is fully disabled under `prefers-reduced-motion`. |
@@ -80,9 +80,8 @@ Bugs found by tests and fixed:
 
 ## Not yet done
 
-- **Phase 6, CMS/admin:** Payload CMS, PostgreSQL, roles (Super Admin, Content Admin, Editor, Reviewer, Sales, Analyst), the draft → review → publish workflow, the `/admin` route and lead administration. Docker must be running, or a Postgres URL provided.
-- The in-memory rate limiter is single-instance only. Production with several instances needs a shared store.
-- No cookie consent banner, because no analytics provider is configured yet.
+- ~~In-memory rate limiter~~ replaced by a PostgreSQL-backed shared limiter in Phase 6/10 preparation.
+- Cookie preferences exist (footer control, added after this report). A consent banner is needed only once an analytics provider is chosen.
 - **Phase 10:** deployment, monitoring, backups. This needs approval of the domain, hosting and region.
 
 ## Needs company input before launch
@@ -98,6 +97,40 @@ Bugs found by tests and fixed:
 9. Email/CRM provider for lead notifications, and an analytics provider.
 10. Approval of the tagline "Intelligent software. Practical impact." It is not trademark-cleared.
 
+## Phase 6: CMS, admin and PostgreSQL (2026-11-10)
+
+- **Database:** PostgreSQL 16 in Docker (`docker-compose.yml`, container `medhavya-db`, `127.0.0.1:5440`, named volume). Ports 5432 and 5433 were already used by other local databases, which were left untouched.
+- **CMS:** Payload 3.93 at `/admin`. Its REST API is at `/cms-api`, so `/api/*` stays with the public site. GraphQL and Gravatar are disabled. The schema ships as a reviewed migration (`migrations/`), not auto-push.
+- **Collections:** Staff users, Product categories, Products, Industries, Enterprise services, Resources, Leads. Content keeps revision history (25 versions per record).
+- **Roles (server-enforced):** Super Admin (all), Content Admin (content, any transition, delete), Editor (create/edit; Draft or In Review only; cannot touch live records), Reviewer (approve or send back records In Review), Sales (view/update leads), Analyst (read-only leads; name, email, phone, organisation, message and notes are hidden). The first account created becomes Super Admin. Login locks for 10 minutes after 5 failed attempts.
+- **Leads:** the validated `/api/leads` route writes to PostgreSQL when `DATABASE_URL` is set. The `leads` collection denies creation to every REST request, so only that route can create leads. Without `DATABASE_URL` the file store is used (e2e tests).
+- **Content migration:** `npm run cms:seed` loaded 10 products, 8 categories, 10 industries, 9 services and 3 articles. The round trip database -> `cms-snapshot.json` was compared with the original typed modules and was identical.
+- **Public site:** still fully static. `npm run cms:publish` exports the database to `src/content/cms-snapshot.json`, from which the site is built. **Edits in `/admin` reach visitors after publish and rebuild, not instantly.** `DEPLOY_HOOK_URL` can trigger the rebuild automatically.
+- **Structure change:** pages moved into the `(site)` route group so `/admin` has its own root layout. `global-not-found.tsx` (experimental `globalNotFound`) keeps the branded 404 and real 404 status. Product social-image URLs now carry a content hash; the e2e test follows the page's `og:image` URL.
+- **Tooling:** the `payload` CLI crashes on Node 24 here (undici error), so migrations, seed and publish run through `scripts/cms-*.mts` with `tsx`.
+
+### Verified
+
+| Check | Result |
+| --- | --- |
+| `npm run typecheck`, `eslint` | Pass |
+| `npx vitest run` | 56/56 passed (6 new: workflow, roles, mapping round trip) |
+| `npm run build` | Pass |
+| `npx playwright test` | 101 passed, 8 skipped; one timing flake under load passed on re-run (both projects) |
+| Live `/admin` (production build) | First-user setup gave Super Admin; product list showed 10 rows; the only console errors were Gravatar image requests, now disabled |
+| Live API roles | Editor cannot publish or edit live records; reviewer can approve but not delete; analyst reads leads without personal fields and cannot read content; anonymous lead creation via REST returns 403 |
+| Lead sent through `/api/leads` | Stored in PostgreSQL with status New |
+
+### Production notes
+
+1. Set `DATABASE_URL` and a strong `PAYLOAD_SECRET`; run `npm run cms:migrate` on the production database; create the first Super Admin; back up the database (ADR-007).
+2. The password in `docker-compose.yml` is for local use only.
+3. Lead rate limiting is now shared across instances through PostgreSQL (`rate_limit_hits`, migration `20261110_170000_rate_limit`), with an in-memory fallback if the database is unreachable.
+
+## Phase 10 preparation (2026-11-10)
+
+Built without needing company decisions: `Dockerfile` (standalone output, non-root, health check), `GET /api/health`, `.github/workflows/ci.yml`, `ops/backup.sh` and `ops/restore.sh` (restore verified into a scratch database), and the runbook `docs/website/11_DEPLOYMENT_RUNBOOK.md`. Not done: the Docker image has not been built here, CI has not run on GitHub, and nothing is deployed.
+
 ## Recommended next step
 
-Phase 6: start Docker Desktop and add Payload CMS with PostgreSQL. Then migrate `src/content` into collections and the lead store into a `leads` table with role-based access.
+Go-live: the company must choose the domain, hosting provider and region, backup targets (RPO/RTO) and an email/CRM provider. See section 6 of the runbook.

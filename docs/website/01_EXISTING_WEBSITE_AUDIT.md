@@ -32,7 +32,7 @@ A Complete · B Needs improvement · C Incomplete · D Missing · E Defective ·
 | Contact routing | `features/leads/schema.ts`, `app/contact` | **B → improved** | Enquiry types were 4. Now 8: Sales, Service, Support and Career added. | Done |
 | Careers, Partners | `app/careers`, `app/partners` | **D → built** | No fake roles or partners. Both use the lead form with a fixed enquiry type. | Done |
 | Lead pipeline security | `app/api/leads`, `features/leads` | A | Honeypot, rate limit, same-origin, size limit, dedupe, strict schema. | — |
-| Lead storage | `features/leads/store.ts` | E (for production) | Local file store does not persist on serverless. Needs PostgreSQL. | P1 |
+| Lead storage | `features/leads/store.ts` | E (for production) | Local file store does not persist on serverless. Resolved in Phase 6: PostgreSQL adapter when `DATABASE_URL` is set. | P1 |
 | Rate limiter | `lib/rate-limit.ts` | B | In-memory, single instance. Needs a shared store at scale. | P1 |
 | SEO | `lib/seo.ts`, `sitemap.ts`, `robots.ts` | B | Canonical, OG, sitemap and robots exist. Missing: Organization and Breadcrumb JSON-LD, per-page OG images. | P2 |
 | Accessibility | axe e2e on 10 pages | B | WCAG 2.2 AA axe scans pass. New pages (`/search`, `/careers`, `/partners`) are not yet in the axe list. | P1 |
@@ -42,7 +42,7 @@ A Complete · B Needs improvement · C Incomplete · D Missing · E Defective ·
 | Product comparison, solution finder, ROI calculator | — | D | Only build with transparent assumptions. | P3 |
 | AI assistant | — | D | Not built. A fake chatbot is forbidden. Needs an approved model provider, credentials and privacy review. | Blocked |
 | WhatsApp / scheduling | — | D | Needs approved business number or scheduling provider. | Blocked |
-| CMS / admin | — | D | Phase 6 (Payload + PostgreSQL). Needs Docker or a Postgres URL. | P1 |
+| CMS / admin | — | D | Phase 6 done (Payload + PostgreSQL). | P1 |
 | Tests | `tests/*` | B | Good journey and API coverage. Search, careers and partners journeys still need e2e. | P1 |
 | Legal pages | `app/privacy`, `terms`, `cookies`, `accessibility` | C | Marked "Draft pending legal review". | Blocked on legal |
 

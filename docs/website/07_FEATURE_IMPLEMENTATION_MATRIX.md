@@ -30,5 +30,5 @@ Status: **Done** (code + passing automated test) · **Partial** · **Blocked** (
 | Organization, Breadcrumb, FAQPage, SoftwareApplication JSON-LD | Done | `JsonLd.tsx`, pages | build |
 | Per-page social preview images | Done | `lib/og.tsx` + `opengraph-image` routes | build prerenders `/opengraph-image` and product images |
 | Legal pages | Partial | Drafts marked pending legal review | — |
-| CMS / admin | Blocked | Payload + PostgreSQL need Docker or a database URL | — |
+| CMS / admin | Done | Payload 3 + PostgreSQL 16 (Docker), 6 roles, server-enforced draft → review → publish, `/admin`, lead administration | `cms.test.ts`; role and workflow checks run against the live API |
 | Deployment, monitoring, backups | Blocked | Domain, hosting region and data residency undecided | — |

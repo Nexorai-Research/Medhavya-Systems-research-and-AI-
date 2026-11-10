@@ -5,10 +5,10 @@ import { submitLead } from "@/features/leads/service";
 import { leadRepository } from "@/features/leads/store";
 import { env } from "@/lib/env";
 import { log } from "@/lib/log";
-import { createRateLimiter } from "@/lib/rate-limit";
+import { createSharedRateLimiter } from "@/lib/shared-rate-limit";
 
 const MAX_BODY_BYTES = 16 * 1024;
-const limiter = createRateLimiter({ limit: env().LEAD_RATE_LIMIT_PER_10_MIN, windowMs: 10 * 60 * 1000 });
+const limiter = createSharedRateLimiter({ limit: env().LEAD_RATE_LIMIT_PER_10_MIN, windowMs: 10 * 60 * 1000, useDatabase: Boolean(env().DATABASE_URL) });
 
 const json = (body: unknown, status: number, requestId: string, headers: Record<string, string> = {}) =>
   Response.json(body, { status, headers: { "Cache-Control": "no-store", "X-Request-Id": requestId, ...headers } });
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     return json({ ok: false, error: "Unsupported content type", requestId }, 415, requestId);
   }
 
-  const rate = limiter(clientKey(request));
+  const rate = await limiter(clientKey(request));
   if (!rate.allowed) {
     log.warn("lead.rate_limited", { requestId });
     return json({ ok: false, error: "Too many submissions. Please try again later.", requestId }, 429, requestId, { "Retry-After": String(rate.retryAfterSeconds) });

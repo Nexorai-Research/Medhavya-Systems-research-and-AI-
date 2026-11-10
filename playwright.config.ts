@@ -25,6 +25,6 @@ export default defineConfig({
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
-    env: { LEAD_STORE_DIR: ".data-e2e", LEAD_RATE_LIMIT_PER_10_MIN: "1000", LEAD_NOTIFIER: "none" },
+    env: { DATABASE_URL: "", LEAD_STORE_DIR: ".data-e2e", LEAD_RATE_LIMIT_PER_10_MIN: "1000", LEAD_NOTIFIER: "none" },
   },
 });

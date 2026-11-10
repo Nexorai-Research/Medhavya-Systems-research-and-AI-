@@ -13,12 +13,23 @@
     "test:e2e": "playwright test",
     "format": "prettier --write .",
     "brand:assets": "node scripts/prepare-brand-assets.mjs",
-    "check": "npm run typecheck && npm run lint && npm run test && npm run build"
+    "check": "npm run typecheck && npm run lint && npm run test && npm run build",
+    "db:up": "docker compose up -d db",
+    "db:down": "docker compose down",
+    "cms:migrate": "tsx scripts/cms-migrate.mts up",
+    "cms:seed": "tsx scripts/cms-seed.mts",
+    "cms:publish": "tsx scripts/cms-publish.mts",
+    "cms:migrate:create": "tsx scripts/cms-migrate.mts create"
   },
   "dependencies": {
+    "@payloadcms/db-postgres": "^3.93.0",
+    "@payloadcms/next": "^3.93.0",
+    "@payloadcms/richtext-lexical": "^3.93.0",
     "clsx": "^2.1.1",
+    "graphql": "^16.15.0",
     "lucide-react": "^1.65.0",
     "next": "16.4.3",
+    "payload": "^3.93.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "server-only": "^0.0.1",
@@ -35,6 +46,7 @@
     "eslint-config-next": "16.4.3",
     "prettier": "^3.9.10",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5",
     "vitest": "^5.0.5"
   }

@@ -3,6 +3,7 @@ import { createHash, randomBytes } from "node:crypto";
 import { mkdir, appendFile, readFile } from "node:fs/promises";
 import path from "node:path";
 import { env } from "@/lib/env";
+import { PayloadLeadRepository } from "./payload-store";
 import type { LeadInput } from "./schema";
 
 export type LeadStatus = "New" | "Contacted" | "Qualified" | "Disqualified" | "Converted";
@@ -17,7 +18,7 @@ export interface LeadRecord extends Omit<LeadInput, "website" | "privacyAcknowle
   updatedAt: string;
 }
 
-/** Storage port for leads. Replace with the Payload/PostgreSQL adapter in Phase 6. */
+/** Storage port for leads. Implemented by the PostgreSQL adapter (payload-store.ts) and a local file store. */
 export interface LeadRepository {
   findRecentByFingerprint(fingerprint: string, sinceMs: number): Promise<LeadRecord | undefined>;
   create(record: LeadRecord): Promise<void>;
@@ -53,8 +54,9 @@ export class FileLeadRepository implements LeadRepository {
 }
 
 let repo: LeadRepository | undefined;
+/** PostgreSQL (via the CMS) when DATABASE_URL is set, otherwise the local file store. */
 export function leadRepository(): LeadRepository {
-  repo ??= new FileLeadRepository(path.resolve(/* turbopackIgnore: true */ process.cwd(), env().LEAD_STORE_DIR));
+  repo ??= env().DATABASE_URL ? new PayloadLeadRepository() : new FileLeadRepository(path.resolve(/* turbopackIgnore: true */ process.cwd(), env().LEAD_STORE_DIR));
   return repo;
 }
 

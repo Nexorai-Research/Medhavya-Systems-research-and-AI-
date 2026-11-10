@@ -6,7 +6,7 @@ Corporate website and product showcase for **Medhavya Systems** (Nexorai Researc
 
 Creative concept: **"Intelligence in Motion"**. It has a premium light canvas, navy typography, blue and cyan accents, and gold taken from the company logo.
 
-> **Status:** Phases 0–5 and 7–9 are complete. Phase 6 (CMS/admin) and Phase 10 (deployment) are pending. All product listings are **demo content** pending company approval. See [Roadmap](#roadmap).
+> **Status:** Phases 0–9 are complete (CMS, admin and PostgreSQL included). Phase 10 deployment tooling is ready (Dockerfile, health check, CI, backups, [runbook](docs/website/11_DEPLOYMENT_RUNBOOK.md)); going live needs a domain, hosting and region from the company. All product listings are **demo content** pending company approval. See [Roadmap](#roadmap).
 
 ---
 
@@ -54,6 +54,20 @@ cp .env.example .env.local     # optional: every value has a safe local default
 npm run dev                    # http://localhost:3000
 ```
 
+### CMS and database (Phase 6)
+
+Requires Docker Desktop (or any PostgreSQL 16 and a `DATABASE_URL`).
+
+```bash
+npm run db:up                  # PostgreSQL in Docker on 127.0.0.1:5440
+# put DATABASE_URL and PAYLOAD_SECRET in .env.local (see .env.example)
+npm run cms:migrate            # create the schema
+npm run cms:seed               # load src/content into the CMS (idempotent)
+npm run dev                    # CMS admin: http://localhost:3000/admin
+```
+
+The first account created at `/admin` becomes the Super Admin.
+
 ## Scripts
 
 | Command | Purpose |
@@ -66,6 +80,10 @@ npm run dev                    # http://localhost:3000
 | `npm run test:e2e` | E2E, accessibility and responsive tests (Playwright). Run `npm run build` first, and `npx playwright install chromium` once. |
 | `npm run check` | typecheck → lint → test → build |
 | `npm run format` | Prettier |
+| `npm run db:up` / `db:down` | Start / stop the local PostgreSQL container |
+| `npm run cms:migrate` | Apply database migrations. `npm run cms:migrate:create -- <name>` generates one after a schema change |
+| `npm run cms:seed` | Load `src/content` into the CMS (skips records that already exist) |
+| `npm run cms:publish` | Export CMS content to `src/content/cms-snapshot.json`; rebuild the site afterwards |
 | `npm run brand:assets` | Regenerate the mark, transparent logo and app icons from `public/brand/medhavya-logo-full.jpeg` |
 
 ## Products and projects
@@ -110,7 +128,15 @@ Product names were supplied by the company. **All listings are marked as demo** 
 ## Project structure
 
 ```
-src/app/                 Routes: pages, API route handlers, sitemap, robots, error/404
+src/app/(site)/          Website routes and layout
+src/app/(payload)/       CMS admin (`/admin`) and CMS REST API (`/cms-api`)
+src/app/api/             Public API route handlers (products, categories, leads)
+src/cms/                 Payload collections, roles/access rules, publication workflow, content mappers
+src/payload.config.ts    CMS configuration
+migrations/              Database migrations
+docker-compose.yml       Local PostgreSQL
+Dockerfile, ops/         Production image; backup and restore scripts
+.github/workflows/       CI
 src/proxy.ts             Real 404s for unknown or unpublished slugs
 src/components/          Shared UI: layout, brand, home (3D hero), ui primitives, visuals, motion
 src/content/             Typed content records (CMS-ready shapes)
@@ -119,7 +145,7 @@ src/features/leads/      Zod schema, service, store and notifier adapters, form
 src/lib/                 Env validation, content queries, SEO, logging, rate limit, analytics
 tests/                   unit, integration, e2e
 docs/                    ADRs and the implementation report
-scripts/                 Brand asset generation
+scripts/                 Brand assets; CMS migrate, seed and publish scripts
 public/brand/            Logo assets
 ```
 
@@ -172,7 +198,9 @@ API responses are sent with `Cache-Control: no-store`.
 
 ## Editing content
 
-Products, categories, industries, services and articles live in `src/content/*.ts`.
+Products, categories, industries, services and articles are edited in the CMS at `/admin`. The public site is built from `src/content/cms-snapshot.json`, which `npm run cms:publish` exports from the database. After publishing in the CMS: run `npm run cms:publish`, commit the snapshot and rebuild (or set `DEPLOY_HOOK_URL` so the CMS asks your host to rebuild after each change). The typed modules in `src/content/*.ts` are the seed source only.
+
+**Roles:** Super Admin (everything), Content Admin (content, any transition), Editor (create and edit; Draft or In Review only), Reviewer (approve or send back records In Review), Sales (leads), Analyst (read-only leads without personal fields).
 
 - `publication` controls visibility. Only `"Published"` records appear publicly.
 - `lifecycle` is the honest product stage, shown on every listing. It is separate from publication.
@@ -187,7 +215,10 @@ Copy `.env.example` to `.env.local`.
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | `http://localhost:3000` | Canonical links, sitemap and Open Graph |
 | `SITE_INDEXABLE` | `false` | Set `true` only on the approved production domain |
-| `LEAD_STORE_DIR` | `.data` | Local lead store (development only) |
+| `DATABASE_URL` | none | PostgreSQL connection string. When set, leads are stored in PostgreSQL and `/admin` works. When empty, the local file store is used |
+| `PAYLOAD_SECRET` | dev placeholder | Signs CMS sessions. **Required in production** |
+| `DEPLOY_HOOK_URL` | none | Optional; POSTed after content changes so the host can rebuild |
+| `LEAD_STORE_DIR` | `.data` | Local lead store when `DATABASE_URL` is empty (development only) |
 | `LEAD_NOTIFIER` | `console` | `console`, `none` or `webhook` |
 | `LEAD_WEBHOOK_URL` | none | Required for `webhook`; https (http only for localhost/127.0.0.1). Receives enquiry data as JSON |
 | `LEAD_WEBHOOK_SECRET` | none | Optional; signs the body as `X-Medhavya-Signature: sha256=<hex HMAC>` |
@@ -197,12 +228,13 @@ Copy `.env.example` to `.env.local`.
 
 - [x] Phases 0–5: discovery, architecture, design system, pages, products, leads, SEO and security
 - [x] Phases 7–9: motion and 3D finish, testing and accessibility
-- [ ] **Phase 6:** Payload CMS + PostgreSQL, roles (Super Admin, Content Admin, Editor, Reviewer, Sales, Analyst), a draft → review → publish workflow, `/admin` and lead administration
-- [ ] **Phase 10:** deployment, monitoring and backups (needs an approved domain, hosting and region)
-- [ ] Shared rate-limit store (the current limiter is single-instance only)
+- [x] **Phase 6:** Payload CMS + PostgreSQL, six roles, a draft → review → publish workflow, `/admin` and lead administration
+- [x] **Phase 10 (preparation):** Dockerfile, `/api/health`, CI workflow, backup and restore scripts, runbook
+- [ ] **Phase 10 (go-live):** needs an approved domain, hosting, region and backup targets
+- [x] Shared rate-limit store (PostgreSQL; in-memory fallback)
 - [ ] Cookie consent banner, once an analytics provider is chosen
 
-> The local file lead store does not persist on serverless hosting. Move to PostgreSQL before production.
+> The local file lead store does not persist on serverless hosting. Set `DATABASE_URL` (PostgreSQL) in production.
 
 ## Needs company input before launch
 
