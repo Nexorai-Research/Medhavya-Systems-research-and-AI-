@@ -1,0 +1,546 @@
+/* ==========================================================================
+   Hero — "Intelligence in Motion" 3D stage (depth + time)
+   ========================================================================== */
+
+/* Ambient light that follows the pointer across the hero. */
+.hero-glow {
+  background: radial-gradient(600px circle at var(--hx, 75%) var(--hy, 35%), rgb(82 123 255 / 0.1), transparent 65%);
+  transition: background 0.2s linear;
+}
+
+/* Rotating headline word: flips in on the X axis like a split-flap display. */
+.hero-flip-wrap {
+  perspective: 600px;
+  min-height: 1.1em;
+}
+.hero-flip {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  background: linear-gradient(100deg, var(--color-primary) 10%, var(--color-electric) 45%, var(--color-cyan-ink) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transform-origin: 50% 60% -0.4em;
+  animation: hero-flip-in 0.75s var(--ease-out-expo) both;
+  padding-bottom: 0.06em;
+}
+.hero-flip-bar {
+  position: absolute;
+  left: 0;
+  bottom: -0.04em;
+  height: 3px;
+  width: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-cyan), var(--color-gold));
+  transform-origin: left;
+  animation: underline-grow 0.9s var(--ease-out-expo) 0.2s both;
+}
+@keyframes hero-flip-in {
+  from {
+    opacity: 0;
+    transform: rotateX(-88deg) translateY(0.25em);
+    filter: blur(6px);
+  }
+  60% {
+    filter: blur(0);
+  }
+}
+
+/* ---- Camera & scene ------------------------------------------------------ */
+.eco3d-camera {
+  perspective: 1500px;
+  perspective-origin: 50% 40%;
+}
+.eco3d-scene {
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 8deg)) rotateY(var(--ry, -12deg));
+  will-change: transform;
+}
+.eco3d-scene > * {
+  transform-style: preserve-3d;
+}
+.eco3d-floor {
+  transform: translateZ(-160px);
+  opacity: 0.9;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+}
+.eco3d-rings {
+  transform: translateZ(-70px);
+}
+.eco3d-spin {
+  animation: eco3d-spin 70s linear infinite;
+}
+.eco3d-spin-rev {
+  animation: eco3d-spin 110s linear infinite reverse;
+}
+@keyframes eco3d-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+.eco3d-links {
+  transform: translateZ(0);
+}
+.eco3d-flow-fast {
+  animation: eco3d-flow-fast 1.2s linear infinite;
+}
+@keyframes eco3d-flow-fast {
+  to {
+    stroke-dashoffset: -148;
+  }
+}
+
+/* ---- Platform core: stacked layers + floating orb ---------------------- */
+.eco3d-core {
+  transform-style: preserve-3d;
+  transform: translate(-50%, -50%) translateZ(30px);
+}
+.eco3d-plate {
+  transform: translateZ(var(--z, 0));
+}
+.eco3d-scan {
+  top: -4rem;
+  animation: eco3d-scan 4.5s var(--ease-in-out) infinite;
+}
+@keyframes eco3d-scan {
+  to {
+    top: 110%;
+  }
+}
+.eco3d-orb {
+  top: -3.6rem;
+  transform: translateX(-50%) translateZ(120px);
+  animation: eco3d-bob 5s ease-in-out infinite;
+}
+@keyframes eco3d-bob {
+  50% {
+    translate: 0 -8px;
+  }
+}
+.eco3d-status {
+  animation: eco3d-status-in 0.5s var(--ease-out-expo) both;
+}
+@keyframes eco3d-status-in {
+  from {
+    opacity: 0;
+    translate: 0 4px;
+  }
+}
+
+/* ---- Product panels ------------------------------------------------------ */
+.eco3d-node {
+  transform-style: preserve-3d;
+  transform: translate(-50%, -50%) translateZ(var(--z, 40px));
+}
+.eco3d-float {
+  transform-style: preserve-3d;
+  animation: eco3d-float 7s ease-in-out infinite;
+}
+@keyframes eco3d-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 14px);
+  }
+}
+.eco3d-card {
+  box-shadow:
+    0 1px 2px rgb(16 26 45 / 0.06),
+    0 14px 30px -18px rgb(16 26 45 / 0.3);
+  transition:
+    transform 0.7s var(--ease-out-expo),
+    box-shadow 0.5s ease,
+    opacity 0.5s ease,
+    filter 0.5s ease,
+    background 0.4s ease;
+}
+.eco3d-card:hover,
+.eco3d-card.is-active {
+  transform: translateZ(90px) scale(1.06);
+  box-shadow:
+    0 2px 6px rgb(16 26 45 / 0.08),
+    0 40px 70px -28px rgb(49 95 213 / 0.55);
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, var(--color-primary), var(--color-cyan) 55%, var(--color-gold)) border-box;
+}
+.eco3d-card.is-dimmed {
+  opacity: 0.62;
+  filter: saturate(0.6);
+}
+.eco3d-shadow {
+  transform: translate(-50%, -50%) translateZ(2px);
+  opacity: 0.45;
+  transition:
+    opacity 0.6s ease,
+    scale 0.7s var(--ease-out-expo);
+}
+.eco3d-shadow.is-active {
+  opacity: 0.22;
+  scale: 0.75;
+}
+
+/* ==========================================================================
+   Product vignettes — each tells what the product means
+   ========================================================================== */
+
+/* Agro: sun rises, rain falls, sprouts grow and sway. */
+.v-sun,
+.v-sun-halo {
+  animation: v-sun-rise 1.2s var(--ease-out-expo) both;
+}
+.v-sun-halo {
+  animation:
+    v-sun-rise 1.2s var(--ease-out-expo) both,
+    v-halo 2.4s ease-in-out 1.2s infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes v-sun-rise {
+  from {
+    translate: 0 26px;
+    opacity: 0;
+  }
+}
+@keyframes v-halo {
+  50% {
+    scale: 1.25;
+    opacity: 0.4;
+  }
+}
+.v-rain {
+  animation: v-rain 1.1s linear infinite;
+}
+@keyframes v-rain {
+  from {
+    translate: 0 -8px;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  to {
+    translate: -3px 38px;
+    opacity: 0;
+  }
+}
+.v-stem {
+  stroke-dasharray: 1;
+  animation: v-draw 0.9s var(--ease-out-expo) both;
+}
+.v-leaf {
+  animation:
+    v-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+    v-sway 3s ease-in-out 1.6s infinite;
+}
+@keyframes v-pop {
+  from {
+    scale: 0;
+  }
+}
+@keyframes v-sway {
+  50% {
+    rotate: 8deg;
+  }
+}
+@keyframes v-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* MediAI: a live ECG trace and a beating heart. */
+.v-ecg {
+  stroke-dasharray: 0.32 0.68;
+  animation: v-ecg 1.8s linear infinite;
+}
+@keyframes v-ecg {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.v-heart {
+  animation: v-beat 0.9s ease-in-out infinite;
+}
+@keyframes v-beat {
+  0%,
+  100% {
+    scale: 1;
+  }
+  15% {
+    scale: 1.22;
+  }
+  30% {
+    scale: 1;
+  }
+  45% {
+    scale: 1.12;
+  }
+}
+.v-spark {
+  animation: v-spark 2.4s ease-in-out infinite;
+}
+@keyframes v-spark {
+  0%,
+  100% {
+    scale: 0.6;
+    rotate: 0deg;
+    opacity: 0.4;
+  }
+  50% {
+    scale: 1.1;
+    rotate: 90deg;
+    opacity: 1;
+  }
+}
+
+/* CRM: contacts appear, connect and stream into a won deal. */
+.v-person {
+  animation: v-fade-in 0.4s ease-out both;
+}
+.v-link {
+  stroke-dasharray: 1;
+  animation: v-draw 0.7s ease-out both;
+}
+.v-packet {
+  animation: v-packet 1.6s var(--ease-in-out) infinite;
+}
+@keyframes v-packet {
+  from {
+    translate: 0 0;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  to {
+    translate: var(--dx) var(--dy);
+    opacity: 0;
+  }
+}
+.v-deal {
+  animation: v-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.1s both;
+}
+.v-check {
+  stroke-dasharray: 1;
+  animation: v-draw 0.5s ease-out 1.45s both;
+}
+@keyframes v-fade-in {
+  from {
+    opacity: 0;
+    translate: -6px 0;
+  }
+}
+
+/* EduSphere: pages flip in 3D and the graduation cap is tossed. */
+.v-book {
+  perspective: 300px;
+  transform-style: preserve-3d;
+}
+.v-page {
+  transform-origin: left center;
+  backface-visibility: hidden;
+  animation: v-flip 2.4s var(--ease-in-out) infinite;
+}
+@keyframes v-flip {
+  0%,
+  15% {
+    transform: rotateY(0deg);
+  }
+  55%,
+  100% {
+    transform: rotateY(-178deg);
+  }
+}
+.v-cap {
+  animation: v-toss 2.4s var(--ease-in-out) 0.4s infinite;
+}
+@keyframes v-toss {
+  0%,
+  100% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  40% {
+    translate: 4px -6px;
+    rotate: -14deg;
+  }
+  60% {
+    translate: 2px -4px;
+    rotate: 10deg;
+  }
+}
+.v-twinkle {
+  animation: v-spark 1.8s ease-in-out infinite;
+}
+
+/* ERP: module blocks drop in and stack. */
+.v-block {
+  animation: v-drop 0.7s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+@keyframes v-drop {
+  from {
+    translate: 0 -46px;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* LogiTrack: the route draws, the truck drives (SMIL), the pin drops. */
+.v-route {
+  animation: v-route 1s linear infinite;
+}
+@keyframes v-route {
+  to {
+    stroke-dashoffset: -0.07;
+  }
+}
+.v-pin {
+  animation: v-pin-drop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 2.3s both;
+}
+@keyframes v-pin-drop {
+  from {
+    translate: 0 -18px;
+    opacity: 0;
+  }
+}
+
+/* FinSight: candles grow, trend traces, scan sweeps. */
+.v-candle {
+  animation: v-grow-y 0.5s var(--ease-out-expo) both;
+}
+@keyframes v-grow-y {
+  from {
+    scale: 1 0;
+    opacity: 0;
+  }
+}
+.v-trend {
+  animation: v-draw 1.4s var(--ease-in-out) 0.8s both;
+}
+.v-trend-dot {
+  animation: v-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.1s both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.v-scan {
+  animation: v-scan 2.6s linear 0.6s infinite;
+}
+@keyframes v-scan {
+  from {
+    translate: -14px 0;
+  }
+  to {
+    translate: 160px 0;
+  }
+}
+
+/* AutoFlow: documents travel through the AI gear and come out approved. */
+.v-doc {
+  animation: v-doc 2.4s linear infinite;
+}
+@keyframes v-doc {
+  from {
+    translate: 0 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  to {
+    translate: 132px 0;
+    opacity: 0;
+  }
+}
+.v-doc-ok {
+  animation: v-doc-ok 2.4s linear infinite;
+  animation-delay: inherit;
+}
+@keyframes v-doc-ok {
+  0%,
+  52% {
+    opacity: 0;
+  }
+  58%,
+  100% {
+    opacity: 1;
+  }
+}
+.v-gear {
+  animation: eco3d-spin 3s linear infinite;
+}
+.v-beam {
+  animation: pulse-soft 1.2s ease-in-out infinite;
+}
+
+/* Manage: barcode scan, stock bars update, sale recorded. */
+.v-laser {
+  animation: v-laser 1.4s ease-in-out infinite alternate;
+}
+@keyframes v-laser {
+  to {
+    translate: 0 22px;
+  }
+}
+.v-dash {
+  animation: v-dash 0.8s linear infinite;
+}
+@keyframes v-dash {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+.v-bar {
+  animation: v-grow-y 0.7s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+.v-receipt {
+  animation: v-receipt 2.2s ease-out 0.9s infinite;
+}
+@keyframes v-receipt {
+  0% {
+    opacity: 0;
+    translate: 0 6px;
+  }
+  20%,
+  70% {
+    opacity: 1;
+    translate: 0 0;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 -4px;
+  }
+}
+
+/* ---- Reduced motion: a calm, static composition --------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .eco3d-scene {
+    transform: rotateX(6deg) rotateY(-10deg);
+  }
+  .eco3d-float,
+  .eco3d-spin,
+  .eco3d-spin-rev,
+  .eco3d-orb,
+  .eco3d-scan,
+  .hero-flip,
+  .hero-flip-bar {
+    animation: none !important;
+  }
+}

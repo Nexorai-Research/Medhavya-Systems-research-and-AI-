@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local lead store (contains personal data — never commit)
+/.data
+/.data-e2e
+
+# playwright
+/test-results
+/playwright-report
+
+!.env.example
