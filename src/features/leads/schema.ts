@@ -1,13 +1,17 @@
 import { z } from "zod";
 
-export const ENQUIRY_TYPES = ["ProductDemo", "EnterpriseConsultation", "General", "Partnership"] as const;
+export const ENQUIRY_TYPES = ["ProductDemo", "EnterpriseConsultation", "General", "Sales", "Service", "Partnership", "Support", "Career"] as const;
 export type EnquiryType = (typeof ENQUIRY_TYPES)[number];
 
 export const enquiryLabels: Record<EnquiryType, string> = {
   ProductDemo: "Product demo",
   EnterpriseConsultation: "Enterprise consultation",
   General: "General enquiry",
+  Sales: "Sales enquiry",
+  Service: "Service enquiry",
   Partnership: "Partnership",
+  Support: "Support",
+  Career: "Careers",
 };
 
 const slug = z

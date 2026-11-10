@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
-import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Menu, Search, X } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { buttonClass } from "@/components/ui/Button";
@@ -140,6 +140,10 @@ export function SiteHeader({ data }: { data: NavData }) {
         </nav>
 
         <div className="flex items-center gap-2">
+          <Link href="/search" className="inline-flex size-11 items-center justify-center rounded-full text-midnight hover:text-primary">
+            <Search aria-hidden className="size-5" />
+            <span className="sr-only">Search the site</span>
+          </Link>
           <span className="hidden sm:block">
             <Link href="/request-demo" className={buttonClass("primary", "whitespace-nowrap")}>
               Request a demo

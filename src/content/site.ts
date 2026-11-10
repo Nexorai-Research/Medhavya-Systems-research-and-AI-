@@ -34,6 +34,8 @@ export const companyLinks = [
   { label: "About", href: "/about", description: "Our story, mission and principles" },
   { label: "Technology", href: "/technology", description: "How we build and deliver" },
   { label: "Security", href: "/security", description: "Our security and privacy practices" },
+  { label: "Careers", href: "/careers", description: "Work with Medhavya Systems" },
+  { label: "Partners", href: "/partners", description: "Technology and channel partnerships" },
   { label: "Contact", href: "/contact", description: "Talk to our team" },
 ] as const;
 

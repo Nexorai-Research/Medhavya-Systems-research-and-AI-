@@ -30,7 +30,7 @@ export default function HomePage() {
   const categoryBySlug = Object.fromEntries(categories.map((c) => [c.slug, c]));
   const featured = getFeaturedProducts();
   const allProducts = getProducts();
-  const services = getEnterpriseServices();
+  const services = getEnterpriseServices().slice(0, 3);
   const industries = getIndustries().slice(0, 4);
   const resources = getResources().slice(0, 3);
 
