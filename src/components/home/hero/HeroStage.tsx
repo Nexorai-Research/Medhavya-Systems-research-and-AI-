@@ -91,8 +91,8 @@ export function HeroStage({ nodes, eyebrow, children }: { nodes: HeroNode[]; eye
         ? { rx: BASE.rx - target.y * 9, ry: BASE.ry + target.x * 16 }
         : { rx: BASE.rx + Math.sin(t * 0.45) * 2.5, ry: BASE.ry + Math.sin(t * 0.3) * 5 };
       cur = { rx: cur.rx + (goal.rx - cur.rx) * 0.06, ry: cur.ry + (goal.ry - cur.ry) * 0.06 };
-      scene.style.setProperty("--rx", `${cur.rx.toFixed(2)}deg`);
-      scene.style.setProperty("--ry", `${cur.ry.toFixed(2)}deg`);
+      // Direct transform write: custom-property updates would restyle the whole 3D subtree each frame.
+      scene.style.transform = `rotateX(${cur.rx.toFixed(2)}deg) rotateY(${cur.ry.toFixed(2)}deg)`;
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);

@@ -23,9 +23,32 @@ Measured 2026-11-10 against the **production build** (`next start`) on a local d
 - Pages with the heaviest CSS 3D and animation (`/products/mediai`) are worst: Lighthouse attributed about 6.9 s to style and layout there. The LCP element is plain text (the logo wordmark or an eyebrow), so the delay is main-thread blocking, not slow assets.
 - Page weight is about 610 KB transferred and the DOM is 770–1,370 elements, which is moderate.
 
-### Status: open issue (priority P1)
+### Investigation and one fix (same day)
 
-No optimisation was attempted this round, because guessing would not be evidence. Next step: profile `/products/mediai` and the shared shell in Chrome DevTools on real hardware, then test candidate fixes one at a time (large blur layers, `preserve-3d` scenes, SMIL animation, scroll-driven animation cost, hydration of client components). Re-measure with several runs and report the median. Field data (CrUX / real-user monitoring) needs a deployed site.
+Method: Playwright + Chrome DevTools Protocol, 4x CPU throttling, mobile viewport, medians of 3 runs, plus a main-thread trace.
+
+1. **A/B of candidate causes** on `/products/mediai` (style recalculation, seconds): baseline 1.9, animations off 2.5, blur and backdrop filters off 2.0, `preserve-3d` off 1.9, SVG animation removed 1.7. None of the CSS features was the cause. Stopping `requestAnimationFrame` halved it (1.7 → 0.8), and hiding the 3D scene gave the same result (1.6 → 0.7).
+2. **Trace**: `Document::recalcStyle` was the largest item at about 1.5 s of main-thread time.
+3. **Cause**: the 3D camera (`Stage3D.tsx`, `HeroStage.tsx`) ran a never-ending animation loop that wrote the inherited custom properties `--rx` and `--ry` every frame. Each write restyled the whole 3D subtree.
+4. **Fix**: write `style.transform` on the scene element directly. Same visual behaviour, only one element is invalidated.
+5. **Result of the fix on the same harness**: style recalculation on `/products/mediai` fell from about 1.5 s to 0.27 s (trace) and from 1.7 s to 0.35 s (profile script).
+
+### What was and was not proven
+
+- The style-cost reduction is **measured and repeatable** with the CDP harness.
+- Lighthouse results on this machine are **too noisy to claim the end-to-end gain**. The CPU benchmark index swung between about 480 and 1,300 between runs. Same-load comparisons (benchmark index roughly 500–900):
+
+| Page | Old code | New code |
+| --- | --- | --- |
+| `/` | perf 47, TBT 7.0 s | perf 53, TBT 3.2 s (better) |
+| `/products/mediai` | perf 43, TBT 11.3 s | perf 49, TBT 11.1 s (no clear change) |
+
+  One run on a quieter machine (benchmark index 900–1,300) gave perf 69–75 and TBT 0.5–0.8 s on home, products and mediai, but the old code was not measured under that condition, so it is **not** a valid before/after.
+- LCP stayed at 3.7–4.5 s in every run, so **the 2.5 s target is still not met**.
+
+### Status: partly addressed, still open (P1)
+
+Remaining main-thread work on `/products/mediai` after the fix is mostly JavaScript (hydration and the animation loop, about 1.2 s) and paint (about 0.8 s). Next candidates, to be tested one at a time on real hardware: pause the idle sway on touch devices, lazy-load the product vignette and mockup, and reduce client component hydration. Field data (CrUX / real-user monitoring) needs a deployed site.
 
 ## SEO
 

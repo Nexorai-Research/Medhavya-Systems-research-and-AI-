@@ -12,7 +12,7 @@ Status: **Done** (code + passing automated test) · **Partial** · **Blocked** (
 | Product detail pages from structured data | Done | `content/products.ts`, `app/products/[slug]` | e2e product journey |
 | Solution finder | Done | `features/finder` | `finder.test.ts`, e2e |
 | Services (11 listed in the brief) | Partial | 9 service pages. "Enterprise software development" is covered by Custom Software | build prerenders all 9 |
-| Industries (13 listed in the brief) | Partial | 7 pages. Hospitality, Real Estate, Government, plus "Business/Enterprise" and "Other" are not separate pages | Blocked on founder scope |
+| Industries (13 listed in the brief) | Partial | 10 pages. Hospitality, Real Estate and Government & Public Sector were added from generic industry knowledge and need founder confirmation of scope and facts. "Business/Enterprise" and "Other" remain covered by categories, not separate pages | Founder confirmation of the 3 new pages |
 | Resources: blog and articles | Partial | 3 articles | e2e article axe scan |
 | Resources: case studies, whitepapers, reports, webinars | Blocked | No verified material exists | — |
 | Careers and Partners | Done | `app/careers`, `app/partners` (no invented roles or partners) | axe, e2e careers submission |

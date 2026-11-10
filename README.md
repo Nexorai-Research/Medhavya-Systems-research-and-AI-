@@ -87,7 +87,7 @@ Product names were supplied by the company. **All listings are marked as demo** 
 
 **Product categories (8):** Agriculture Software · Retail & Business Software · AI & Automation · Financial Intelligence & Trading · Enterprise Software · Education Software · Healthcare Software · Other Industry Solutions.
 
-**Industries (7):** Agriculture · Healthcare · Education · Retail & Distribution · Logistics · Manufacturing · Financial Services.
+**Industries (10):** Agriculture · Healthcare · Education · Retail & Distribution · Logistics · Manufacturing · Financial Services · Hospitality · Real Estate · Government & Public Sector. The last three were added from generic industry knowledge and still need founder confirmation of scope and facts. "Business/Enterprise" and "Other" remain covered by categories, not separate pages.
 
 **Enterprise services (3):** Custom Software · AI & Automation · Integration & Modernization. Each has a capability matrix, lifecycle, engagement model, governance section and a consultation form.
 
@@ -188,7 +188,9 @@ Copy `.env.example` to `.env.local`.
 | `NEXT_PUBLIC_SITE_URL` | `http://localhost:3000` | Canonical links, sitemap and Open Graph |
 | `SITE_INDEXABLE` | `false` | Set `true` only on the approved production domain |
 | `LEAD_STORE_DIR` | `.data` | Local lead store (development only) |
-| `LEAD_NOTIFIER` | `console` | `console` or `none` |
+| `LEAD_NOTIFIER` | `console` | `console`, `none` or `webhook` |
+| `LEAD_WEBHOOK_URL` | none | Required for `webhook`; https (http only for localhost/127.0.0.1). Receives enquiry data as JSON |
+| `LEAD_WEBHOOK_SECRET` | none | Optional; signs the body as `X-Medhavya-Signature: sha256=<hex HMAC>` |
 | `LEAD_RATE_LIMIT_PER_10_MIN` | `5` | Submissions per IP per 10 minutes |
 
 ## Roadmap

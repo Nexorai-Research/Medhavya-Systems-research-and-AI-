@@ -12,6 +12,8 @@ export const site = {
   contact: {
     email: null as string | null,
     phone: null as string | null,
+    /** International number (with country code) for wa.me; leave null until the founder supplies it. */
+    whatsapp: null as string | null,
     address: null as string | null,
     hours: null as string | null,
     // TODO(founder): confirm the response-time commitment shown on contact and form pages.
