@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Blocks, Cpu, Eye, GitMerge, Lock, ShieldCheck, Workflow } from "lucide-react";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { CtaBand } from "@/components/CtaBand";
+import { Faq } from "@/components/Faq";
+import { JsonLd } from "@/components/JsonLd";
 import { HeroStage } from "@/components/home/hero/HeroStage";
 import { ProductShowcase } from "@/components/home/ProductShowcase";
 import { ButtonLink } from "@/components/ui/Button";
@@ -25,12 +27,35 @@ const principles = [
   { Icon: Lock, title: "Ownership you can rely on", text: "Clear scope, named owners, documented hand-over and no lock-in to undocumented work." },
 ];
 
+const homeFaqs = [
+  {
+    question: "What does Medhavya Systems do?",
+    answer: "We build our own software products and deliver custom software, applied AI, integration and related enterprise services for organisations in India and internationally.",
+  },
+  {
+    question: "Are your products ready to buy today?",
+    answer: "Each product shows its real lifecycle stage, from Research to Beta. The current listings are demonstration content, so please contact us for the confirmed status of any product.",
+  },
+  {
+    question: "Can you build something that is not in the catalogue?",
+    answer: "Yes. Our enterprise services cover custom software, web and mobile applications, AI and automation, integration, cloud and data work. We agree scope and acceptance criteria in phases before building.",
+  },
+  {
+    question: "How is AI handled in your solutions?",
+    answer: "AI output is treated as a proposal that a person reviews. For clinical, legal and credit decisions, AI assists people and does not decide for them.",
+  },
+  {
+    question: "How quickly will you reply to an enquiry?",
+    answer: site.contact.responseExpectation,
+  },
+];
+
 export default function HomePage() {
   const categories = getCategories();
   const categoryBySlug = Object.fromEntries(categories.map((c) => [c.slug, c]));
   const featured = getFeaturedProducts();
   const allProducts = getProducts();
-  const services = getEnterpriseServices();
+  const services = getEnterpriseServices().slice(0, 3);
   const industries = getIndustries().slice(0, 4);
   const resources = getResources().slice(0, 3);
 
@@ -312,6 +337,21 @@ export default function HomePage() {
             ))}
           </ul>
         </Container>
+      </section>
+
+      {/* FAQ */}
+      <section aria-labelledby="faq-heading" className="py-16 sm:py-24">
+        <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+          <SectionHeading eyebrow="FAQ" title={<span id="faq-heading">Questions people ask us first.</span>} />
+          <Faq items={homeFaqs} />
+        </Container>
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: homeFaqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })),
+          }}
+        />
       </section>
 
       {/* 10. Final CTA */}

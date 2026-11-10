@@ -4,7 +4,8 @@ import { CtaBand } from "@/components/CtaBand";
 import { PageHero } from "@/components/PageHero";
 import { Container, SectionHeading } from "@/components/ui/Section";
 import { DeckVisual } from "@/components/visuals/PageVisuals";
-import { getProductsBySlugs } from "@/lib/content";
+import { SolutionFinder } from "@/features/finder/SolutionFinder";
+import { getEnterpriseServices, getIndustries, getProducts, getProductsBySlugs } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -51,6 +52,22 @@ export default function SolutionsPage() {
         crumbs={[{ label: "Solutions" }]}
         visual={<DeckVisual cards={solutions.map((s) => ({ title: s.title, sub: `${s.products.length} connected products`, icon: "enterprise" as const }))} />}
       />
+      <section id="finder" aria-labelledby="finder-heading" className="border-b border-line bg-white py-16 sm:py-24">
+        <Container>
+          <SectionHeading
+            eyebrow="Solution finder"
+            title={<span id="finder-heading">Tell us what you need. We will point you to a starting place.</span>}
+            intro="Three quick questions, no sign-up. The suggestions come from clear rules over our published catalogue."
+          />
+          <div className="mt-10">
+            <SolutionFinder
+              products={getProducts().map((p) => ({ slug: p.slug, name: p.name, summary: p.summary, lifecycle: p.lifecycle, industries: p.industries }))}
+              services={getEnterpriseServices().map((s) => ({ slug: s.slug, name: s.name, summary: s.summary }))}
+              industries={getIndustries().map((i) => ({ slug: i.slug, name: i.name }))}
+            />
+          </div>
+        </Container>
+      </section>
       <section className="py-16 sm:py-24">
         <Container className="space-y-6">
           {solutions.map((s, i) => (

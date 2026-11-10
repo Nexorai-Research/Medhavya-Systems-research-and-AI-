@@ -44,6 +44,9 @@ describe("leadInputSchema", () => {
   it("validates optional phone and slug formats", () => {
     expect(leadInputSchema.safeParse({ ...valid, phone: "+91 98765 43210" }).success).toBe(true);
     expect(leadInputSchema.safeParse({ ...valid, phone: "<script>" }).success).toBe(false);
+    expect(leadInputSchema.safeParse({ ...valid, phone: "+1 (415) 555-0132" }).success).toBe(true);
+    expect(leadInputSchema.safeParse({ ...valid, phone: "+91 123" }).success).toBe(false);
+    expect(leadInputSchema.safeParse({ ...valid, phone: "1".repeat(16) }).success).toBe(false);
     expect(leadInputSchema.safeParse({ ...valid, productSlug: "../etc/passwd" }).success).toBe(false);
   });
 

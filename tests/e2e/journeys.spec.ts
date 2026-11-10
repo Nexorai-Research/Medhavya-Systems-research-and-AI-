@@ -45,7 +45,7 @@ test.describe("core visitor journeys", () => {
 
 test.describe("runtime health", () => {
   // Guards against render loops and client errors (e.g. a form effect re-running every render).
-  for (const path of ["/", "/products", "/products/mediai", "/product-categories/agriculture", "/enterprise-solutions", "/technology", "/security", "/about", "/contact", "/request-demo"]) {
+  for (const path of ["/", "/products", "/products/mediai", "/product-categories/agriculture", "/enterprise-solutions", "/technology", "/security", "/about", "/contact", "/request-demo", "/search?q=ai", "/careers", "/partners"]) {
     test(`no console errors on ${path}`, async ({ page }) => {
       const errors: string[] = [];
       page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
@@ -83,6 +83,103 @@ test.describe("lead workflows", () => {
     await form.getByRole("checkbox", { name: /privacy notice/ }).check();
     await form.getByRole("button", { name: "Request consultation" }).click();
     await expect(form.getByRole("status")).toContainText("we have your enquiry");
+  });
+});
+
+test.describe("search and company journeys", () => {
+  test("search finds a product, shows an empty state, and hides drafts", async ({ page }) => {
+    await page.goto("/search");
+    await page.getByRole("searchbox", { name: "Search Medhavya Systems" }).fill("mediai");
+    await page.getByRole("button", { name: "Search" }).click();
+    await expect(page).toHaveURL(/q=mediai/);
+    await expect(page.getByRole("link", { name: /MediAI/ }).first()).toBeVisible();
+
+    await page.getByRole("searchbox", { name: "Search Medhavya Systems" }).fill("zzzzqqqq");
+    await page.getByRole("button", { name: "Search" }).click();
+    await expect(page.getByText(/No results for/)).toBeVisible();
+
+    await page.getByRole("searchbox", { name: "Search Medhavya Systems" }).fill("hrms");
+    await page.getByRole("button", { name: "Search" }).click();
+    await expect(page.getByText(/No results for/)).toBeVisible();
+  });
+
+  test("new service pages exist and unknown ones return 404", async ({ request }) => {
+    expect((await request.get("/enterprise-solutions/cloud-devops")).status()).toBe(200);
+    expect((await request.get("/enterprise-solutions/not-a-service")).status()).toBe(404);
+  });
+
+  test("careers form submits as a Career enquiry", async ({ page }) => {
+    await page.goto("/careers");
+    await page.getByLabel("Full name").fill("E2E Candidate");
+    await page.getByLabel("Work email").fill(`career+${Date.now()}@example.com`);
+    await page.getByLabel("How can we help?").fill("Interested in engineering roles when they open.");
+    await page.getByRole("checkbox", { name: /privacy notice/ }).check();
+    await page.getByRole("button", { name: "Send introduction" }).click();
+    await expect(page.getByRole("status")).toContainText("we have your enquiry");
+  });
+});
+
+test.describe("solution finder and comparison", () => {
+  test("solution finder recommends products and services, and never drafts", async ({ page }) => {
+    await page.goto("/solutions#finder");
+    const finder = page.locator("#finder");
+    await expect(finder.getByText(/suggestions will appear here/)).toBeVisible();
+    await finder.getByLabel("Run operations, inventory and finance").check();
+    await finder.getByLabel(/Which industry/).selectOption("logistics");
+    await finder.getByLabel(/How large/).selectOption("large");
+    await expect(finder.getByRole("link", { name: "Medhavya ERP" })).toBeVisible();
+    await expect(finder.getByRole("link", { name: "Consulting & Digital Transformation" })).toBeVisible();
+    await expect(finder.getByText("Medhavya HRMS")).toHaveCount(0);
+    await finder.getByRole("button", { name: "Start over" }).click();
+    await expect(finder.getByText(/suggestions will appear here/)).toBeVisible();
+  });
+
+  test("compare two products from the catalogue", async ({ page }) => {
+    await page.goto("/products");
+    await page.getByRole("checkbox", { name: /Compare Medhavya CRM/ }).check();
+    await expect(page.getByText(/choose at least 2 to compare/)).toBeVisible();
+    await page.getByRole("checkbox", { name: /Compare MediAI/ }).check();
+    await page.getByRole("link", { name: "Compare 2 products" }).click();
+    await expect(page).toHaveURL(/compare-products\?p=medhavya-crm,mediai/);
+    const table = page.getByRole("table");
+    await expect(table.getByRole("columnheader", { name: "Medhavya CRM" })).toBeVisible();
+    await expect(table.getByRole("columnheader", { name: "MediAI" })).toBeVisible();
+    await expect(table.getByRole("rowheader", { name: "Lifecycle stage" })).toBeVisible();
+  });
+
+  test("compare limits to three products and ignores unknown slugs", async ({ page }) => {
+    await page.goto("/compare-products?p=medhavya-crm,mediai,medhavya-erp,medhavya-agro,not-real");
+    await expect(page.getByRole("table").getByRole("columnheader")).toHaveCount(3);
+    await expect(page.getByRole("checkbox", { name: "Medhavya Agro" })).toBeDisabled();
+  });
+});
+
+test.describe("privacy controls and social previews", () => {
+  test("cookie preferences dialog opens, saves a choice and closes", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "Cookie preferences" }).click();
+    const dialog = page.getByRole("dialog", { name: "Cookie preferences" });
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole("checkbox", { name: /Strictly necessary/ })).toBeDisabled();
+    const analytics = dialog.getByRole("checkbox", { name: /Anonymous usage analytics/ });
+    await expect(analytics).not.toBeChecked();
+    await analytics.check();
+    await dialog.getByRole("button", { name: "Save choice" }).click();
+    await expect(dialog).toBeHidden();
+    await page.getByRole("button", { name: "Cookie preferences" }).click();
+    await expect(page.getByRole("checkbox", { name: /Anonymous usage analytics/ })).toBeChecked();
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+  });
+
+  test("social preview images are generated for the site and for products", async ({ request, page }) => {
+    for (const path of ["/opengraph-image", "/products/mediai/opengraph-image"]) {
+      const res = await request.get(path);
+      expect(res.status(), path).toBe(200);
+      expect(res.headers()["content-type"]).toContain("image/png");
+    }
+    await page.goto("/products/mediai");
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", /opengraph-image/);
   });
 });
 

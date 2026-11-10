@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import type { CSSProperties, ReactNode } from "react";
+import { JsonLd } from "@/components/JsonLd";
 import { Container, Eyebrow } from "@/components/ui/Section";
+import { siteUrl } from "@/lib/env";
 import { cn } from "@/lib/cn";
 import "@/components/visuals/visuals.css";
 
@@ -11,8 +13,23 @@ export interface Crumb {
 }
 
 export function Breadcrumbs({ items, tone = "light" }: { items: Crumb[]; tone?: "light" | "dark" }) {
+  const trail = [{ label: "Home", href: "/" }, ...items];
+  const base = siteUrl();
   return (
     <nav aria-label="Breadcrumb">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: trail.map((c, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: c.label,
+            // The current page (last item) has no link; schema.org allows omitting `item` there.
+            ...(c.href && i < trail.length - 1 ? { item: `${base}${c.href === "/" ? "" : c.href}` } : {}),
+          })),
+        }}
+      />
       <ol className={cn("flex flex-wrap items-center gap-1 text-xs", tone === "light" ? "text-muted" : "text-white/60")}>
         {[{ label: "Home", href: "/" }, ...items].map((c, i, all) => (
           <li key={c.label} className="flex items-center gap-1">

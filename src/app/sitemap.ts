@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPaths = [
     "/",
     "/products",
+    "/compare-products",
     "/solutions",
     "/industries",
     "/enterprise-solutions",
@@ -14,6 +15,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/security",
     "/resources",
     "/about",
+    "/careers",
+    "/partners",
     "/contact",
     "/request-demo",
     "/privacy",

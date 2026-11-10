@@ -1,13 +1,17 @@
 import { z } from "zod";
 
-export const ENQUIRY_TYPES = ["ProductDemo", "EnterpriseConsultation", "General", "Partnership"] as const;
+export const ENQUIRY_TYPES = ["ProductDemo", "EnterpriseConsultation", "General", "Sales", "Service", "Partnership", "Support", "Career"] as const;
 export type EnquiryType = (typeof ENQUIRY_TYPES)[number];
 
 export const enquiryLabels: Record<EnquiryType, string> = {
   ProductDemo: "Product demo",
   EnterpriseConsultation: "Enterprise consultation",
   General: "General enquiry",
+  Sales: "Sales enquiry",
+  Service: "Service enquiry",
   Partnership: "Partnership",
+  Support: "Support",
+  Career: "Careers",
 };
 
 const slug = z
@@ -25,6 +29,17 @@ const optionalText = (max: number) =>
     .transform((v) => (v ? v : undefined));
 
 /**
+ * International-friendly phone check: only digits, spaces, dashes and brackets, with an optional
+ * leading "+". E.164 allows 8–15 digits when a country code is given; local numbers need 6–15.
+ */
+export function isPlausiblePhone(value: string | undefined) {
+  if (!value) return true;
+  if (!/^\+?[()\d\s-]+$/.test(value)) return false;
+  const digits = value.replace(/\D/g, "").length;
+  return value.startsWith("+") ? digits >= 8 && digits <= 15 : digits >= 6 && digits <= 15;
+}
+
+/**
  * Public lead submission contract (Module 04 §4). `.strict()` rejects unknown keys, so
  * privileged fields such as status, assignedTo or score can never be set by a browser.
  */
@@ -35,7 +50,7 @@ export const leadInputSchema = z
     enquiryType: z.enum(ENQUIRY_TYPES, "Please choose an enquiry type"),
     message: z.string().trim().min(10, "Please tell us a little more (at least 10 characters)").max(4000, "Please keep your message under 4,000 characters"),
     privacyAcknowledged: z.literal(true, "Please confirm you have read the privacy notice"),
-    phone: optionalText(32).refine((v) => !v || /^[+()\d\s-]{6,32}$/.test(v), "Please enter a valid phone number"),
+    phone: optionalText(32).refine(isPlausiblePhone, "Please enter a valid phone number, with country code for international numbers (for example +91 98765 43210)"),
     countryCode: optionalText(8),
     organization: optionalText(160),
     productSlug: slug.optional(),
