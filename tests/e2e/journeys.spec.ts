@@ -173,13 +173,18 @@ test.describe("privacy controls and social previews", () => {
   });
 
   test("social preview images are generated for the site and for products", async ({ request, page }) => {
-    for (const path of ["/opengraph-image", "/products/mediai/opengraph-image"]) {
-      const res = await request.get(path);
-      expect(res.status(), path).toBe(200);
-      expect(res.headers()["content-type"]).toContain("image/png");
-    }
+    const site = await request.get("/opengraph-image");
+    expect(site.status(), "/opengraph-image").toBe(200);
+    expect(site.headers()["content-type"]).toContain("image/png");
+
+    // Next appends a content hash to dynamic-segment image routes, so follow the page's own og:image URL.
     await page.goto("/products/mediai");
-    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", /opengraph-image/);
+    const og = page.locator('meta[property="og:image"]');
+    await expect(og).toHaveAttribute("content", /\/products\/mediai\/opengraph-image/);
+    const url = new URL((await og.getAttribute("content")) ?? "");
+    const product = await request.get(url.pathname);
+    expect(product.status(), url.pathname).toBe(200);
+    expect(product.headers()["content-type"]).toContain("image/png");
   });
 });
 

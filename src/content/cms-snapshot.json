@@ -1,0 +1,2116 @@
+{
+  "generatedAt": "2026-11-10T16:50:36.443Z",
+  "categories": [
+    {
+      "slug": "agriculture",
+      "name": "Agriculture Software",
+      "shortName": "Agriculture",
+      "tagline": "Field-to-market visibility for growers and agri-businesses.",
+      "description": "Software that helps farms, producer organisations and agri-businesses plan seasons, record field activity and make better decisions with the data they already collect.",
+      "context": [
+        "Farm records are often spread across notebooks, messaging apps and spreadsheets.",
+        "Advisory, input supply and procurement teams need a shared, timely view of field activity.",
+        "Solutions must work in low-connectivity environments and in more than one language."
+      ],
+      "icon": "agriculture",
+      "displayOrder": 1,
+      "publication": "Published",
+      "seo": {
+        "title": "Agriculture Software",
+        "description": "Farm operations, crop planning and agri-business software from Medhavya Systems."
+      }
+    },
+    {
+      "slug": "retail-business",
+      "name": "Retail & Business Software",
+      "shortName": "Retail & Business",
+      "tagline": "Customer, sales and day-to-day business operations in one place.",
+      "description": "Practical tools for growing businesses to manage customers, sales pipelines, billing, inventory and teams without stitching together disconnected apps.",
+      "context": [
+        "Small and mid-sized businesses outgrow spreadsheets before they can justify heavy enterprise suites.",
+        "Owners need clear daily reporting, not complex configuration.",
+        "Teams work across counters, field visits and mobile devices."
+      ],
+      "icon": "retail",
+      "displayOrder": 2,
+      "publication": "Published",
+      "seo": {
+        "title": "Retail & Business Software",
+        "description": "CRM and business management software for growing organisations."
+      }
+    },
+    {
+      "slug": "ai-automation",
+      "name": "AI & Automation",
+      "shortName": "AI & Automation",
+      "tagline": "Automate repetitive work with reviewable, governed AI.",
+      "description": "Applied AI and workflow automation that reads documents, routes work and assists teams — with human review, audit trails and clear limits on what the system decides.",
+      "context": [
+        "High-volume document and request handling consumes skilled people’s time.",
+        "AI output must be explainable and reviewable before it changes business records.",
+        "Automation should connect to existing systems instead of replacing them."
+      ],
+      "icon": "ai",
+      "displayOrder": 3,
+      "publication": "Published",
+      "seo": {
+        "title": "AI & Automation Software",
+        "description": "Document intelligence and workflow automation with human review."
+      }
+    },
+    {
+      "slug": "financial-intelligence",
+      "name": "Financial Intelligence & Trading",
+      "shortName": "Financial Intelligence",
+      "tagline": "Research, analytics and monitoring for financial decisions.",
+      "description": "Analytics and research tooling for finance teams and market participants. Our software supports analysis; it does not provide investment advice or execute trades on a user’s behalf.",
+      "context": [
+        "Analysts combine market data, internal records and research notes by hand.",
+        "Risk and exposure views need to be timely and traceable.",
+        "Regulatory expectations require careful data handling and clear disclaimers."
+      ],
+      "icon": "finance",
+      "displayOrder": 4,
+      "publication": "Published",
+      "seo": {
+        "title": "Financial Intelligence Software",
+        "description": "Financial analytics and research tooling from Medhavya Systems."
+      }
+    },
+    {
+      "slug": "enterprise",
+      "name": "Enterprise Software",
+      "shortName": "Enterprise",
+      "tagline": "Connected planning, finance and operations for complex organisations.",
+      "description": "Enterprise resource planning and operations software designed for multi-location organisations that need consistent processes, approvals and reporting.",
+      "context": [
+        "Finance, procurement, inventory and HR often run on separate systems.",
+        "Leaders need consolidated reporting without manual reconciliation.",
+        "Rollouts must respect existing processes, integrations and data migration needs."
+      ],
+      "icon": "enterprise",
+      "displayOrder": 5,
+      "publication": "Published",
+      "seo": {
+        "title": "Enterprise Software",
+        "description": "ERP and enterprise operations software from Medhavya Systems."
+      }
+    },
+    {
+      "slug": "education",
+      "name": "Education Software",
+      "shortName": "Education",
+      "tagline": "School operations, learning and family communication, connected.",
+      "description": "Software for schools and education groups covering admissions, academics, attendance, fees and communication with families.",
+      "context": [
+        "School administration relies on many disconnected registers and tools.",
+        "Teachers need to spend time teaching, not re-entering data.",
+        "Student data requires strict access control and privacy handling."
+      ],
+      "icon": "education",
+      "displayOrder": 6,
+      "publication": "Published",
+      "seo": {
+        "title": "Education Software",
+        "description": "School management and learning software from Medhavya Systems."
+      }
+    },
+    {
+      "slug": "healthcare",
+      "name": "Healthcare Software",
+      "shortName": "Healthcare",
+      "tagline": "AI-assisted workflows that give clinicians time back.",
+      "description": "Healthcare software that supports clinical and administrative teams with documentation, scheduling and operational insight. Clinical decisions always remain with qualified professionals.",
+      "context": [
+        "Clinicians spend a large share of their day on documentation and administration.",
+        "Patient flow and resource visibility are often limited to manual updates.",
+        "Health data demands the highest standard of privacy, consent and access control."
+      ],
+      "icon": "healthcare",
+      "displayOrder": 7,
+      "publication": "Published",
+      "seo": {
+        "title": "Healthcare Software",
+        "description": "AI-assisted healthcare workflow software from Medhavya Systems."
+      }
+    },
+    {
+      "slug": "other",
+      "name": "Other Industry Solutions",
+      "shortName": "Other Industries",
+      "tagline": "Logistics, field operations and sector-specific systems.",
+      "description": "Solutions for industries beyond our core categories, starting with logistics and field operations, where visibility and coordination drive results.",
+      "context": [
+        "Dispatch, tracking and proof-of-delivery are often managed over phone calls.",
+        "Customers expect accurate status updates without chasing.",
+        "Fleet and partner networks need one shared operational picture."
+      ],
+      "icon": "other",
+      "displayOrder": 8,
+      "publication": "Published",
+      "seo": {
+        "title": "Logistics & Other Industry Solutions",
+        "description": "Logistics and sector-specific software from Medhavya Systems."
+      }
+    }
+  ],
+  "products": [
+    {
+      "slug": "medhavya-agro",
+      "name": "Medhavya Agro",
+      "categorySlug": "agriculture",
+      "summary": "Season planning, field records and advisory workflows for farms and producer organisations.",
+      "description": "Medhavya Agro brings crop plans, field activities, input usage and advisory notes into one shared record, so growers and agri-business teams can see what is happening on each plot and act on it sooner.",
+      "lifecycle": "Private Pilot",
+      "publication": "Published",
+      "isDemo": true,
+      "audience": [
+        "Farmer producer organisations",
+        "Agri-input and advisory teams",
+        "Contract farming operators"
+      ],
+      "problem": "Field activity is recorded in notebooks and chat threads, which makes it hard to plan inputs, track crop health or share timely advice across many growers.",
+      "outcomes": [
+        "One record for every plot, season and activity",
+        "Advisory messages linked to the field they concern",
+        "Input planning based on recorded activity instead of estimates"
+      ],
+      "features": [
+        {
+          "title": "Plot & season register",
+          "description": "Map plots, crops and sowing dates; keep a season-by-season history."
+        },
+        {
+          "title": "Activity logging",
+          "description": "Record irrigation, spraying and harvesting from a mobile-friendly form that tolerates weak connectivity."
+        },
+        {
+          "title": "Advisory desk",
+          "description": "Agronomists send structured advice to a grower or group and track acknowledgement."
+        },
+        {
+          "title": "Input planning",
+          "description": "Estimate seed, fertiliser and labour needs from planned and recorded activity."
+        },
+        {
+          "title": "Procurement view",
+          "description": "See expected harvest windows and volumes across a grower network."
+        },
+        {
+          "title": "Multilingual interface",
+          "description": "Designed for regional-language use in the field."
+        }
+      ],
+      "useCases": [
+        {
+          "title": "Seasonal advisory programme",
+          "steps": [
+            "Register growers and plots",
+            "Publish a crop calendar",
+            "Send stage-specific advice",
+            "Review acknowledgements and field updates"
+          ]
+        },
+        {
+          "title": "Harvest planning",
+          "steps": [
+            "Collect sowing data",
+            "Project harvest windows",
+            "Coordinate procurement and logistics"
+          ]
+        }
+      ],
+      "industries": [
+        "agriculture"
+      ],
+      "deployment": [
+        "Cloud (managed)",
+        "Mobile web for field users"
+      ],
+      "integrations": [
+        "Weather data feeds",
+        "SMS and messaging gateways",
+        "Accounting exports"
+      ],
+      "support": "Pilot participants receive onboarding and direct support from the product team.",
+      "faqs": [
+        {
+          "question": "Does it work offline?",
+          "answer": "The field interface is being designed to queue entries when connectivity is weak and sync later. Confirm current capability during a demo."
+        },
+        {
+          "question": "Which crops are supported?",
+          "answer": "The data model is crop-agnostic. Crop calendars are configured with each pilot partner."
+        }
+      ],
+      "mockup": {
+        "nav": [
+          "Overview",
+          "Plots",
+          "Activities",
+          "Advisory",
+          "Harvest"
+        ],
+        "rows": [
+          {
+            "state": "ok",
+            "primary": "Plot 18 · Soybean",
+            "secondary": "Spraying recorded today"
+          },
+          {
+            "state": "attention",
+            "primary": "Plot 42 · Cotton",
+            "secondary": "Irrigation overdue"
+          },
+          {
+            "state": "pending",
+            "primary": "Plot 07 · Wheat",
+            "secondary": "Advisory awaiting reply"
+          }
+        ],
+        "chart": [
+          22,
+          30,
+          28,
+          40,
+          46,
+          44,
+          58,
+          62,
+          70
+        ],
+        "tiles": [
+          {
+            "label": "Plots tracked",
+            "trend": "up",
+            "value": "1,240"
+          },
+          {
+            "label": "Advisories sent",
+            "trend": "up",
+            "value": "86"
+          },
+          {
+            "label": "Pending visits",
+            "trend": "flat",
+            "value": "14"
+          }
+        ]
+      },
+      "featured": true,
+      "seo": {
+        "title": "Medhavya Agro — Farm Operations Software",
+        "description": "Season planning, field records and advisory workflows for agriculture."
+      },
+      "governance": {
+        "owner": "Product owner — to be assigned",
+        "reviewer": "Founder approval pending",
+        "lastReviewed": "2026-10-31",
+        "evidenceSource": "Demonstration content — no external claims"
+      }
+    },
+    {
+      "slug": "medhavya-crm",
+      "name": "Medhavya CRM",
+      "categorySlug": "retail-business",
+      "summary": "Leads, customers, follow-ups and sales pipelines for growing teams.",
+      "description": "Medhavya CRM gives sales and service teams a clear pipeline, a single customer history and reminders that keep follow-ups from slipping — without enterprise-level configuration.",
+      "lifecycle": "Beta",
+      "publication": "Published",
+      "isDemo": true,
+      "audience": [
+        "Sales teams",
+        "Business owners",
+        "Customer service teams"
+      ],
+      "problem": "Customer conversations live in personal phones and spreadsheets, so leads are lost and nobody has the full history.",
+      "outcomes": [
+        "Every enquiry captured and assigned",
+        "Shared customer history across the team",
+        "Pipeline reporting owners can read in minutes"
+      ],
+      "features": [
+        {
+          "title": "Lead capture",
+          "description": "Collect enquiries from forms, calls and walk-ins into one queue."
+        },
+        {
+          "title": "Pipeline board",
+          "description": "Move opportunities through configurable stages with clear ownership."
+        },
+        {
+          "title": "Follow-up reminders",
+          "description": "Tasks and reminders tied to each customer and deal."
+        },
+        {
+          "title": "Customer timeline",
+          "description": "Notes, calls, quotes and orders in a single history."
+        },
+        {
+          "title": "Quotations",
+          "description": "Create and track quotations from the opportunity record."
+        },
+        {
+          "title": "Reports",
+          "description": "Conversion, source and team activity reports."
+        }
+      ],
+      "useCases": [
+        {
+          "title": "Enquiry to order",
+          "steps": [
+            "Capture the enquiry",
+            "Assign to a salesperson",
+            "Send quotation",
+            "Convert and hand over to fulfilment"
+          ]
+        }
+      ],
+      "industries": [
+        "retail",
+        "manufacturing",
+        "hospitality",
+        "real-estate"
+      ],
+      "deployment": [
+        "Cloud (managed)"
+      ],
+      "integrations": [
+        "Email",
+        "Messaging platforms",
+        "Medhavya ERP"
+      ],
+      "support": "Beta customers receive email support during business hours (IST).",
+      "faqs": [
+        {
+          "question": "Can we import existing contacts?",
+          "answer": "Yes, spreadsheet import is part of onboarding. Data mapping is reviewed with your team."
+        },
+        {
+          "question": "Is there a mobile app?",
+          "answer": "The interface is responsive for mobile browsers. A native app has not been announced."
+        }
+      ],
+      "mockup": {
+        "nav": [
+          "Pipeline",
+          "Leads",
+          "Customers",
+          "Tasks",
+          "Reports"
+        ],
+        "rows": [
+          {
+            "state": "ok",
+            "primary": "Sharma Traders",
+            "secondary": "Quotation sent · Stage 3"
+          },
+          {
+            "state": "attention",
+            "primary": "Nova Clinics",
+            "secondary": "Follow-up overdue"
+          },
+          {
+            "state": "pending",
+            "primary": "Greenline Foods",
+            "secondary": "Awaiting decision"
+          }
+        ],
+        "chart": [
+          18,
+          24,
+          21,
+          33,
+          38,
+          36,
+          44,
+          52,
+          57
+        ],
+        "tiles": [
+          {
+            "label": "Open opportunities",
+            "trend": "up",
+            "value": "128"
+          },
+          {
+            "label": "Follow-ups today",
+            "trend": "flat",
+            "value": "23"
+          },
+          {
+            "label": "Won this month",
+            "trend": "up",
+            "value": "41"
+          }
+        ]
+      },
+      "featured": true,
+      "seo": {
+        "title": "Medhavya CRM — Sales & Customer Software",
+        "description": "Lead management, pipelines and customer history for growing teams."
+      },
+      "governance": {
+        "owner": "Product owner — to be assigned",
+        "reviewer": "Founder approval pending",
+        "lastReviewed": "2026-10-31",
+        "evidenceSource": "Demonstration content — no external claims"
+      }
+    },
+    {
+      "slug": "medhavya-manage",
+      "name": "Medhavya Manage",
+      "categorySlug": "retail-business",
+      "summary": "Billing, inventory, staff and daily reporting for small and mid-sized businesses.",
+      "description": "Medhavya Manage is a business management suite for owners who want billing, stock, staff attendance and daily reports to work together from day one.",
+      "lifecycle": "Private Pilot",
+      "publication": "Published",
+      "isDemo": true,
+      "audience": [
+        "Retail and distribution businesses",
+        "Service businesses",
+        "Multi-outlet owners"
+      ],
+      "problem": "Owners reconcile billing, stock and attendance by hand at the end of each day, and cannot see the business clearly until it is too late.",
+      "outcomes": [
+        "Stock that matches sales automatically",
+        "Daily owner summary without manual reconciliation",
+        "Consistent processes across outlets"
+      ],
+      "features": [
+        {
+          "title": "Billing & invoicing",
+          "description": "Fast counter billing and tax-ready invoices."
+        },
+        {
+          "title": "Inventory",
+          "description": "Stock levels, reorder points and transfers between locations."
+        },
+        {
+          "title": "Purchases & suppliers",
+          "description": "Purchase orders, receipts and supplier balances."
+        },
+        {
+          "title": "Staff & attendance",
+          "description": "Shifts, attendance and role-based access."
+        },
+        {
+          "title": "Owner dashboard",
+          "description": "A daily summary of sales, stock and dues."
+        },
+        {
+          "title": "Multi-outlet",
+          "description": "Manage several locations with consolidated reporting."
+        }
+      ],
+      "useCases": [
+        {
+          "title": "Daily close",
+          "steps": [
+            "Bill sales through the day",
+            "Stock updates automatically",
+            "Review the owner summary",
+            "Act on low-stock alerts"
+          ]
+        }
+      ],
+      "industries": [
+        "retail",
+        "hospitality"
+      ],
+      "deployment": [
+        "Cloud (managed)",
+        "Desktop browser at the counter"
+      ],
+      "integrations": [
+        "Payment terminals",
+        "Accounting exports",
+        "Medhavya CRM"
+      ],
+      "support": "Pilot users receive guided onboarding and priority support.",
+      "faqs": [
+        {
+          "question": "Does it handle GST invoicing?",
+          "answer": "Tax-ready invoicing is in scope for the Indian market. Confirm the current configuration during a demo."
+        }
+      ],
+      "mockup": {
+        "nav": [
+          "Today",
+          "Billing",
+          "Inventory",
+          "Purchases",
+          "Staff"
+        ],
+        "rows": [
+          {
+            "state": "ok",
+            "primary": "Outlet · MG Road",
+            "secondary": "Day closed and reconciled"
+          },
+          {
+            "state": "attention",
+            "primary": "SKU 2231 · Rice 5kg",
+            "secondary": "Below reorder level"
+          },
+          {
+            "state": "pending",
+            "primary": "PO-0418",
+            "secondary": "Awaiting supplier delivery"
+          }
+        ],
+        "chart": [
+          30,
+          34,
+          31,
+          42,
+          39,
+          48,
+          51,
+          47,
+          60
+        ],
+        "tiles": [
+          {
+            "label": "Bills today",
+            "trend": "up",
+            "value": "312"
+          },
+          {
+            "label": "Low-stock items",
+            "trend": "down",
+            "value": "9"
+          },
+          {
+            "label": "Staff present",
+            "trend": "flat",
+            "value": "18/20"
+          }
+        ]
+      },
+      "featured": false,
+      "seo": {
+        "title": "Medhavya Manage — Business Management Software",
+        "description": "Billing, inventory and staff management for growing businesses."
+      },
+      "governance": {
+        "owner": "Product owner — to be assigned",
+        "reviewer": "Founder approval pending",
+        "lastReviewed": "2026-10-31",
+        "evidenceSource": "Demonstration content — no external claims"
+      }
+    },
+    {
+      "slug": "medhavya-autoflow",
+      "name": "Medhavya AutoFlow",
+      "categorySlug": "ai-automation",
+      "summary": "Document intelligence and workflow automation with human review built in.",
+      "description": "Medhavya AutoFlow reads incoming documents and requests, extracts the fields that matter, and routes work to the right people — with every AI suggestion reviewable before it is committed.",
+      "lifecycle": "In Development",
+      "publication": "Published",
+      "isDemo": true,
+      "audience": [
+        "Operations teams",
+        "Shared-service centres",
+        "Finance and admin teams"
+      ],
+      "problem": "Skilled people spend hours re-typing information from invoices, forms and emails into business systems.",
+      "outcomes": [
+        "Less manual data entry",
+        "Faster, traceable routing of requests",
+        "Human approval on every automated change"
+      ],
+      "features": [
+        {
+          "title": "Document extraction",
+          "description": "Pull structured fields from invoices, forms and letters."
+        },
+        {
+          "title": "Review queue",
+          "description": "People confirm or correct AI output before it is posted."
+        },
+        {
+          "title": "Workflow builder",
+          "description": "Define routing, approvals and escalations visually."
+        },
+        {
+          "title": "Audit trail",
+          "description": "Every suggestion, correction and approval is recorded."
+        },
+        {
+          "title": "Connectors",
+          "description": "Post approved results to existing systems through adapters."
+        },
+        {
+          "title": "Quality monitoring",
+          "description": "Track correction rates to understand where automation helps."
+        }
+      ],
+      "useCases": [
+        {
+          "title": "Supplier invoice intake",
+          "steps": [
+            "Receive invoice by email",
+            "Extract supplier, amounts and dates",
+            "Reviewer confirms",
+            "Post to accounting and archive"
+          ]
+        }
+      ],
+      "industries": [
+        "manufacturing",
+        "financial-services",
+        "logistics",
+        "hospitality",
+        "real-estate",
+        "government"
+      ],
+      "deployment": [
+        "Cloud (managed)",
+        "Private cloud (on request)"
+      ],
+      "integrations": [
+        "Email inboxes",
+        "Document storage",
+        "Medhavya ERP"
+      ],
+      "support": "Design partners work directly with the engineering team.",
+      "faqs": [
+        {
+          "question": "Does the AI make decisions on its own?",
+          "answer": "No. AutoFlow is designed so that people approve changes before they reach business records."
+        }
+      ],
+      "mockup": {
+        "nav": [
+          "Inbox",
+          "Review",
+          "Workflows",
+          "Audit",
+          "Quality"
+        ],
+        "rows": [
+          {
+            "state": "ok",
+            "primary": "INV-88412 · Supplier invoice",
+            "secondary": "Fields extracted · ready to approve"
+          },
+          {
+            "state": "attention",
+            "primary": "Claim form · scanned",
+            "secondary": "Low confidence on 2 fields"
+          },
+          {
+            "state": "pending",
+            "primary": "Vendor onboarding",
+            "secondary": "Waiting for finance approval"
+          }
+        ],
+        "chart": [
+          12,
+          20,
+          26,
+          31,
+          40,
+          45,
+          52,
+          58,
+          66
+        ],
+        "tiles": [
+          {
+            "label": "Awaiting review",
+            "trend": "down",
+            "value": "37"
+          },
+          {
+            "label": "Processed today",
+            "trend": "up",
+            "value": "204"
+          },
+          {
+            "label": "Corrections",
+            "trend": "down",
+            "value": "6%"
+          }
+        ]
+      },
+      "featured": false,
+      "seo": {
+        "title": "Medhavya AutoFlow — AI Workflow Automation",
+        "description": "Document intelligence and governed workflow automation."
+      },
+      "governance": {
+        "owner": "Product owner — to be assigned",
+        "reviewer": "Founder approval pending",
+        "lastReviewed": "2026-10-31",
+        "evidenceSource": "Demonstration content — no external claims"
+      }
+    },
+    {
+      "slug": "medhavya-finsight",
+      "name": "Medhavya FinSight",
+      "categorySlug": "financial-intelligence",
+      "summary": "Portfolio analytics, market research workspace and risk monitoring.",
+      "description": "Medhavya FinSight brings market data, research notes and portfolio exposure into a single analytical workspace. It supports analysis only — it does not give investment advice or place trades.",
+      "lifecycle": "Research",
+      "publication": "Published",
+      "isDemo": true,
+      "audience": [
+        "Research analysts",
+        "Finance teams",
+        "Advisory firms"
+      ],
+      "problem": "Analysts assemble the same views from several data sources every day, leaving little time for actual analysis.",
+      "outcomes": [
+        "One workspace for data, notes and exposure",
+        "Repeatable analysis instead of manual assembly",
+        "Clear, traceable monitoring alerts"
+      ],
+      "features": [
+        {
+          "title": "Research workspace",
+          "description": "Notes, charts and data side by side."
+        },
+        {
+          "title": "Exposure views",
+          "description": "Portfolio exposure by sector, instrument and risk factor."
+        },
+        {
+          "title": "Alerts",
+          "description": "Rule-based monitoring with an audit trail."
+        },
+        {
+          "title": "Scenario analysis",
+          "description": "Explore how assumptions change outcomes."
+        }
+      ],
+      "useCases": [
+        {
+          "title": "Morning research review",
+          "steps": [
+            "Load watchlists",
+            "Review overnight changes",
+            "Annotate findings",
+            "Share a research note"
+          ]
+        }
+      ],
+      "industries": [
+        "financial-services"
+      ],
+      "deployment": [
+        "Cloud (managed)"
+      ],
+      "integrations": [
+        "Licensed market data providers",
+        "Spreadsheet export"
+      ],
+      "support": "Research-stage product; early conversations are welcome.",
+      "faqs": [
+        {
+          "question": "Will FinSight connect to my broker account?",
+          "answer": "No. FinSight does not request brokerage credentials or trading API keys."
+        }
+      ],
+      "mockup": {
+        "nav": [
+          "Workspace",
+          "Watchlists",
+          "Exposure",
+          "Alerts",
+          "Notes"
+        ],
+        "rows": [
+          {
+            "state": "ok",
+            "primary": "Sector exposure · IT",
+            "secondary": "Within configured limits"
+          },
+          {
+            "state": "attention",
+            "primary": "Volatility rule #4",
+            "secondary": "Threshold crossed"
+          },
+          {
+            "state": "pending",
+            "primary": "Q3 earnings note",
+            "secondary": "Draft awaiting review"
+          }
+        ],
+        "chart": [
+          40,
+          38,
+          45,
+          41,
+          50,
+          47,
+          55,
+          52,
+          61
+        ],
+        "tiles": [
+          {
+            "label": "Watchlists",
+            "trend": "flat",
+            "value": "12"
+          },
+          {
+            "label": "Active alerts",
+            "trend": "up",
+            "value": "5"
+          },
+          {
+            "label": "Notes this week",
+            "trend": "up",
+            "value": "28"
+          }
+        ]
+      },
+      "featured": false,
+      "seo": {
+        "title": "Medhavya FinSight — Financial Analytics",
+        "description": "Research workspace, exposure analytics and monitoring."
+      },
+      "governance": {
+        "owner": "Product owner — to be assigned",
+        "reviewer": "Founder approval pending",
+        "lastReviewed": "2026-10-31",
+        "evidenceSource": "Demonstration content — no external claims"
+      }
+    },
+    {
+      "slug": "medhavya-erp",
+      "name": "Medhavya ERP",
+      "categorySlug": "enterprise",
+      "summary": "Finance, procurement, inventory and HR on one connected platform.",
+      "description": "Medhavya ERP connects finance, procurement, inventory, production and HR so that multi-location organisations run on consistent processes and a single source of truth.",
+      "lifecycle": "In Development",
+      "publication": "Published",
+      "isDemo": true,
+      "audience": [
+        "Finance leaders",
+        "Operations heads",
+        "Multi-location organisations"
+      ],
+      "problem": "Departments run on separate systems, so month-end closing and management reporting depend on manual reconciliation.",
+      "outcomes": [
+        "Consistent processes across locations",
+        "Faster, reconciled reporting",
+        "Approvals with a clear audit trail"
+      ],
+      "features": [
+        {
+          "title": "Financials",
+          "description": "General ledger, payables, receivables and multi-entity reporting."
+        },
+        {
+          "title": "Procurement",
+          "description": "Requisitions, purchase orders, approvals and vendor management."
+        },
+        {
+          "title": "Inventory & warehouses",
+          "description": "Stock across sites, batch tracking and valuation."
+        },
+        {
+          "title": "Production planning",
+          "description": "Bills of material, work orders and capacity views."
+        },
+        {
+          "title": "HR & payroll",
+          "description": "Employee records, attendance and payroll inputs."
+        },
+        {
+          "title": "Approvals & audit",
+          "description": "Configurable approval chains with full history."
+        }
+      ],
+      "useCases": [
+        {
+          "title": "Procure-to-pay",
+          "steps": [
+            "Raise requisition",
+            "Approve and issue PO",
+            "Receive goods",
+            "Match invoice and pay"
+          ]
+        }
+      ],
+      "industries": [
+        "manufacturing",
+        "retail",
+        "logistics",
+        "real-estate",
+        "government"
+      ],
+      "deployment": [
+        "Cloud (managed)",
+        "Private cloud (on request)"
+      ],
+      "integrations": [
+        "Banking file formats",
+        "Medhavya CRM",
+        "Medhavya AutoFlow"
+      ],
+      "support": "Implementation is delivered with a named project lead and structured onboarding.",
+      "faqs": [
+        {
+          "question": "Can we migrate from our current system?",
+          "answer": "Data migration is planned as part of each implementation and validated before go-live."
+        }
+      ],
+      "mockup": {
+        "nav": [
+          "Dashboard",
+          "Finance",
+          "Procurement",
+          "Inventory",
+          "HR"
+        ],
+        "rows": [
+          {
+            "state": "ok",
+            "primary": "Month-end close · Sept",
+            "secondary": "All entities reconciled"
+          },
+          {
+            "state": "attention",
+            "primary": "PO-2291 · Raw materials",
+            "secondary": "Price variance flagged"
+          },
+          {
+            "state": "pending",
+            "primary": "Warehouse transfer",
+            "secondary": "In transit to Pune"
+          }
+        ],
+        "chart": [
+          35,
+          39,
+          37,
+          44,
+          49,
+          53,
+          51,
+          59,
+          64
+        ],
+        "tiles": [
+          {
+            "label": "Open POs",
+            "trend": "flat",
+            "value": "64"
+          },
+          {
+            "label": "Approvals pending",
+            "trend": "down",
+            "value": "11"
+          },
+          {
+            "label": "Sites connected",
+            "trend": "up",
+            "value": "7"
+          }
+        ]
+      },
+      "featured": true,
+      "seo": {
+        "title": "Medhavya ERP — Enterprise Resource Planning",
+        "description": "Connected finance, procurement, inventory and HR."
+      },
+      "governance": {
+        "owner": "Product owner — to be assigned",
+        "reviewer": "Founder approval pending",
+        "lastReviewed": "2026-10-31",
+        "evidenceSource": "Demonstration content — no external claims"
+      }
+    },
+    {
+      "slug": "medhavya-edusphere",
+      "name": "Medhavya EduSphere",
+      "categorySlug": "education",
+      "summary": "School management: admissions, academics, attendance, fees and parent communication.",
+      "description": "Medhavya EduSphere is a schooling platform that connects the school office, teachers and families — from admission to report card — with strict access control for student data.",
+      "lifecycle": "Beta",
+      "publication": "Published",
+      "isDemo": true,
+      "audience": [
+        "School leaders",
+        "Administrators",
+        "Teachers",
+        "Parents"
+      ],
+      "problem": "Schools juggle separate registers for admissions, attendance, fees and results, and parents only hear about problems late.",
+      "outcomes": [
+        "One student record from admission onward",
+        "Less administrative re-entry for teachers",
+        "Timely, consistent communication with families"
+      ],
+      "features": [
+        {
+          "title": "Admissions",
+          "description": "Enquiries, applications and enrolment in one flow."
+        },
+        {
+          "title": "Attendance",
+          "description": "Quick class-wise attendance from any device."
+        },
+        {
+          "title": "Timetable & academics",
+          "description": "Timetables, assignments and assessments."
+        },
+        {
+          "title": "Fees",
+          "description": "Fee plans, receipts and dues tracking."
+        },
+        {
+          "title": "Report cards",
+          "description": "Configurable grading and printable report cards."
+        },
+        {
+          "title": "Parent communication",
+          "description": "Notices and updates to families, by class or individually."
+        }
+      ],
+      "useCases": [
+        {
+          "title": "Daily attendance to parent alert",
+          "steps": [
+            "Teacher marks attendance",
+            "Absences flagged",
+            "Parents notified",
+            "Office follows up"
+          ]
+        }
+      ],
+      "industries": [
+        "education"
+      ],
+      "deployment": [
+        "Cloud (managed)"
+      ],
+      "integrations": [
+        "SMS and messaging gateways",
+        "Payment gateways"
+      ],
+      "support": "Beta schools receive onboarding for office staff and teachers.",
+      "faqs": [
+        {
+          "question": "Who can see student records?",
+          "answer": "Access is role-based; teachers see their classes, and parents see only their own children."
+        }
+      ],
+      "mockup": {
+        "nav": [
+          "Today",
+          "Students",
+          "Attendance",
+          "Academics",
+          "Fees"
+        ],
+        "rows": [
+          {
+            "state": "ok",
+            "primary": "Class 8-B",
+            "secondary": "Attendance submitted"
+          },
+          {
+            "state": "attention",
+            "primary": "Class 5-A",
+            "secondary": "Attendance not yet marked"
+          },
+          {
+            "state": "pending",
+            "primary": "Term 2 report cards",
+            "secondary": "Awaiting principal sign-off"
+          }
+        ],
+        "chart": [
+          80,
+          86,
+          84,
+          90,
+          88,
+          92,
+          91,
+          94,
+          93
+        ],
+        "tiles": [
+          {
+            "label": "Attendance today",
+            "trend": "up",
+            "value": "94%"
+          },
+          {
+            "label": "Fee dues",
+            "trend": "down",
+            "value": "37"
+          },
+          {
+            "label": "Notices sent",
+            "trend": "flat",
+            "value": "6"
+          }
+        ]
+      },
+      "featured": true,
+      "seo": {
+        "title": "Medhavya EduSphere — School Management Software",
+        "description": "Admissions, attendance, academics, fees and parent communication."
+      },
+      "governance": {
+        "owner": "Product owner — to be assigned",
+        "reviewer": "Founder approval pending",
+        "lastReviewed": "2026-10-31",
+        "evidenceSource": "Demonstration content — no external claims"
+      }
+    },
+    {
+      "slug": "mediai",
+      "name": "MediAI",
+      "categorySlug": "healthcare",
+      "summary": "AI-assisted clinical documentation and patient-flow visibility for clinics and hospitals.",
+      "description": "MediAI helps clinical teams draft documentation, see patient flow across departments and spot operational bottlenecks. It assists professionals and does not diagnose or make clinical decisions.",
+      "lifecycle": "In Development",
+      "publication": "Published",
+      "isDemo": true,
+      "audience": [
+        "Hospital administrators",
+        "Clinicians",
+        "Clinic operators"
+      ],
+      "problem": "Clinicians spend a large part of their day on notes and coordination, while administrators lack a live view of patient flow.",
+      "outcomes": [
+        "Draft notes that clinicians review and sign",
+        "A live view of queues and bed status",
+        "Operational insight without extra data entry"
+      ],
+      "features": [
+        {
+          "title": "Documentation assistant",
+          "description": "Structured note drafts that clinicians review, edit and sign."
+        },
+        {
+          "title": "Patient-flow board",
+          "description": "Queues, admissions and discharges across departments."
+        },
+        {
+          "title": "Scheduling",
+          "description": "Appointments and clinician availability."
+        },
+        {
+          "title": "Operational insights",
+          "description": "Wait times and utilisation trends for administrators."
+        },
+        {
+          "title": "Consent & access control",
+          "description": "Role-based access and consent records by design."
+        }
+      ],
+      "useCases": [
+        {
+          "title": "Outpatient consultation",
+          "steps": [
+            "Patient checks in",
+            "Clinician consults",
+            "Assistant drafts the note",
+            "Clinician reviews and signs"
+          ]
+        }
+      ],
+      "industries": [
+        "healthcare"
+      ],
+      "deployment": [
+        "Private cloud",
+        "On-premises (evaluation)"
+      ],
+      "integrations": [
+        "Hospital information systems (via standards-based interfaces)",
+        "Lab systems"
+      ],
+      "support": "Development partners collaborate directly with product and clinical-safety reviewers.",
+      "faqs": [
+        {
+          "question": "Does MediAI diagnose patients?",
+          "answer": "No. MediAI supports documentation and operations. Clinical judgement remains with qualified professionals."
+        },
+        {
+          "question": "Should I share patient information through this website?",
+          "answer": "No. Please do not include patient records or health information in website enquiries."
+        }
+      ],
+      "mockup": {
+        "nav": [
+          "Flow",
+          "Clinics",
+          "Notes",
+          "Schedule",
+          "Insights"
+        ],
+        "rows": [
+          {
+            "state": "ok",
+            "primary": "OPD · General medicine",
+            "secondary": "Flow normal"
+          },
+          {
+            "state": "attention",
+            "primary": "Radiology",
+            "secondary": "Queue above threshold"
+          },
+          {
+            "state": "pending",
+            "primary": "Ward 3 · Discharges",
+            "secondary": "2 awaiting summary"
+          }
+        ],
+        "chart": [
+          48,
+          44,
+          46,
+          40,
+          37,
+          35,
+          31,
+          29,
+          26
+        ],
+        "tiles": [
+          {
+            "label": "In queue",
+            "trend": "down",
+            "value": "42"
+          },
+          {
+            "label": "Avg. wait",
+            "trend": "down",
+            "value": "18 min"
+          },
+          {
+            "label": "Notes to sign",
+            "trend": "flat",
+            "value": "9"
+          }
+        ]
+      },
+      "featured": true,
+      "seo": {
+        "title": "MediAI — AI-Assisted Healthcare Workflows",
+        "description": "Clinical documentation assistance and patient-flow visibility."
+      },
+      "governance": {
+        "owner": "Product owner — to be assigned",
+        "reviewer": "Founder approval pending",
+        "lastReviewed": "2026-10-31",
+        "evidenceSource": "Demonstration content — no external claims"
+      }
+    },
+    {
+      "slug": "medhavya-logitrack",
+      "name": "Medhavya LogiTrack",
+      "categorySlug": "other",
+      "summary": "Dispatch, live shipment tracking and proof of delivery for logistics teams.",
+      "description": "Medhavya LogiTrack coordinates dispatch, drivers and delivery partners, giving operations teams and customers an accurate status for every consignment.",
+      "lifecycle": "In Development",
+      "publication": "Published",
+      "isDemo": true,
+      "audience": [
+        "Logistics operators",
+        "Distribution businesses",
+        "Fleet managers"
+      ],
+      "problem": "Dispatchers coordinate by phone, customers chase status updates, and proof of delivery arrives days later on paper.",
+      "outcomes": [
+        "Every consignment visible from pickup to delivery",
+        "Fewer status calls",
+        "Digital proof of delivery on the same day"
+      ],
+      "features": [
+        {
+          "title": "Dispatch board",
+          "description": "Plan and assign trips across vehicles and partners."
+        },
+        {
+          "title": "Live tracking",
+          "description": "Consignment status and location updates."
+        },
+        {
+          "title": "Driver app (web)",
+          "description": "Trip lists, navigation hand-off and status updates."
+        },
+        {
+          "title": "Proof of delivery",
+          "description": "Photo and signature capture at delivery."
+        },
+        {
+          "title": "Customer notifications",
+          "description": "Automatic status messages to consignees."
+        }
+      ],
+      "useCases": [
+        {
+          "title": "Same-day delivery run",
+          "steps": [
+            "Batch orders into trips",
+            "Assign drivers",
+            "Track progress",
+            "Capture POD and close"
+          ]
+        }
+      ],
+      "industries": [
+        "logistics",
+        "retail"
+      ],
+      "deployment": [
+        "Cloud (managed)",
+        "Mobile web for drivers"
+      ],
+      "integrations": [
+        "Maps and geocoding services",
+        "Medhavya ERP"
+      ],
+      "support": "Early partners receive direct support from the product team.",
+      "faqs": [
+        {
+          "question": "Do drivers need a separate app install?",
+          "answer": "The current design uses a mobile web app, so no store installation is required."
+        }
+      ],
+      "mockup": {
+        "nav": [
+          "Dispatch",
+          "Trips",
+          "Tracking",
+          "POD",
+          "Partners"
+        ],
+        "rows": [
+          {
+            "state": "ok",
+            "primary": "Trip 4471 · Nashik",
+            "secondary": "Delivered · POD captured"
+          },
+          {
+            "state": "attention",
+            "primary": "Trip 4480 · Thane",
+            "secondary": "Running 40 min late"
+          },
+          {
+            "state": "pending",
+            "primary": "Trip 4486 · Pune",
+            "secondary": "Awaiting pickup"
+          }
+        ],
+        "chart": [
+          25,
+          32,
+          36,
+          34,
+          45,
+          49,
+          55,
+          53,
+          63
+        ],
+        "tiles": [
+          {
+            "label": "Trips active",
+            "trend": "up",
+            "value": "58"
+          },
+          {
+            "label": "Delivered today",
+            "trend": "up",
+            "value": "1,032"
+          },
+          {
+            "label": "Delayed",
+            "trend": "down",
+            "value": "7"
+          }
+        ]
+      },
+      "featured": true,
+      "seo": {
+        "title": "Medhavya LogiTrack — Logistics Software",
+        "description": "Dispatch, tracking and proof of delivery for logistics teams."
+      },
+      "governance": {
+        "owner": "Product owner — to be assigned",
+        "reviewer": "Founder approval pending",
+        "lastReviewed": "2026-10-31",
+        "evidenceSource": "Demonstration content — no external claims"
+      }
+    },
+    {
+      "slug": "medhavya-hrms",
+      "name": "Medhavya HRMS",
+      "categorySlug": "enterprise",
+      "summary": "Unpublished draft record used to verify that drafts never appear publicly.",
+      "description": "Draft.",
+      "lifecycle": "Research",
+      "publication": "Draft",
+      "isDemo": true,
+      "audience": [],
+      "problem": "",
+      "outcomes": [],
+      "features": [],
+      "useCases": [],
+      "industries": [],
+      "deployment": [],
+      "integrations": [],
+      "support": "",
+      "faqs": [],
+      "mockup": {
+        "nav": [],
+        "rows": [],
+        "chart": [],
+        "tiles": []
+      },
+      "featured": false,
+      "seo": {
+        "title": "Draft",
+        "description": "Draft"
+      },
+      "governance": {
+        "owner": "Product owner — to be assigned",
+        "reviewer": "Founder approval pending",
+        "lastReviewed": "2026-10-31",
+        "evidenceSource": "Demonstration content — no external claims"
+      }
+    }
+  ],
+  "industries": [
+    {
+      "slug": "agriculture",
+      "name": "Agriculture",
+      "description": "Helping producer organisations and agri-businesses turn scattered field records into shared, timely decisions.",
+      "painPoints": [
+        "Field data spread across notebooks and chats",
+        "Advice that reaches growers too late",
+        "Harvest volumes that are hard to forecast"
+      ],
+      "solutions": [
+        "Shared plot and season records",
+        "Structured advisory workflows",
+        "Harvest and procurement planning"
+      ],
+      "relatedProducts": [
+        "medhavya-agro",
+        "medhavya-logitrack"
+      ],
+      "publication": "Published",
+      "seo": {
+        "title": "Software for Agriculture",
+        "description": "Farm operations and advisory software for agri-businesses."
+      }
+    },
+    {
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "description": "Reducing documentation load and improving operational visibility for clinics and hospitals, with privacy by design.",
+      "painPoints": [
+        "Documentation consumes clinical time",
+        "Limited live view of patient flow",
+        "Strict privacy and consent obligations"
+      ],
+      "solutions": [
+        "Reviewable AI documentation drafts",
+        "Department-level patient-flow boards",
+        "Role-based access and consent records"
+      ],
+      "relatedProducts": [
+        "mediai",
+        "medhavya-autoflow"
+      ],
+      "publication": "Published",
+      "seo": {
+        "title": "Software for Healthcare",
+        "description": "AI-assisted documentation and patient-flow software."
+      }
+    },
+    {
+      "slug": "education",
+      "name": "Education",
+      "description": "Connecting school offices, teachers and families on one secure platform.",
+      "painPoints": [
+        "Separate registers for every process",
+        "Teachers re-entering the same data",
+        "Late communication with parents"
+      ],
+      "solutions": [
+        "A single student record",
+        "Quick attendance and assessment entry",
+        "Targeted parent communication"
+      ],
+      "relatedProducts": [
+        "medhavya-edusphere"
+      ],
+      "publication": "Published",
+      "seo": {
+        "title": "Software for Education",
+        "description": "School management and parent communication software."
+      }
+    },
+    {
+      "slug": "retail",
+      "name": "Retail & Distribution",
+      "description": "Giving owners and sales teams one view of customers, stock and daily performance.",
+      "painPoints": [
+        "Leads lost in personal phones",
+        "Stock that does not match sales",
+        "End-of-day reconciliation by hand"
+      ],
+      "solutions": [
+        "Shared pipelines and customer history",
+        "Billing linked to inventory",
+        "Daily owner dashboards"
+      ],
+      "relatedProducts": [
+        "medhavya-crm",
+        "medhavya-manage",
+        "medhavya-logitrack"
+      ],
+      "publication": "Published",
+      "seo": {
+        "title": "Software for Retail & Distribution",
+        "description": "CRM, billing and inventory software for retail."
+      }
+    },
+    {
+      "slug": "logistics",
+      "name": "Logistics",
+      "description": "Coordinating dispatch, drivers and partners with accurate, shared status.",
+      "painPoints": [
+        "Dispatch coordinated over phone calls",
+        "Customers chasing delivery status",
+        "Paper proof of delivery"
+      ],
+      "solutions": [
+        "Dispatch and trip planning",
+        "Live consignment status",
+        "Digital proof of delivery"
+      ],
+      "relatedProducts": [
+        "medhavya-logitrack",
+        "medhavya-erp"
+      ],
+      "publication": "Published",
+      "seo": {
+        "title": "Software for Logistics",
+        "description": "Dispatch, tracking and proof-of-delivery software."
+      }
+    },
+    {
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "description": "Connecting procurement, inventory, production and finance across sites.",
+      "painPoints": [
+        "Disconnected departmental systems",
+        "Slow month-end reconciliation",
+        "Manual document handling"
+      ],
+      "solutions": [
+        "Connected ERP processes",
+        "Approval chains with audit trails",
+        "Automated document intake"
+      ],
+      "relatedProducts": [
+        "medhavya-erp",
+        "medhavya-autoflow",
+        "medhavya-crm"
+      ],
+      "publication": "Published",
+      "seo": {
+        "title": "Software for Manufacturing",
+        "description": "ERP and automation for manufacturers."
+      }
+    },
+    {
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "description": "Research, analytics and automation that keep data traceable and decisions with people.",
+      "painPoints": [
+        "Manual assembly of research views",
+        "Document-heavy operations",
+        "High expectations for traceability"
+      ],
+      "solutions": [
+        "A unified research workspace",
+        "Governed document automation",
+        "Audit-ready monitoring"
+      ],
+      "relatedProducts": [
+        "medhavya-finsight",
+        "medhavya-autoflow"
+      ],
+      "publication": "Published",
+      "seo": {
+        "title": "Software for Financial Services",
+        "description": "Financial analytics and governed automation."
+      }
+    },
+    {
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "description": "Helping hotels, restaurants and venues keep guest details, bookings and daily operations in step.",
+      "painPoints": [
+        "Guest preferences scattered across staff and chats",
+        "Billing and stock handled in separate tools",
+        "Repetitive messages and follow-ups done by hand"
+      ],
+      "solutions": [
+        "Shared guest and booking records",
+        "Billing linked to inventory",
+        "Automated confirmations and follow-up workflows"
+      ],
+      "relatedProducts": [
+        "medhavya-manage",
+        "medhavya-crm",
+        "medhavya-autoflow"
+      ],
+      "publication": "Published",
+      "seo": {
+        "title": "Software for Hospitality",
+        "description": "Guest records, billing and workflow automation for hospitality."
+      }
+    },
+    {
+      "slug": "real-estate",
+      "name": "Real Estate",
+      "description": "Giving sales and property teams one place for enquiries, site visits and project records.",
+      "painPoints": [
+        "Enquiries tracked in personal phones and sheets",
+        "Follow-ups that depend on individual memory",
+        "Project costs and documents kept apart"
+      ],
+      "solutions": [
+        "Shared enquiry pipelines and visit history",
+        "Reminders and follow-up workflows",
+        "Connected project, cost and document records"
+      ],
+      "relatedProducts": [
+        "medhavya-crm",
+        "medhavya-erp",
+        "medhavya-autoflow"
+      ],
+      "publication": "Published",
+      "seo": {
+        "title": "Software for Real Estate",
+        "description": "CRM, project records and automation for real estate teams."
+      }
+    },
+    {
+      "slug": "government",
+      "name": "Government & Public Sector",
+      "description": "Supporting public-sector offices with traceable processes and clearer records, with people kept in charge of decisions.",
+      "painPoints": [
+        "File and approval movement tracked on paper",
+        "Limited visibility of where a request stands",
+        "High expectations for records and accountability"
+      ],
+      "solutions": [
+        "Digital approval workflows with audit trails",
+        "Request and status tracking",
+        "Connected administrative and finance records"
+      ],
+      "relatedProducts": [
+        "medhavya-autoflow",
+        "medhavya-erp"
+      ],
+      "publication": "Published",
+      "seo": {
+        "title": "Software for Government & Public Sector",
+        "description": "Workflow, records and administrative software for public-sector offices."
+      }
+    }
+  ],
+  "enterpriseServices": [
+    {
+      "slug": "custom-software",
+      "name": "Custom Software",
+      "summary": "Purpose-built web and mobile applications for workflows that off-the-shelf products do not fit.",
+      "problems": [
+        "Core processes run on spreadsheets that have outgrown their purpose",
+        "Packaged software forces workarounds for a distinctive process",
+        "An internal tool needs to become a reliable, supported product"
+      ],
+      "capabilities": [
+        "Web applications and portals",
+        "Mobile-friendly field applications",
+        "Internal tools and dashboards",
+        "Product engineering for new software products"
+      ],
+      "boundaries": [
+        "We scope work in phases and agree acceptance criteria before build",
+        "We do not take on projects without a named client-side owner"
+      ],
+      "deliverables": [
+        "Discovery report and scope",
+        "Design prototypes",
+        "Tested, documented source code",
+        "Deployment and hand-over runbook"
+      ],
+      "seo": {
+        "title": "Custom Software Development",
+        "description": "Purpose-built enterprise software, delivered in phases."
+      }
+    },
+    {
+      "slug": "ai-automation",
+      "name": "AI & Automation",
+      "summary": "Applied AI and workflow automation, designed with review, measurement and clear limits.",
+      "problems": [
+        "Teams spend hours on repetitive document and data handling",
+        "AI pilots never move beyond a demo",
+        "Leaders need to know what an AI system can and cannot be trusted to do"
+      ],
+      "capabilities": [
+        "Document extraction and classification",
+        "Workflow automation and routing",
+        "Assistants grounded in your own content",
+        "Evaluation and monitoring of AI output"
+      ],
+      "boundaries": [
+        "Human review for consequential decisions",
+        "No automated decisions in clinical, legal or credit contexts without explicit approval",
+        "Your data is not used to train shared models"
+      ],
+      "deliverables": [
+        "Use-case assessment",
+        "Evaluated prototype",
+        "Production integration",
+        "Monitoring and quality reports"
+      ],
+      "seo": {
+        "title": "AI & Automation Services",
+        "description": "Governed applied AI and workflow automation."
+      }
+    },
+    {
+      "slug": "integration-modernization",
+      "name": "Integration & Modernization",
+      "summary": "Connecting systems, migrating data and modernising legacy applications without disrupting operations.",
+      "problems": [
+        "Data is re-keyed between systems that do not talk to each other",
+        "A legacy application is hard to change and risky to run",
+        "A migration must happen without stopping the business"
+      ],
+      "capabilities": [
+        "API design and system integration",
+        "Data migration and validation",
+        "Incremental legacy modernisation",
+        "Cloud readiness assessment"
+      ],
+      "boundaries": [
+        "Incremental change over big-bang rewrites",
+        "Rollback plans for every cut-over"
+      ],
+      "deliverables": [
+        "Integration architecture",
+        "Migration plan with validation checks",
+        "Modernised components",
+        "Operational runbooks"
+      ],
+      "seo": {
+        "title": "Integration & Modernization",
+        "description": "System integration, data migration and legacy modernisation."
+      }
+    },
+    {
+      "slug": "web-application-development",
+      "name": "Web Application Development",
+      "summary": "Secure, accessible web applications and portals for customers, partners and internal teams.",
+      "problems": [
+        "Customers or partners still depend on email and phone for routine requests",
+        "An existing web application is slow, hard to change or inaccessible",
+        "A new digital product needs a dependable first release"
+      ],
+      "capabilities": [
+        "Customer and partner portals",
+        "Dashboards and workflow applications",
+        "Accessible, responsive front ends",
+        "API-backed web platforms"
+      ],
+      "boundaries": [
+        "Scope and acceptance criteria agreed before build",
+        "Accessibility (WCAG 2.2 AA) is a delivery requirement, not an extra"
+      ],
+      "deliverables": [
+        "Prototype and design system",
+        "Tested web application",
+        "API and deployment documentation",
+        "Hand-over runbook"
+      ],
+      "seo": {
+        "title": "Web Application Development",
+        "description": "Secure, accessible web applications and portals."
+      }
+    },
+    {
+      "slug": "mobile-application-development",
+      "name": "Mobile Application Development",
+      "summary": "Mobile applications for field teams, customers and operations, designed for real-world connectivity.",
+      "problems": [
+        "Field staff record work on paper and re-enter it later",
+        "Customers expect a mobile experience the current system cannot give",
+        "Connectivity is unreliable where the work happens"
+      ],
+      "capabilities": [
+        "Field-data capture applications",
+        "Customer-facing mobile experiences",
+        "Offline-tolerant workflows",
+        "Integration with back-office systems"
+      ],
+      "boundaries": [
+        "Platform choice (native, cross-platform or progressive web app) is justified in the discovery phase",
+        "App-store publishing needs client-owned developer accounts"
+      ],
+      "deliverables": [
+        "Mobile prototype",
+        "Tested application build",
+        "Release and support plan",
+        "Source code and documentation"
+      ],
+      "seo": {
+        "title": "Mobile Application Development",
+        "description": "Mobile applications for field teams and customers."
+      }
+    },
+    {
+      "slug": "cloud-devops",
+      "name": "Cloud & DevOps",
+      "summary": "Reliable delivery pipelines, infrastructure and monitoring for software that has to stay available.",
+      "problems": [
+        "Releases are manual, slow or risky",
+        "Nobody is sure what the cloud environment costs or contains",
+        "Outages are discovered by users before the team"
+      ],
+      "capabilities": [
+        "Continuous integration and delivery pipelines",
+        "Infrastructure as code",
+        "Monitoring, logging and alerting",
+        "Backup and recovery planning"
+      ],
+      "boundaries": [
+        "Hosting region and data residency are agreed with the client before provisioning",
+        "Cost estimates are stated as estimates with their assumptions"
+      ],
+      "deliverables": [
+        "Environment and pipeline design",
+        "Automated deployment",
+        "Monitoring dashboards",
+        "Recovery runbook"
+      ],
+      "seo": {
+        "title": "Cloud & DevOps",
+        "description": "Delivery pipelines, infrastructure and monitoring."
+      }
+    },
+    {
+      "slug": "data-engineering-analytics",
+      "name": "Data Engineering & Analytics",
+      "summary": "Clean, connected data and decision-ready reporting built on your existing systems.",
+      "problems": [
+        "Reports disagree because every team counts differently",
+        "Data sits in separate systems and spreadsheets",
+        "Leaders wait days for numbers they need today"
+      ],
+      "capabilities": [
+        "Data pipelines and warehousing",
+        "Data quality checks",
+        "Dashboards and operational reporting",
+        "Foundations for machine-learning use cases"
+      ],
+      "boundaries": [
+        "Metric definitions are agreed and documented with the business owner",
+        "Personal data is minimised and access is role-based"
+      ],
+      "deliverables": [
+        "Data inventory and model",
+        "Automated pipelines",
+        "Dashboards with documented definitions",
+        "Data quality report"
+      ],
+      "seo": {
+        "title": "Data Engineering & Analytics",
+        "description": "Data pipelines, quality and decision-ready reporting."
+      }
+    },
+    {
+      "slug": "consulting-digital-transformation",
+      "name": "Consulting & Digital Transformation",
+      "summary": "Practical technology roadmaps that connect business goals to what is realistic to build and run.",
+      "problems": [
+        "There are many technology ideas but no agreed priority",
+        "Past projects stalled after the pilot",
+        "Leadership needs an honest view of options, cost and risk"
+      ],
+      "capabilities": [
+        "Technology and process assessment",
+        "Roadmaps with phased priorities",
+        "Build, buy or integrate analysis",
+        "Programme governance support"
+      ],
+      "boundaries": [
+        "Recommendations state their assumptions and uncertainty",
+        "We say so when an off-the-shelf tool is the better choice"
+      ],
+      "deliverables": [
+        "Assessment report",
+        "Prioritised roadmap",
+        "Business case with stated assumptions",
+        "Governance model"
+      ],
+      "seo": {
+        "title": "Consulting & Digital Transformation",
+        "description": "Honest technology roadmaps and transformation support."
+      }
+    },
+    {
+      "slug": "maintenance-support",
+      "name": "Maintenance & Support",
+      "summary": "Ongoing care for delivered software: fixes, updates, security patches and improvements.",
+      "problems": [
+        "Software was delivered but nobody owns its upkeep",
+        "Dependencies and security patches fall behind",
+        "Small changes take too long to get done"
+      ],
+      "capabilities": [
+        "Defect resolution",
+        "Dependency and security updates",
+        "Performance and reliability reviews",
+        "Planned enhancement releases"
+      ],
+      "boundaries": [
+        "Support hours and response targets are written into the agreement",
+        "Work on software we did not build starts with an assessment"
+      ],
+      "deliverables": [
+        "Support agreement",
+        "Monthly maintenance report",
+        "Patched and tested releases",
+        "Updated documentation"
+      ],
+      "seo": {
+        "title": "Maintenance & Support",
+        "description": "Ongoing maintenance, security updates and improvements."
+      }
+    }
+  ],
+  "resources": [
+    {
+      "slug": "reviewable-ai-in-operations",
+      "title": "Reviewable AI: putting people in the loop by design",
+      "type": "Insight",
+      "author": "Medhavya Systems",
+      "excerpt": "Why every AI suggestion that changes a business record should be visible, explainable and approved by a person.",
+      "body": [
+        {
+          "paragraphs": [
+            "AI can remove a great deal of repetitive work from operations teams. But when an AI system writes directly into business records, mistakes become expensive and hard to trace.",
+            "Our approach is to treat AI output as a proposal. It is shown to a person, with the source it came from, and only committed when approved."
+          ]
+        },
+        {
+          "heading": "What reviewability means in practice",
+          "paragraphs": [
+            "Each suggestion carries its source document and the fields it affects. Reviewers can accept, correct or reject it. Corrections are recorded, and correction rates are monitored so teams can see where automation helps and where it does not."
+          ]
+        },
+        {
+          "heading": "Where we draw the line",
+          "paragraphs": [
+            "In clinical, legal and credit contexts, AI assists people; it does not decide for them. These limits are part of the design, not an afterthought."
+          ]
+        }
+      ],
+      "tags": [
+        "AI",
+        "Governance"
+      ],
+      "publishedAt": "2026-10-20",
+      "readingMinutes": 4,
+      "isDemo": true,
+      "publication": "Published",
+      "seo": {
+        "title": "Reviewable AI in Operations",
+        "description": "Designing AI systems that keep people in the loop."
+      }
+    },
+    {
+      "slug": "phased-delivery-for-enterprise-software",
+      "title": "Phased delivery: how we keep enterprise projects honest",
+      "type": "Guide",
+      "author": "Medhavya Systems",
+      "excerpt": "Discover, design, build, integrate and improve — and why each phase ends with something you can see and test.",
+      "body": [
+        {
+          "paragraphs": [
+            "Large software projects fail quietly when progress is reported but not demonstrated. We structure work so that each phase ends with an artefact the client can review: a discovery report, a prototype, a tested increment."
+          ]
+        },
+        {
+          "heading": "Acceptance criteria first",
+          "paragraphs": [
+            "Before building, we agree how each requirement will be accepted. This turns vague expectations into checks both sides can verify."
+          ]
+        },
+        {
+          "heading": "Integration is a phase, not a footnote",
+          "paragraphs": [
+            "Most enterprise value comes from connecting systems. We plan integration and data migration explicitly, with validation and rollback steps."
+          ]
+        }
+      ],
+      "tags": [
+        "Delivery",
+        "Enterprise"
+      ],
+      "publishedAt": "2026-10-12",
+      "readingMinutes": 5,
+      "isDemo": true,
+      "publication": "Published",
+      "seo": {
+        "title": "Phased Delivery for Enterprise Software",
+        "description": "How phased, demonstrable delivery reduces project risk."
+      }
+    },
+    {
+      "slug": "privacy-first-product-design",
+      "title": "Privacy-first product design for schools and clinics",
+      "type": "Article",
+      "author": "Medhavya Systems",
+      "excerpt": "Student and patient data deserve stricter defaults. Here is how we approach access, consent and data minimisation.",
+      "body": [
+        {
+          "paragraphs": [
+            "Education and healthcare software holds some of the most sensitive data an organisation manages. We start from least-privilege access, collect only what a workflow needs, and record consent where it applies."
+          ]
+        },
+        {
+          "heading": "Defaults matter",
+          "paragraphs": [
+            "Roles are scoped narrowly by default, so a teacher sees their classes and a parent sees their own child. Broader access must be granted deliberately and is logged."
+          ]
+        }
+      ],
+      "tags": [
+        "Privacy",
+        "Education",
+        "Healthcare"
+      ],
+      "publishedAt": "2026-09-28",
+      "readingMinutes": 3,
+      "isDemo": true,
+      "publication": "Published",
+      "seo": {
+        "title": "Privacy-First Product Design",
+        "description": "Access, consent and data minimisation in sensitive sectors."
+      }
+    }
+  ]
+}

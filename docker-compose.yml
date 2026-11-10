@@ -1,0 +1,21 @@
+# Local PostgreSQL for the Payload CMS (Phase 6). Host port 5440 avoids clashing with other local databases.
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: medhavya-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: medhavya
+      POSTGRES_PASSWORD: medhavya_dev
+      POSTGRES_DB: medhavya
+    ports:
+      - "127.0.0.1:5440:5432"
+    volumes:
+      - medhavya-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U medhavya -d medhavya"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+volumes:
+  medhavya-pgdata:

@@ -49,3 +49,6 @@ next-env.d.ts
 /playwright-report
 
 !.env.example
+
+# database backups (contain personal data)
+/backups

@@ -1,0 +1,12 @@
+node_modules
+.next
+.git
+.env*
+!.env.example
+.data
+.data-e2e
+test-results
+playwright-report
+*.tsbuildinfo
+docs
+tests

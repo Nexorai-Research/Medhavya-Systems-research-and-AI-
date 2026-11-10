@@ -1,15 +1,15 @@
-import { categories } from "@/content/categories";
-import { enterpriseServices } from "@/content/enterprise";
-import { industries } from "@/content/industries";
-import { products } from "@/content/products";
-import { resources } from "@/content/resources";
+import type { ContentSnapshot } from "@/cms/mappers";
+import snapshot from "@/content/cms-snapshot.json";
 import type { Product, PublicationState } from "@/content/types";
 import { filterProducts, type CatalogueFilter } from "@/features/products/filter";
 
 /**
- * Public content queries. Only records whose publication state is "Published"
- * are ever returned (Module 04 §3). Swap the static sources for Payload queries here.
+ * Public content queries. Content is authored in the Payload CMS and exported to
+ * src/content/cms-snapshot.json by `npm run cms:publish`; the site is built from that snapshot.
+ * Only records whose publication state is "Published" are ever returned (Module 04 §3).
  */
+const { categories, enterpriseServices, industries, products, resources } = snapshot as unknown as ContentSnapshot;
+
 const isPublic = <T extends { publication: PublicationState }>(record: T) => record.publication === "Published";
 
 export function getCategories() {
