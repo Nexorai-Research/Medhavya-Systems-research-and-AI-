@@ -154,6 +154,35 @@ test.describe("solution finder and comparison", () => {
   });
 });
 
+test.describe("privacy controls and social previews", () => {
+  test("cookie preferences dialog opens, saves a choice and closes", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "Cookie preferences" }).click();
+    const dialog = page.getByRole("dialog", { name: "Cookie preferences" });
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole("checkbox", { name: /Strictly necessary/ })).toBeDisabled();
+    const analytics = dialog.getByRole("checkbox", { name: /Anonymous usage analytics/ });
+    await expect(analytics).not.toBeChecked();
+    await analytics.check();
+    await dialog.getByRole("button", { name: "Save choice" }).click();
+    await expect(dialog).toBeHidden();
+    await page.getByRole("button", { name: "Cookie preferences" }).click();
+    await expect(page.getByRole("checkbox", { name: /Anonymous usage analytics/ })).toBeChecked();
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+  });
+
+  test("social preview images are generated for the site and for products", async ({ request, page }) => {
+    for (const path of ["/opengraph-image", "/products/mediai/opengraph-image"]) {
+      const res = await request.get(path);
+      expect(res.status(), path).toBe(200);
+      expect(res.headers()["content-type"]).toContain("image/png");
+    }
+    await page.goto("/products/mediai");
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", /opengraph-image/);
+  });
+});
+
 test.describe("API boundaries", () => {
   test("lead API rejects privileged fields and invalid payloads", async ({ request }) => {
     const base = { name: "Api Test", email: "api@example.com", enquiryType: "General", message: "Testing the API boundary.", privacyAcknowledged: true };

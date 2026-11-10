@@ -13,7 +13,7 @@ export function pageMetadata({ title, description, path }: { title: string; desc
       url: path,
       siteName: site.name,
       type: "website",
-      images: [{ url: "/brand/medhavya-logo-full.png", width: 960, alt: site.name }],
+      // No `images` here: the opengraph-image file convention supplies a generated card per route.
     },
   };
 }

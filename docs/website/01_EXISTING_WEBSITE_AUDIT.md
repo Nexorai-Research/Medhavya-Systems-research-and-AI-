@@ -6,7 +6,7 @@ Date: 2026-11-10. Branch: `1-medhavya-systems-enterprise-website-transformation`
 
 - Read the source of the app shell, home page, content layer, lead pipeline, header, proxy and config.
 - Ran the existing checks before changing anything: `npm run typecheck` (pass). Then, after the changes in this branch: `eslint` (0 problems), `vitest` (29/29), `npm run build` (pass), `playwright test` (68 passed, 8 skipped by design, Desktop Chrome and Pixel 7).
-- **Not done yet:** visual inspection in a real browser by hand, measured Core Web Vitals (Lighthouse), and inspection of the reference websites. Nothing below claims otherwise.
+- Later the same day: Lighthouse was run (doc 09) and six reference sites were inspected (doc 03). **Still not done:** a manual visual review in a real browser and screen-reader testing.
 
 ## Stack (preserved)
 

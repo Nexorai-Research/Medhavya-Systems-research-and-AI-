@@ -1,3 +1,4 @@
+import { CookiePreferences } from "@/components/CookiePreferences";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Section";
@@ -61,6 +62,9 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li>
+              <CookiePreferences />
+            </li>
           </ul>
         </div>
       </Container>

@@ -33,12 +33,19 @@ Status as of 2026-11-10. Items marked ✅ have code and passing checks. Nothing 
 | ✅ Both added to site search and the sitemap; `/solutions` and `/compare-products` added to axe scans | `search-index.ts`, `sitemap.ts`, e2e specs |
 | Result | typecheck pass · eslint 0 problems · vitest 38/38 · build pass · Playwright 98 passed, 8 skipped (one test of mine was wrong, fixed and re-run) |
 
-## Tranche 2c — still open (no external dependency)
+## Tranche 2c — done (2026-11-10)
 
-1. Cookie preferences UI. It is deliberately postponed until an analytics provider is chosen, because a banner with nothing behind it would be decorative.
-1. Per-page OG images.
-2. Measure Lighthouse / Core Web Vitals and record the results in doc 09. Not measured yet.
-3. Inspect the reference websites and write doc 03. Not done yet.
+| Item | Evidence |
+| --- | --- |
+| ✅ Cookie preferences dialog in the footer (necessary-only today; analytics choice off by default) | `components/CookiePreferences.tsx`, e2e |
+| ✅ Generated social preview images (site-wide and per product) | `lib/og.tsx`, `opengraph-image` routes, e2e |
+| ✅ Lighthouse measured on 7 pages; results recorded as they are, including failures | doc 09 |
+| ✅ Six reference websites inspected (structure only); six not inspected and stated as such | doc 03 |
+| ✅ Docs 03–10 written from evidence | `docs/website/` |
+
+## Open engineering issue found by measurement
+
+**P1: performance.** LCP is 4–6 s and blocking time 3–14 s in the lab. Profile `/products/mediai` and the shared shell, fix one candidate at a time, and re-measure (see doc 09).
 
 ## Tranche 3 — needs a decision or an external account
 
