@@ -193,7 +193,7 @@ function MenuPanel({ kind, data }: { kind: MenuKey; data: NavData }) {
         </ul>
         <div className="flex flex-col justify-between rounded-[var(--radius-md)] bg-midnight p-5 text-white">
           <div>
-            <p className="font-mono text-[0.65rem] tracking-[0.18em] text-cyan uppercase">Portfolio</p>
+            <p className="font-mono text-[0.72rem] tracking-[0.18em] text-cyan uppercase">Portfolio</p>
             <p className="mt-3 text-sm leading-relaxed text-white/80">Purpose-built products across eight categories, each with an honest lifecycle status.</p>
           </div>
           <Link href="/products" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:text-cyan">

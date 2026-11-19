@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 import { withPayload } from "@payloadcms/next/withPayload";
 
 const isProd = process.env.NODE_ENV === "production";
+/** Cloudflare Workers build (see cf:* scripts): Cache Components needs a Node-like setTimeout() and hangs on Workers. */
+const isCloudflare = process.env.CF_BUILD === "1";
 
 /**
  * Content Security Policy (Module 03 §9). 'unsafe-inline' for scripts is required by Next.js
@@ -33,9 +35,9 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   output: "standalone", // self-contained server for the Docker image
-  cacheComponents: true,
+  cacheComponents: !isCloudflare,
   experimental: { globalNotFound: true },
-  partialPrefetching: true,
+  partialPrefetching: !isCloudflare,
   poweredByHeader: false,
   turbopack: {
     rules: {

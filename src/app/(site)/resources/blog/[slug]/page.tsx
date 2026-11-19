@@ -32,9 +32,9 @@ export default async function ArticlePage({ params }: PageProps<"/resources/blog
   return (
     <article>
       <header className="border-b border-line">
-        <Container className="max-w-3xl pt-10 pb-12 sm:pt-14">
+        <Container className="max-w-3xl pt-5 pb-12 sm:pt-7">
           <Breadcrumbs items={[{ label: "Resources", href: "/resources" }, { label: article.title }]} />
-          <p className="mt-10 flex flex-wrap items-center gap-3 font-mono text-xs tracking-wider text-muted uppercase">
+          <p className="mt-8 flex flex-wrap items-center gap-3 font-mono text-xs tracking-wider text-muted uppercase">
             {article.type} · <time dateTime={article.publishedAt}>{dateFmt.format(new Date(article.publishedAt))}</time> · {article.readingMinutes} min read
             {article.isDemo && <DemoBadge className="normal-case" />}
           </p>

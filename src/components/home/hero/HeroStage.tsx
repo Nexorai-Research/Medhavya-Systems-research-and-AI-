@@ -22,7 +22,7 @@ export interface HeroNode {
 
 /** What each product moves forward — the headline word is synced with the 3D scene. */
 const audienceWord: Record<string, string> = {
-  "medhavya-agro": "farms",
+  "medhavya-agro": "agro shops",
   mediai: "hospitals",
   "medhavya-crm": "sales teams",
   "medhavya-edusphere": "schools",
@@ -117,7 +117,7 @@ export function HeroStage({ nodes, eyebrow, children }: { nodes: HeroNode[]; eye
       <Container className="relative grid gap-12 pt-12 pb-16 sm:pt-16 lg:grid-cols-[1fr_1.08fr] lg:items-center lg:gap-6 lg:pt-20 lg:pb-24">
         <div className="min-w-0">
           <Eyebrow>{eyebrow}</Eyebrow>
-          <h1 className="mt-6 text-[2.55rem] leading-[1.06] font-semibold tracking-[-0.035em] text-midnight sm:text-6xl lg:text-[3.3rem] xl:text-[3.55rem]">
+          <h1 className="mt-6 text-[2.55rem] leading-[1.1] font-semibold tracking-[-0.035em] text-midnight sm:text-6xl lg:text-[3.3rem] xl:text-[3.55rem]">
             <span className="sr-only">Software that moves businesses forward.</span>
             <span aria-hidden>
               {["Software", "that", "moves"].map((w, i) => (
@@ -178,7 +178,7 @@ export function HeroStage({ nodes, eyebrow, children }: { nodes: HeroNode[]; eye
 
         <figure aria-label="Illustration of the Medhavya product ecosystem" className="hidden sm:block">
           <Ecosystem3D nodes={nodes} active={active} onHover={setHovered} sceneRef={sceneRef} reduced={reduced} />
-          <figcaption className="mt-10 text-center font-mono text-[0.66rem] tracking-wide text-muted">Illustrative ecosystem · demo product listings · hover a product</figcaption>
+          <figcaption className="mt-10 text-center font-mono text-[0.72rem] tracking-wide text-muted">Illustrative ecosystem · demo product listings · hover a product</figcaption>
         </figure>
       </Container>
     </div>

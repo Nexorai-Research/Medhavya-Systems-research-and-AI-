@@ -92,7 +92,7 @@ Product names were supplied by the company. **All listings are marked as demo** 
 
 | Product | Category | Summary | Stage |
 | --- | --- | --- | --- |
-| **Medhavya Agro** | Agriculture | Season planning, field records and advisory workflows for farms and producer organisations | Private Pilot |
+| **Agro360AI** | Agriculture | Season planning, field records and advisory workflows for farms and producer organisations | Private Pilot |
 | **Medhavya CRM** | Retail & Business | Leads, customers, follow-ups and sales pipelines for growing teams | Beta |
 | **Medhavya Manage** | Retail & Business | Billing, inventory, staff and daily reporting for small and mid-sized businesses | Private Pilot |
 | **Medhavya AutoFlow** | AI & Automation | Document intelligence and workflow automation with human review built in | In Development |

@@ -31,7 +31,7 @@ export function DemoBadge({ className, tone = "light" }: { className?: string; t
     <span
       title="Demonstration content — details will be confirmed before launch"
       className={cn(
-        "inline-flex items-center gap-1 rounded-full border border-dashed px-2 py-0.5 text-[0.7rem] font-medium tracking-wide uppercase",
+        "inline-flex items-center gap-1 rounded-full border border-dashed px-2 py-0.5 text-[0.75rem] font-medium tracking-wide uppercase",
         tone === "light" ? "border-line-strong text-muted" : "border-white/30 text-white/70",
         className,
       )}

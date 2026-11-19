@@ -5,20 +5,20 @@ export const categories: ProductCategory[] = [
     slug: "agriculture",
     name: "Agriculture Software",
     shortName: "Agriculture",
-    tagline: "Field-to-market visibility for growers and agri-businesses.",
+    tagline: "Software for agri-businesses, from the shop counter to the back office.",
     description:
-      "Software that helps farms, producer organisations and agri-businesses plan seasons, record field activity and make better decisions with the data they already collect.",
+      "Software that helps agro-retail and agri-input businesses bill, stock, purchase and account in one reliable system.",
     context: [
-      "Farm records are often spread across notebooks, messaging apps and spreadsheets.",
-      "Advisory, input supply and procurement teams need a shared, timely view of field activity.",
-      "Solutions must work in low-connectivity environments and in more than one language.",
+      "Agro-input shops handle batches, expiry dates and sales licences that generic billing tools do not track.",
+      "Billing, stock, purchasing and accounts are often kept in separate tools and reconciled late.",
+      "Systems must work with weak connectivity and in more than one language.",
     ],
     icon: "agriculture",
     displayOrder: 1,
     publication: "Published",
     seo: {
       title: "Agriculture Software",
-      description: "Farm operations, crop planning and agri-business software from Medhavya Systems.",
+      description: "Agro-retail ERP and agri-business software from Medhavya Systems.",
     },
   },
   {

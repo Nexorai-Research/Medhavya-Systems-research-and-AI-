@@ -26,6 +26,7 @@ import type { CategoryIcon as IconKey, LifecycleStatus, Product } from "@/conten
 import { ProductVignette } from "@/components/home/hero/ProductVignette";
 import { vignetteBySlug } from "@/components/home/hero/vignette-map";
 import { cn } from "@/lib/cn";
+import { AgroBackdrop } from "./AgroBackdrop";
 import { Stage3D } from "./Stage3D";
 
 const v = (vars: Record<string, string | number>) => vars as CSSProperties;
@@ -51,7 +52,7 @@ export function DeckVisual({ cards }: { cards: { title: string; sub: string; ico
               </span>
               <span className="min-w-0">
                 <span className="block truncate text-sm font-semibold text-midnight">{c.title}</span>
-                <span className="block truncate text-[0.68rem] text-muted">{c.sub}</span>
+                <span className="block truncate text-[0.72rem] text-muted">{c.sub}</span>
               </span>
             </div>
             <div className="mt-3.5 space-y-1.5">
@@ -104,7 +105,7 @@ export function LayerStackVisual({
               </span>
               <span className="text-[0.78rem] font-semibold tracking-wide">{l.label}</span>
             </span>
-            <span aria-hidden className={cn("absolute top-3 right-3 font-mono text-[0.6rem]", tone === "dark" ? "text-white/40" : "text-muted")}>
+            <span aria-hidden className={cn("absolute top-3 right-3 font-mono text-[0.72rem]", tone === "dark" ? "text-white/40" : "text-muted")}>
               L{i + 1}
             </span>
           </div>
@@ -179,31 +180,39 @@ export function ProductHeroVisual({ product }: { product: Product }) {
   const [t1, t2] = product.mockup.tiles;
   return (
     <Stage3D className="aspect-[6/5] max-w-[600px]" base={{ rx: 8, ry: -16 }}>
+      {kind === "agro" && (
+        // Farmland scene behind the mockup; it peeks out around the edges. Inset only from `sm` up so it never overflows a phone.
+        <div className="p3d absolute inset-x-0 -inset-y-[7%] sm:-left-[10%] sm:-right-[8%]">
+          <div className="z3d h-full w-full" style={v({ "--z": "-70px" })}>
+            <AgroBackdrop />
+          </div>
+        </div>
+      )}
       <div className="z3d absolute inset-x-[4%] top-[6%]" style={v({ "--z": "0px" })}>
         <ProductMockup product={product} />
       </div>
       {t1 && (
-        <div className="p3d absolute top-[20%] -left-[9%] w-[30%]">
+        <div className="p3d absolute top-[20%] -left-[9%] hidden w-[30%] sm:block">
           <div className="z3d" style={v({ "--z": "90px" })}>
             <div className="float3d card-glow rounded-2xl p-3 shadow-[var(--shadow-lift)]" style={v({ "--dur": "7s" })}>
-              <p className="truncate text-[0.62rem] text-muted">{t1.label}</p>
+              <p className="truncate text-[0.72rem] text-muted">{t1.label}</p>
               <p className="mt-0.5 text-lg font-semibold whitespace-nowrap text-midnight tabular-nums">{t1.value}</p>
             </div>
           </div>
         </div>
       )}
       {t2 && (
-        <div className="p3d absolute top-[54%] -right-[7%] w-[28%]">
+        <div className="p3d absolute top-[54%] -right-[7%] hidden w-[28%] sm:block">
           <div className="z3d" style={v({ "--z": "60px" })}>
             <div className="float3d glass rounded-2xl p-3" style={v({ "--dur": "8.5s", "--delay": "-2s" })}>
-              <p className="truncate text-[0.62rem] text-muted">{t2.label}</p>
+              <p className="truncate text-[0.72rem] text-muted">{t2.label}</p>
               <p className="mt-0.5 text-lg font-semibold whitespace-nowrap text-midnight tabular-nums">{t2.value}</p>
             </div>
           </div>
         </div>
       )}
       {kind && (
-        <div className="p3d absolute -bottom-[2%] -left-[8%] w-[46%]">
+        <div className="p3d absolute bottom-0 left-0 w-[46%] sm:-bottom-[2%] sm:-left-[8%]">
           <div className="z3d" style={v({ "--z": "130px" })}>
             <div className="float3d glass rounded-2xl p-2" style={v({ "--dur": "9s", "--delay": "-3s" })}>
               <ProductVignette kind={kind} />
@@ -406,7 +415,7 @@ export function MosaicVisual() {
             return (
               <div key={label} className="tile glass flex aspect-square flex-col items-center justify-center gap-1.5 rounded-2xl text-primary" style={v({ "--d": d })}>
                 <Icon aria-hidden className="size-[34%]" strokeWidth={1.5} />
-                <span className="text-[0.6rem] font-semibold text-midnight">{label}</span>
+                <span className="text-[0.72rem] font-semibold text-midnight">{label}</span>
               </div>
             );
           })}

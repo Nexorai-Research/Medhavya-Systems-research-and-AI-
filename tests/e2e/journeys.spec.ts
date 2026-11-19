@@ -33,7 +33,7 @@ test.describe("core visitor journeys", () => {
 
   test("category page lists its products", async ({ page }) => {
     await page.goto("/product-categories/agriculture");
-    await expect(page.getByRole("heading", { name: "Medhavya Agro" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Agro360AI" })).toBeVisible();
   });
 
   test("unpublished draft products return 404", async ({ page }) => {
@@ -150,7 +150,7 @@ test.describe("solution finder and comparison", () => {
   test("compare limits to three products and ignores unknown slugs", async ({ page }) => {
     await page.goto("/compare-products?p=medhavya-crm,mediai,medhavya-erp,medhavya-agro,not-real");
     await expect(page.getByRole("table").getByRole("columnheader")).toHaveCount(3);
-    await expect(page.getByRole("checkbox", { name: "Medhavya Agro" })).toBeDisabled();
+    await expect(page.getByRole("checkbox", { name: "Agro360AI" })).toBeDisabled();
   });
 });
 

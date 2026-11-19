@@ -59,11 +59,11 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
 
       <section className="relative overflow-hidden border-b border-line">
         <div aria-hidden className="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_at_80%_30%,black,transparent_70%)]" />
-        <Container className="relative pt-10 pb-16 sm:pt-14 sm:pb-20">
+        <Container className="relative pt-5 pb-16 sm:pt-7 sm:pb-20">
           <Breadcrumbs items={[{ label: "Products", href: "/products" }, { label: category.shortName, href: `/product-categories/${category.slug}` }, { label: product.name }]} />
-          <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:items-center">
+          <div className="mt-8 grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:items-center">
             <div className="animate-rise">
-              <Link href={`/product-categories/${category.slug}`} className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-strong">
+              <Link href={`/product-categories/${category.slug}`} className="inline-flex items-center gap-2 py-1.5 text-sm font-medium text-primary hover:text-primary-strong">
                 <CategoryIcon icon={category.icon} className="size-4" /> {category.name}
               </Link>
               <h1 className="mt-4 text-4xl font-semibold tracking-tight text-midnight sm:text-5xl">

@@ -32,7 +32,11 @@ export default buildConfig({
   collections: [Users, ProductCategories, Products, Industries, EnterpriseServices, Resources, Leads],
   editor: lexicalEditor(),
   db: postgresAdapter({
-    pool: { connectionString: process.env.DATABASE_URL },
+    // Cloudflare Workers cannot reuse a connection across requests, so each client is used once there.
+    pool: {
+      connectionString: process.env.DATABASE_URL,
+      ...(typeof navigator !== "undefined" && navigator.userAgent === "Cloudflare-Workers" ? { maxUses: 1 } : {}),
+    },
     migrationDir: path.resolve(dirname, "../migrations"),
     push: false, // schema changes ship as reviewed migrations: `npm run cms:migrate`
   }),
