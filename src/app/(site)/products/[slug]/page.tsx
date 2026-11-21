@@ -7,6 +7,7 @@ import { CtaBand } from "@/components/CtaBand";
 import { Faq } from "@/components/Faq";
 import { Breadcrumbs } from "@/components/PageHero";
 import { ProductCard } from "@/components/ProductCard";
+import { HeroVideoBackground } from "@/components/visuals/HeroVideoBackground";
 import { ProductHeroVisual } from "@/components/visuals/PageVisuals";
 import { DemoBadge, LifecycleBadge } from "@/components/ui/Badges";
 import { ButtonLink } from "@/components/ui/Button";
@@ -17,6 +18,9 @@ import { pageMetadata } from "@/lib/seo";
 // Every valid slug is prerendered at build time and unknown slugs are 404'd by src/proxy.ts,
 // so awaiting params here never blocks a real visitor; opt out of instant-shell validation.
 export const instant = false;
+
+// Products whose hero sits on a looping background video.
+const heroVideos: Record<string, string> = { "medhavya-agro": "/videos/agro360ai-hero.mp4" };
 
 export function generateStaticParams() {
   return getProducts().map((p) => ({ slug: p.slug }));
@@ -58,6 +62,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
 
       <section className="relative overflow-hidden border-b border-line">
+        {heroVideos[product.slug] && <HeroVideoBackground src={heroVideos[product.slug]} />}
         <div aria-hidden className="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_at_80%_30%,black,transparent_70%)]" />
         <Container className="relative pt-5 pb-16 sm:pt-7 sm:pb-20">
           <Breadcrumbs items={[{ label: "Products", href: "/products" }, { label: category.shortName, href: `/product-categories/${category.slug}` }, { label: product.name }]} />

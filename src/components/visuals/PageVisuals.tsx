@@ -26,7 +26,6 @@ import type { CategoryIcon as IconKey, LifecycleStatus, Product } from "@/conten
 import { ProductVignette } from "@/components/home/hero/ProductVignette";
 import { vignetteBySlug } from "@/components/home/hero/vignette-map";
 import { cn } from "@/lib/cn";
-import { AgroBackdrop } from "./AgroBackdrop";
 import { Stage3D } from "./Stage3D";
 
 const v = (vars: Record<string, string | number>) => vars as CSSProperties;
@@ -180,14 +179,6 @@ export function ProductHeroVisual({ product }: { product: Product }) {
   const [t1, t2] = product.mockup.tiles;
   return (
     <Stage3D className="aspect-[6/5] max-w-[600px]" base={{ rx: 8, ry: -16 }}>
-      {kind === "agro" && (
-        // Farmland scene behind the mockup; it peeks out around the edges. Inset only from `sm` up so it never overflows a phone.
-        <div className="p3d absolute inset-x-0 -inset-y-[7%] sm:-left-[10%] sm:-right-[8%]">
-          <div className="z3d h-full w-full" style={v({ "--z": "-70px" })}>
-            <AgroBackdrop />
-          </div>
-        </div>
-      )}
       <div className="z3d absolute inset-x-[4%] top-[6%]" style={v({ "--z": "0px" })}>
         <ProductMockup product={product} />
       </div>
