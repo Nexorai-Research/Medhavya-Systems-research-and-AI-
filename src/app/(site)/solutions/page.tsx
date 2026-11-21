@@ -84,7 +84,7 @@ export default function SolutionsPage() {
               <ul className="flex flex-wrap gap-2 lg:flex-col">
                 {getProductsBySlugs(s.products).map((p) => (
                   <li key={p.slug}>
-                    <Link href={`/products/${p.slug}`} className="inline-flex items-center gap-1 rounded-full border border-line px-3 py-1 text-xs font-medium whitespace-nowrap text-ink hover:border-primary hover:text-primary">
+                    <Link href={`/products/${p.slug}`} className="inline-flex items-center gap-1 rounded-full border border-line px-3 py-1.5 text-xs font-medium whitespace-nowrap text-ink hover:border-primary hover:text-primary">
                       {p.name} <ArrowRight aria-hidden className="size-3" />
                     </Link>
                   </li>

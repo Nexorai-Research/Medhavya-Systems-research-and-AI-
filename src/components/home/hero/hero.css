@@ -22,13 +22,13 @@
   background-clip: text;
   color: transparent;
   transform-origin: 50% 60% -0.4em;
-  animation: hero-flip-in 0.75s var(--ease-out-expo) both;
-  padding-bottom: 0.06em;
+  animation: hero-flip-in 0.5s var(--ease-out-expo) both;
+  padding-bottom: 0.1em;
 }
 .hero-flip-bar {
   position: absolute;
   left: 0;
-  bottom: -0.04em;
+  bottom: -0.02em;
   height: 3px;
   width: 100%;
   border-radius: 9999px;
@@ -37,13 +37,10 @@
   animation: underline-grow 0.9s var(--ease-out-expo) 0.2s both;
 }
 @keyframes hero-flip-in {
+  /* Never fully transparent: the word stays legible through the flip so the line never looks empty. */
   from {
-    opacity: 0;
-    transform: rotateX(-88deg) translateY(0.25em);
-    filter: blur(6px);
-  }
-  60% {
-    filter: blur(0);
+    opacity: 0.35;
+    transform: rotateX(-70deg) translateY(0.2em);
   }
 }
 

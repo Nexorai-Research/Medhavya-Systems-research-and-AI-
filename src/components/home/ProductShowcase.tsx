@@ -85,7 +85,7 @@ export function ProductShowcase({ products, categoryNames }: { products: Product
               </li>
             ))}
           </ul>
-          <Link href={`/products/${product.slug}`} className="group mt-7 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary-strong">
+          <Link href={`/products/${product.slug}`} className="group mt-5 inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary-strong">
             View {product.name}
             <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-0.5" />
           </Link>

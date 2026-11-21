@@ -491,8 +491,11 @@ details[open]::details-content {
 
 /* Outlined editorial wordmark (footer). */
 .text-outline {
+  /* A soft fill instead of -webkit-text-stroke: strokes expose the variable font's overlapping contours (the "H" crossbar). */
+  background: linear-gradient(to bottom, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.015));
+  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
-  -webkit-text-stroke: 1px rgb(255 255 255 / 0.09);
 }
 
 /* ------------------------------------------------------------------------ */

@@ -5,19 +5,19 @@
       "slug": "agriculture",
       "name": "Agriculture Software",
       "shortName": "Agriculture",
-      "tagline": "Field-to-market visibility for growers and agri-businesses.",
-      "description": "Software that helps farms, producer organisations and agri-businesses plan seasons, record field activity and make better decisions with the data they already collect.",
+      "tagline": "Software for agri-businesses, from the shop counter to the back office.",
+      "description": "Software that helps agro-retail and agri-input businesses bill, stock, purchase and account in one reliable system.",
       "context": [
-        "Farm records are often spread across notebooks, messaging apps and spreadsheets.",
-        "Advisory, input supply and procurement teams need a shared, timely view of field activity.",
-        "Solutions must work in low-connectivity environments and in more than one language."
+        "Agro-input shops handle batches, expiry dates and sales licences that generic billing tools do not track.",
+        "Billing, stock, purchasing and accounts are often kept in separate tools and reconciled late.",
+        "Systems must work with weak connectivity and in more than one language."
       ],
       "icon": "agriculture",
       "displayOrder": 1,
       "publication": "Published",
       "seo": {
         "title": "Agriculture Software",
-        "description": "Farm operations, crop planning and agri-business software from Medhavya Systems."
+        "description": "Agro-retail ERP and agri-business software from Medhavya Systems."
       }
     },
     {
@@ -157,66 +157,67 @@
   "products": [
     {
       "slug": "medhavya-agro",
-      "name": "Medhavya Agro",
+      "name": "Agro360AI",
       "categorySlug": "agriculture",
-      "summary": "Season planning, field records and advisory workflows for farms and producer organisations.",
-      "description": "Medhavya Agro brings crop plans, field activities, input usage and advisory notes into one shared record, so growers and agri-business teams can see what is happening on each plot and act on it sooner.",
+      "summary": "Agro-retail ERP with voice and POS billing, batch and expiry control, purchasing, credit, accounting and an AI assistant.",
+      "description": "Agro360AI is a multi-tenant agro-retail ERP. It runs counter billing, batch and expiry stock, purchasing, credit, GST and accounting in one system, with an AI assistant that works inside each user's permissions.",
       "lifecycle": "Private Pilot",
       "publication": "Published",
       "isDemo": true,
       "audience": [
-        "Farmer producer organisations",
-        "Agri-input and advisory teams",
-        "Contract farming operators"
+        "Agro-retail franchises and shops",
+        "Agri-input distributors and wholesalers",
+        "Multi-branch agro-retail chains"
       ],
-      "problem": "Field activity is recorded in notebooks and chat threads, which makes it hard to plan inputs, track crop health or share timely advice across many growers.",
+      "problem": "Agro-input businesses track batches, expiry dates, licences and credit across registers, spreadsheets and separate billing tools, so old stock is missed, licences lapse unnoticed and the books are reconciled late.",
       "outcomes": [
-        "One record for every plot, season and activity",
-        "Advisory messages linked to the field they concern",
-        "Input planning based on recorded activity instead of estimates"
+        "Batch and expiry on every bag, with first-expiry stock sold first",
+        "One invoice posts stock, cost and accounting together",
+        "Licence and approval rules checked at the counter"
       ],
       "features": [
         {
-          "title": "Plot & season register",
-          "description": "Map plots, crops and sowing dates; keep a season-by-season history."
+          "title": "Voice billing and search",
+          "description": "Speak an order in English, Hindi, Marathi or Hinglish and get a draft cart to confirm. Speech is turned into text in the browser and the app stores no audio."
         },
         {
-          "title": "Activity logging",
-          "description": "Record irrigation, spraying and harvesting from a mobile-friendly form that tolerates weak connectivity."
+          "title": "POS billing and GST invoices",
+          "description": "Counter billing with hold and resume, split payments, GST tax invoices, shift and cash-drawer closing, and a day book."
         },
         {
-          "title": "Advisory desk",
-          "description": "Agronomists send structured advice to a grower or group and track acknowledgement."
+          "title": "Batch, expiry and licence control",
+          "description": "Batch and expiry on every bag, FEFO selection, near-expiry alerts, and licence checks that block a regulated sale when a licence has lapsed."
         },
         {
-          "title": "Input planning",
-          "description": "Estimate seed, fertiliser and labour needs from planned and recorded activity."
+          "title": "Purchases to books",
+          "description": "Approval-controlled orders, goods receipts, supplier ledger, customer credit limits and balanced ledgers, with GSTR-1 and GSTR-3B data prepared."
         },
         {
-          "title": "Procurement view",
-          "description": "See expected harvest windows and volumes across a grower network."
+          "title": "AI business assistant",
+          "description": "Ask in plain language for reports, stock investigation, demand forecasts and reorder suggestions. Answers respect each user's permissions and AI actions are logged."
         },
         {
-          "title": "Multilingual interface",
-          "description": "Designed for regional-language use in the field."
+          "title": "Offline-ready, 23 languages",
+          "description": "A browser app that installs like a mobile app, keeps an encrypted offline journal for weak connectivity, and runs in 23 languages."
         }
       ],
       "useCases": [
         {
-          "title": "Seasonal advisory programme",
+          "title": "Counter sale",
           "steps": [
-            "Register growers and plots",
-            "Publish a crop calendar",
-            "Send stage-specific advice",
-            "Review acknowledgements and field updates"
+            "Speak or type the items into a draft cart",
+            "Batches are picked first-expiry-first",
+            "Take split payment or a credit sale",
+            "The GST invoice posts stock and accounts together"
           ]
         },
         {
-          "title": "Harvest planning",
+          "title": "Purchase to payment",
           "steps": [
-            "Collect sowing data",
-            "Project harvest windows",
-            "Coordinate procurement and logistics"
+            "Raise an approved purchase order",
+            "Receive goods by batch with a quality split",
+            "Match the supplier bill three ways",
+            "Pay the supplier and update the ledger"
           ]
         }
       ],
@@ -225,47 +226,69 @@
       ],
       "deployment": [
         "Cloud (managed)",
-        "Mobile web for field users"
+        "Browser app (PWA) for counter and back-office users"
       ],
       "integrations": [
-        "Weather data feeds",
-        "SMS and messaging gateways",
-        "Accounting exports"
+        "GSTR-1 and GSTR-3B data preparation",
+        "Email invites and notifications",
+        "AI assistant (Anthropic API when configured)",
+        "Payment and messaging providers: sandbox only today"
       ],
       "support": "Pilot participants receive onboarding and direct support from the product team.",
       "faqs": [
         {
-          "question": "Does it work offline?",
-          "answer": "The field interface is being designed to queue entries when connectivity is weak and sync later. Confirm current capability during a demo."
+          "question": "Can I bill by voice?",
+          "answer": "Voice input in English, Hindi and Marathi builds a draft cart that the cashier reviews. It does not issue an invoice by itself."
         },
         {
-          "question": "Which crops are supported?",
-          "answer": "The data model is crop-agnostic. Crop calendars are configured with each pilot partner."
+          "question": "Does it work offline?",
+          "answer": "The browser app keeps an encrypted offline journal for weak connectivity. Confirm current offline coverage during a demo."
+        },
+        {
+          "question": "Is it ready for production?",
+          "answer": "Agro360AI is in a private pilot and partly implemented. Please confirm the current scope and status during a demo."
         }
       ],
       "mockup": {
         "nav": [
           "Overview",
-          "Plots",
-          "Activities",
-          "Advisory",
-          "Harvest"
+          "Inventory",
+          "Purchases",
+          "Sales",
+          "Finance"
+        ],
+        "tiles": [
+          {
+            "label": "Invoices today",
+            "value": "128",
+            "trend": "up"
+          },
+          {
+            "label": "Near-expiry batches",
+            "value": "9",
+            "trend": "flat"
+          },
+          {
+            "label": "Pending approvals",
+            "value": "5",
+            "trend": "flat"
+          }
         ],
         "rows": [
           {
-            "state": "ok",
-            "primary": "Plot 18 · Soybean",
-            "secondary": "Spraying recorded today"
+            "primary": "INV-0412 · Cash sale",
+            "secondary": "Posted, stock and ledger updated",
+            "state": "ok"
           },
           {
-            "state": "attention",
-            "primary": "Plot 42 · Cotton",
-            "secondary": "Irrigation overdue"
+            "primary": "Batch DAP-2291 · 14 days left",
+            "secondary": "Near expiry, sell first",
+            "state": "attention"
           },
           {
-            "state": "pending",
-            "primary": "Plot 07 · Wheat",
-            "secondary": "Advisory awaiting reply"
+            "primary": "PO-0087 · Supplier bill",
+            "secondary": "Awaiting three-way match",
+            "state": "pending"
           }
         ],
         "chart": [
@@ -278,29 +301,12 @@
           58,
           62,
           70
-        ],
-        "tiles": [
-          {
-            "label": "Plots tracked",
-            "trend": "up",
-            "value": "1,240"
-          },
-          {
-            "label": "Advisories sent",
-            "trend": "up",
-            "value": "86"
-          },
-          {
-            "label": "Pending visits",
-            "trend": "flat",
-            "value": "14"
-          }
         ]
       },
       "featured": true,
       "seo": {
-        "title": "Medhavya Agro — Farm Operations Software",
-        "description": "Season planning, field records and advisory workflows for agriculture."
+        "title": "Agro360AI — Agro-Retail ERP",
+        "description": "Agro-retail ERP with voice and POS billing, batch and expiry inventory, procurement, GST and accounting."
       },
       "governance": {
         "owner": "Product owner — to be assigned",
@@ -1487,16 +1493,16 @@
     {
       "slug": "agriculture",
       "name": "Agriculture",
-      "description": "Helping producer organisations and agri-businesses turn scattered field records into shared, timely decisions.",
+      "description": "Helping agro-retail and agri-input businesses run billing, stock, purchasing and accounts in one reliable system.",
       "painPoints": [
-        "Field data spread across notebooks and chats",
-        "Advice that reaches growers too late",
-        "Harvest volumes that are hard to forecast"
+        "Batch and expiry tracked in registers and spreadsheets",
+        "Licence and compliance checks done from memory",
+        "Books reconciled long after the sale"
       ],
       "solutions": [
-        "Shared plot and season records",
-        "Structured advisory workflows",
-        "Harvest and procurement planning"
+        "Batch and expiry control with first-expiry-first selling",
+        "Voice and POS billing with GST invoices",
+        "Purchases, credit and accounts that tie together"
       ],
       "relatedProducts": [
         "medhavya-agro",
@@ -1505,7 +1511,7 @@
       "publication": "Published",
       "seo": {
         "title": "Software for Agriculture",
-        "description": "Farm operations and advisory software for agri-businesses."
+        "description": "Agro-retail ERP and billing software for agri-businesses."
       }
     },
     {

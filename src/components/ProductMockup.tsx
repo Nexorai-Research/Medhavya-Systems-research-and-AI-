@@ -38,11 +38,11 @@ export function ProductMockup({ product, compact = false, className }: { product
             <span className="size-2.5 rounded-full bg-line-strong" />
             <span className="size-2.5 rounded-full bg-line-strong" />
           </span>
-          <span className="ml-2 truncate font-mono text-[0.68rem] text-muted">{product.name}</span>
+          <span className="ml-2 truncate font-mono text-[0.72rem] text-muted">{product.name}</span>
         </div>
-        <div className={cn("grid", compact ? "grid-cols-1" : "grid-cols-[132px_1fr]")}>
+        <div className={cn("grid", compact ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-[132px_1fr]")}>
           {!compact && (
-            <ul aria-hidden className="space-y-0.5 border-r border-line bg-canvas/60 p-3 text-[0.72rem]">
+            <ul aria-hidden className="hidden space-y-0.5 border-r sm:block border-line bg-canvas/60 p-3 text-[0.72rem]">
               {mockup.nav.map((n, i) => (
                 <li key={n} className={cn("rounded-md px-2.5 py-1.5", i === 0 ? "bg-white font-semibold text-primary shadow-sm" : "text-muted")}>
                   {n}
@@ -56,7 +56,7 @@ export function ProductMockup({ product, compact = false, className }: { product
                 const Trend = trendIcon[t.trend ?? "flat"];
                 return (
                   <div key={t.label} className="rounded-[var(--radius-md)] border border-line p-2.5">
-                    <p className="truncate text-[0.62rem] text-muted">{t.label}</p>
+                    <p className="text-[0.72rem] leading-tight text-muted">{t.label}</p>
                     <p className="mt-1 flex items-center gap-1 text-sm font-semibold whitespace-nowrap text-midnight tabular-nums">
                       {t.value}
                       <Trend aria-hidden className="size-3 text-cyan-ink" />
@@ -89,7 +89,7 @@ export function ProductMockup({ product, compact = false, className }: { product
                       <meta.Icon aria-label={meta.label} className={cn("size-3.5 shrink-0", meta.className)} />
                       <span className="min-w-0">
                         <span className="block truncate text-[0.72rem] font-medium text-midnight">{r.primary}</span>
-                        <span className="block truncate text-[0.66rem] text-muted">{r.secondary}</span>
+                        <span className="block truncate text-[0.72rem] text-muted">{r.secondary}</span>
                       </span>
                     </li>
                   );
@@ -99,7 +99,7 @@ export function ProductMockup({ product, compact = false, className }: { product
           </div>
         </div>
       </div>
-      <figcaption className="mt-2.5 font-mono text-[0.66rem] tracking-wide text-muted">Illustrative concept UI · sample data</figcaption>
+      <figcaption className="mt-2.5 font-mono text-[0.72rem] tracking-wide text-muted">Illustrative concept UI · sample data</figcaption>
     </figure>
   );
 }

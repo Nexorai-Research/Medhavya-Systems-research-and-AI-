@@ -4,12 +4,12 @@ export const industries: Industry[] = [
   {
     slug: "agriculture",
     name: "Agriculture",
-    description: "Helping producer organisations and agri-businesses turn scattered field records into shared, timely decisions.",
-    painPoints: ["Field data spread across notebooks and chats", "Advice that reaches growers too late", "Harvest volumes that are hard to forecast"],
-    solutions: ["Shared plot and season records", "Structured advisory workflows", "Harvest and procurement planning"],
+    description: "Helping agro-retail and agri-input businesses run billing, stock, purchasing and accounts in one reliable system.",
+    painPoints: ["Batch and expiry tracked in registers and spreadsheets", "Licence and compliance checks done from memory", "Books reconciled long after the sale"],
+    solutions: ["Batch and expiry control with first-expiry-first selling", "Voice and POS billing with GST invoices", "Purchases, credit and accounts that tie together"],
     relatedProducts: ["medhavya-agro", "medhavya-logitrack"],
     publication: "Published",
-    seo: { title: "Software for Agriculture", description: "Farm operations and advisory software for agri-businesses." },
+    seo: { title: "Software for Agriculture", description: "Agro-retail ERP and billing software for agri-businesses." },
   },
   {
     slug: "healthcare",

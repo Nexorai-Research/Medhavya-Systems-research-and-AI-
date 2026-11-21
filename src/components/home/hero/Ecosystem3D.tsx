@@ -121,17 +121,17 @@ export function Ecosystem3D({
             <div className="relative">
               <div className="flex items-center gap-2">
                 <Image src="/brand/medhavya-mark.png" alt="" width={218} height={192} className="h-6 w-auto" />
-                <span className="text-[0.68rem] font-semibold tracking-[0.16em] uppercase">Platform</span>
+                <span className="text-[0.72rem] font-semibold tracking-[0.16em] uppercase">Platform</span>
               </div>
               <ul className="mt-3.5 space-y-1.5">
                 {services.map((s, i) => (
-                  <li key={s} className="flex items-center gap-2 text-[0.7rem] text-white/80">
+                  <li key={s} className="flex items-center gap-2 text-[0.75rem] text-white/80">
                     <span aria-hidden className="size-1.5 animate-pulse-soft rounded-full bg-cyan" style={{ animationDelay: `${i * 0.4}s` }} />
                     {s}
                   </li>
                 ))}
               </ul>
-              <p className="mt-3.5 flex items-center gap-1.5 border-t border-white/10 pt-2.5 font-mono text-[0.6rem] tracking-wide text-cyan">
+              <p className="mt-3.5 flex items-center gap-1.5 border-t border-white/10 pt-2.5 font-mono text-[0.72rem] tracking-wide text-cyan">
                 <span aria-hidden className="relative flex size-1.5">
                   <span className="absolute inset-0 animate-ping rounded-full bg-cyan/70" />
                   <span className="relative size-1.5 rounded-full bg-cyan" />
@@ -179,13 +179,13 @@ export function Ecosystem3D({
                     </span>
                     <span className="min-w-0">
                       <span className="block truncate text-[0.8rem] font-semibold text-midnight">{n.name.replace(/^Medhavya /, "")}</span>
-                      <span className="block truncate text-[0.66rem] text-muted">{n.category}</span>
+                      <span className="block truncate text-[0.72rem] text-muted">{n.category}</span>
                     </span>
                   </span>
                   <span className={cn("grid transition-[grid-template-rows,margin] duration-500 ease-out", on ? "mt-2.5 grid-rows-[1fr]" : "grid-rows-[0fr]")}>
                     <span className="overflow-hidden">{on && kind && <ProductVignette kind={kind} reduced={reduced} />}</span>
                   </span>
-                  <span className="mt-2.5 flex items-center gap-1.5 border-t border-line pt-2 text-[0.64rem] text-muted">
+                  <span className="mt-2.5 flex items-center gap-1.5 border-t border-line pt-2 text-[0.72rem] text-muted">
                     <span aria-hidden className={cn("size-1.5 rounded-full", lifecycleTone[n.lifecycle].dot)} />
                     {n.lifecycle}
                   </span>

@@ -9,9 +9,9 @@ import { Container } from "@/components/ui/Section";
  */
 export function LegalDraft({ title, summary, sections, children }: { title: string; summary: string; sections: { heading: string; body: string }[]; children?: ReactNode }) {
   return (
-    <Container className="max-w-3xl py-10 sm:py-14">
+    <Container className="max-w-3xl pt-5 pb-10 sm:pt-7 sm:pb-14">
       <Breadcrumbs items={[{ label: title }]} />
-      <h1 className="mt-10 text-4xl font-semibold tracking-tight text-midnight">{title}</h1>
+      <h1 className="mt-8text-4xl font-semibold tracking-tight text-midnight">{title}</h1>
       <p className="mt-4 text-lg leading-relaxed text-muted">{summary}</p>
       <div role="note" className="mt-8 flex gap-3 rounded-[var(--radius-md)] border border-amber-200 bg-warning-bg p-4 text-sm text-gold-ink">
         <FileWarning aria-hidden className="size-5 shrink-0" />
