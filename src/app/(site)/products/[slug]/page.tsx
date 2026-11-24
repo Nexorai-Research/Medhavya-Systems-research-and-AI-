@@ -7,16 +7,32 @@ import { CtaBand } from "@/components/CtaBand";
 import { Faq } from "@/components/Faq";
 import { Breadcrumbs } from "@/components/PageHero";
 import { ProductCard } from "@/components/ProductCard";
+import { CardHoverVideo } from "@/components/visuals/CardHoverVideo";
+import { HeroVideoBackground } from "@/components/visuals/HeroVideoBackground";
 import { ProductHeroVisual } from "@/components/visuals/PageVisuals";
 import { DemoBadge, LifecycleBadge } from "@/components/ui/Badges";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container, Eyebrow, SectionHeading } from "@/components/ui/Section";
 import { getCategory, getIndustry, getProduct, getProducts } from "@/lib/content";
+import { heroVideos } from "@/lib/hero-videos";
 import { pageMetadata } from "@/lib/seo";
 
 // Every valid slug is prerendered at build time and unknown slugs are 404'd by src/proxy.ts,
 // so awaiting params here never blocks a real visitor; opt out of instant-shell validation.
 export const instant = false;
+
+// One clip per feature card, in the same order as the product's features: still frame at rest, plays on hover.
+// Free-licence footage from Pexels (https://www.pexels.com/license/). A card without an entry stays a plain card.
+const featureVideos: Record<string, string[]> = {
+  "medhavya-agro": [
+    "/videos/features/voice-billing.mp4", // Voice billing and search
+    "/videos/features/pos-billing.mp4", // POS billing and GST invoices
+    "/videos/features/batch-expiry.mp4", // Batch, expiry and licence control
+    "/videos/features/purchases-books.mp4", // Purchases to books
+    "/videos/features/ai-assistant.mp4", // AI business assistant
+    "/videos/features/offline-mobile.mp4", // Offline-ready, 23 languages
+  ],
+};
 
 export function generateStaticParams() {
   return getProducts().map((p) => ({ slug: p.slug }));
@@ -36,6 +52,10 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
   const category = getCategory(product.categorySlug)!;
   const related = getProducts({ category: product.categorySlug }).filter((p) => p.slug !== product.slug);
   const alsoConsider = related.length > 0 ? related : getProducts().filter((p) => p.slug !== product.slug && p.industries.some((i) => product.industries.includes(i))).slice(0, 3);
+
+  // On a hero with a background video there is no wash over the footage, so the text goes white with a dark glow.
+  const onVideo = Boolean(heroVideos[product.slug]);
+  const ts = onVideo ? "[text-shadow:0_1px_3px_rgb(0_0_0/0.6),0_0_16px_rgb(0_0_0/0.75),0_0_32px_rgb(0_0_0/0.45)]" : "";
 
   const facts = [
     { Icon: Users, label: "Built for", value: product.audience.join(", ") },
@@ -58,23 +78,26 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
 
       <section className="relative overflow-hidden border-b border-line">
-        <div aria-hidden className="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_at_80%_30%,black,transparent_70%)]" />
-        <Container className="relative pt-10 pb-16 sm:pt-14 sm:pb-20">
-          <Breadcrumbs items={[{ label: "Products", href: "/products" }, { label: category.shortName, href: `/product-categories/${category.slug}` }, { label: product.name }]} />
-          <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:items-center">
+        {heroVideos[product.slug] && <HeroVideoBackground video={heroVideos[product.slug]} />}
+        {!onVideo && <div aria-hidden className="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_at_80%_30%,black,transparent_70%)]" />}
+        <Container className="relative pt-5 pb-16 sm:pt-7 sm:pb-20">
+          <div className={onVideo ? `${ts} font-medium [&_ol]:text-white [&_a]:hover:text-white/80` : ""}>
+            <Breadcrumbs tone={onVideo ? "dark" : "light"} items={[{ label: "Products", href: "/products" }, { label: category.shortName, href: `/product-categories/${category.slug}` }, { label: product.name }]} />
+          </div>
+          <div className="mt-8 grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:items-center">
             <div className="animate-rise">
-              <Link href={`/product-categories/${category.slug}`} className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-strong">
+              <Link href={`/product-categories/${category.slug}`} className={`inline-flex items-center gap-2 py-1.5 text-sm font-medium ${onVideo ? `${ts} text-white hover:text-white/80` : "text-primary hover:text-primary-strong"}`}>
                 <CategoryIcon icon={category.icon} className="size-4" /> {category.name}
               </Link>
-              <h1 className="mt-4 text-4xl font-semibold tracking-tight text-midnight sm:text-5xl">
+              <h1 className={`mt-4 text-4xl font-semibold tracking-tight sm:text-5xl ${onVideo ? `${ts} text-white` : "text-midnight"}`}>
                 <ViewTransition name={`product-title-${product.slug}`} share="morph" default="none">
                   <span className="inline-block">{product.name}</span>
                 </ViewTransition>
               </h1>
-              <p className="mt-4 text-xl leading-relaxed text-pretty text-ink">{product.summary}</p>
+              <p className={`mt-4 text-xl leading-relaxed text-pretty ${onVideo ? `${ts} font-medium text-white` : "text-ink"}`}>{product.summary}</p>
               <div className="mt-5 flex flex-wrap items-center gap-2">
                 <LifecycleBadge status={product.lifecycle} />
-                {product.isDemo && <DemoBadge />}
+                {product.isDemo && <DemoBadge tone={onVideo ? "dark" : "light"} className={onVideo ? `${ts} !text-white` : ""} />}
               </div>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <ButtonLink href={`/request-demo?product=${product.slug}`} arrow>
@@ -127,7 +150,8 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
           <ul data-reveal-group="70" className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {product.features.map((f, i) => (
               <li key={f.title}>
-                <div data-spotlight="light" className="card-glow group h-full rounded-[var(--radius-lg)] p-6 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
+                <div data-spotlight="light" className={`card-glow group relative isolate h-full overflow-hidden rounded-[var(--radius-lg)] p-6 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] ${featureVideos[product.slug]?.[i] ? "[text-shadow:0_1px_3px_rgb(0_0_0/0.65),0_0_12px_rgb(0_0_0/0.7)] [&_h3]:text-white [&_p]:font-medium [&_p]:text-white [&_span]:bg-white/20 [&_span]:text-white" : ""}`}>
+                  {featureVideos[product.slug]?.[i] && <CardHoverVideo src={featureVideos[product.slug][i]} start={1} />}
                   <span className="flex size-10 items-center justify-center rounded-xl bg-primary/8 font-mono text-sm font-semibold text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
                     {String(i + 1).padStart(2, "0")}
                   </span>

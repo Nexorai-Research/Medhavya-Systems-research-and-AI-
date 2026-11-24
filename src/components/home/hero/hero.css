@@ -22,13 +22,13 @@
   background-clip: text;
   color: transparent;
   transform-origin: 50% 60% -0.4em;
-  animation: hero-flip-in 0.75s var(--ease-out-expo) both;
-  padding-bottom: 0.06em;
+  animation: hero-flip-in 0.5s var(--ease-out-expo) both;
+  padding-bottom: 0.1em;
 }
 .hero-flip-bar {
   position: absolute;
   left: 0;
-  bottom: -0.04em;
+  bottom: -0.02em;
   height: 3px;
   width: 100%;
   border-radius: 9999px;
@@ -37,14 +37,38 @@
   animation: underline-grow 0.9s var(--ease-out-expo) 0.2s both;
 }
 @keyframes hero-flip-in {
+  /* Never fully transparent: the word stays legible through the flip so the line never looks empty. */
   from {
-    opacity: 0;
-    transform: rotateX(-88deg) translateY(0.25em);
-    filter: blur(6px);
+    opacity: 0.35;
+    transform: rotateX(-70deg) translateY(0.2em);
   }
-  60% {
-    filter: blur(0);
-  }
+}
+
+/* ---- Text over the background video ---------------------------------------
+   The clip is shown unwashed, so the hero copy turns white with a dark glow. */
+.hero-stage[data-on-video] h1 {
+  color: #fff;
+  text-shadow:
+    0 1px 3px rgb(0 0 0 / 0.6),
+    0 0 16px rgb(0 0 0 / 0.75),
+    0 0 32px rgb(0 0 0 / 0.45);
+}
+.hero-stage[data-on-video] .hero-flip {
+  /* Background-clipped text cannot take text-shadow, so the glow is a drop-shadow filter. */
+  background: linear-gradient(100deg, #fff 10%, #c9efff 55%, #8fe3f5 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  /* Inherited text-shadow would paint over the clipped gradient and turn the word grey. */
+  text-shadow: none;
+  filter: drop-shadow(0 1px 3px rgb(0 0 0 / 0.6)) drop-shadow(0 0 14px rgb(0 0 0 / 0.7));
+}
+.hero-stage[data-on-video] .hero-on-video-text {
+  color: #fff;
+}
+.hero-on-video-text {
+  text-shadow:
+    0 1px 3px rgb(0 0 0 / 0.65),
+    0 0 14px rgb(0 0 0 / 0.7);
 }
 
 /* ---- Camera & scene ------------------------------------------------------ */

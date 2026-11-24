@@ -44,7 +44,7 @@ export function CookiePreferences() {
 
   return (
     <>
-      <button type="button" onClick={open} className="hover:text-white">
+      <button type="button" onClick={open} className="inline-block py-1.5 hover:text-white">
         Cookie preferences
       </button>
       <dialog ref={ref} aria-labelledby="cookie-prefs-title" className="m-auto w-[min(92vw,30rem)] rounded-[var(--radius-lg)] border border-line bg-white p-6 text-ink backdrop:bg-midnight/60">

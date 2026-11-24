@@ -34,7 +34,7 @@ export function Breadcrumbs({ items, tone = "light" }: { items: Crumb[]; tone?: 
         {[{ label: "Home", href: "/" }, ...items].map((c, i, all) => (
           <li key={c.label} className="flex items-center gap-1">
             {c.href && i < all.length - 1 ? (
-              <Link href={c.href} className={tone === "light" ? "hover:text-primary" : "hover:text-white"}>
+              <Link href={c.href} className={cn("inline-block py-1.5", tone === "light" ? "hover:text-primary" : "hover:text-white")}>
                 {c.label}
               </Link>
             ) : (
@@ -92,9 +92,9 @@ export function PageHero({
       <div aria-hidden className={cn("absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent)]", dark ? "bg-grid-dark" : "bg-grid")} />
       <div aria-hidden className={cn("pointer-events-none absolute inset-0", dark ? "page-glow-dark" : "page-glow")} />
       {dark && <div aria-hidden className="absolute -top-40 right-0 size-[520px] rounded-full bg-electric/20 blur-[120px]" />}
-      <Container className="relative pt-10 pb-14 sm:pt-14 sm:pb-20">
+      <Container className="relative pt-5 pb-14 sm:pt-7 sm:pb-20">
         <Breadcrumbs items={crumbs} tone={tone} />
-        <div className={cn("mt-10 grid gap-10", visual && "lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-6")}>
+        <div className={cn("mt-8 grid gap-10", visual && "lg:grid-cols-[1.05fr_1fr] lg:items-start lg:gap-6")}>
           <div className="min-w-0">
             <div className="animate-rise">
               <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
@@ -107,7 +107,7 @@ export function PageHero({
             )}
             {children && <div className="animate-rise [animation-delay:480ms]">{children}</div>}
           </div>
-          {visual && <div className="min-w-0">{visual}</div>}
+          {visual && <div className="min-w-0 lg:self-center">{visual}</div>}
         </div>
       </Container>
     </section>

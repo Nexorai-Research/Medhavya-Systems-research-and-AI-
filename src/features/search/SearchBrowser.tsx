@@ -81,7 +81,7 @@ export function SearchBrowser({ index }: { index: SearchEntry[] }) {
                 <li key={`${h.kind}-${h.href}`}>
                   <Link href={h.href} className="row-sweep group flex items-start justify-between gap-4 p-5">
                     <span>
-                      <span className="font-mono text-[0.7rem] tracking-wider text-muted uppercase">{h.kind}</span>
+                      <span className="font-mono text-[0.75rem] tracking-wider text-muted uppercase">{h.kind}</span>
                       <span className="mt-1 block text-lg font-semibold text-midnight group-hover:text-primary">{h.title}</span>
                       <span className="mt-1 block text-sm text-muted">{h.summary}</span>
                     </span>

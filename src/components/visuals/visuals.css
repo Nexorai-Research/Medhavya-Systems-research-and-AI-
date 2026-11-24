@@ -174,14 +174,26 @@ section:hover .deck-card {
   }
 }
 
+/* The concept-UI caption can land on a busy backdrop; a soft pill keeps it readable. */
+.s3d-camera figcaption {
+  width: fit-content;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  background: rgb(255 255 255 / 0.88);
+}
+
 /* ---- Conversation (contact / demo) ---------------------------------------- */
 .plane-fly {
+  /* Resting place (reduced motion): clear of every card, top-right of the stage. */
+  left: 90%;
+  top: 6%;
   animation: plane-fly 5.5s var(--ease-in-out) infinite;
 }
 @keyframes plane-fly {
+  /* Starts in the gutter below/left of the "Reply by email" card so it never sits on its text. */
   0% {
-    left: 6%;
-    top: 78%;
+    left: 0%;
+    top: 92%;
     opacity: 0;
     rotate: -10deg;
   }

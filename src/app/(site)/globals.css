@@ -207,6 +207,40 @@ body {
   }
 }
 
+/*
+ * Hero background video effects. Transform/opacity only (compositor-friendly), no JS, and fully off under
+ * prefers-reduced-motion:
+ *  - parallax: the clip drifts down slower than the page while the hero scrolls away (scroll-driven timeline)
+ *  - drift: a very slow push-in/out so the footage feels alive even when the clip itself is calm
+ */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-video-parallax {
+      animation: hero-video-shift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 90vh;
+    }
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-video-drift {
+    animation: hero-video-drift 30s ease-in-out infinite alternate;
+  }
+}
+@keyframes hero-video-shift {
+  to {
+    translate: 0 10vh;
+  }
+}
+@keyframes hero-video-drift {
+  from {
+    scale: 1.02;
+  }
+  to {
+    scale: 1.1;
+  }
+}
+
 /* Hero headline: words rise in sequence on first paint. */
 .hero-word {
   display: inline-block;
@@ -491,8 +525,11 @@ details[open]::details-content {
 
 /* Outlined editorial wordmark (footer). */
 .text-outline {
+  /* A soft fill instead of -webkit-text-stroke: strokes expose the variable font's overlapping contours (the "H" crossbar). */
+  background: linear-gradient(to bottom, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.015));
+  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
-  -webkit-text-stroke: 1px rgb(255 255 255 / 0.09);
 }
 
 /* ------------------------------------------------------------------------ */

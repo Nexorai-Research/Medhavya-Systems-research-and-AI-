@@ -5,6 +5,8 @@ import { Fragment, useEffect, useRef, useState, useSyncExternalStore, type CSSPr
 import { ArrowRight } from "lucide-react";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { Container, Eyebrow } from "@/components/ui/Section";
+import { HeroVideoLayer, TextSide } from "@/components/visuals/HeroVideoBackground";
+import type { HeroVideoSource } from "@/lib/hero-videos";
 import type { CategoryIcon as IconKey, LifecycleStatus } from "@/content/types";
 import { Ecosystem3D } from "./Ecosystem3D";
 import { ProductVignette } from "./ProductVignette";
@@ -22,7 +24,7 @@ export interface HeroNode {
 
 /** What each product moves forward — the headline word is synced with the 3D scene. */
 const audienceWord: Record<string, string> = {
-  "medhavya-agro": "farms",
+  "medhavya-agro": "agro shops",
   mediai: "hospitals",
   "medhavya-crm": "sales teams",
   "medhavya-edusphere": "schools",
@@ -40,7 +42,12 @@ function subscribeReduced(cb: () => void) {
 }
 const getReduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-export function HeroStage({ nodes, eyebrow, children }: { nodes: HeroNode[]; eyebrow: string; children: ReactNode }) {
+/**
+ * `videos` (by product slug) puts a full-strength background clip behind the hero that crossfades with the product
+ * the story is currently on; text switches to white (see hero.css `[data-on-video]`). Clips mount only once their
+ * product has been shown, so the first paint pulls a single file, not all six.
+ */
+export function HeroStage({ nodes, eyebrow, videos, children }: { nodes: HeroNode[]; eyebrow: string; videos?: Record<string, HeroVideoSource>; children: ReactNode }) {
   const reduced = useSyncExternalStore(subscribeReduced, getReduced, () => false);
   const [cycle, setCycle] = useState<number | null>(null);
   const [hovered, setHovered] = useState<number | null>(null);
@@ -49,6 +56,10 @@ export function HeroStage({ nodes, eyebrow, children }: { nodes: HeroNode[]; eye
   const sceneRef = useRef<HTMLDivElement>(null);
   const active = hovered ?? cycle;
   const word = active !== null ? (audienceWord[nodes[active].slug] ?? "businesses") : "businesses";
+  const onVideo = Boolean(videos);
+  const shown = active ?? 0;
+  const [seen, setSeen] = useState<ReadonlySet<number>>(() => new Set([0]));
+  if (!seen.has(shown)) setSeen(new Set(seen).add(shown));
 
   // Story cycle: walks through the products while the visitor is not interacting.
   useEffect(() => {
@@ -111,13 +122,25 @@ export function HeroStage({ nodes, eyebrow, children }: { nodes: HeroNode[]; eye
   const spotlightKind = vignetteBySlug[spotlight.slug];
 
   return (
-    <div ref={sectionRef} className="hero-stage relative">
-      {/* Pointer-following ambient light */}
-      <div aria-hidden className="hero-glow pointer-events-none absolute inset-0" />
+    <div ref={sectionRef} className="hero-stage relative" data-on-video={onVideo ? "" : undefined}>
+      {videos ? (
+        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden bg-midnight">
+          {nodes.map((n, i) => {
+            const video = videos[n.slug];
+            return video && seen.has(i) ? <HeroVideoLayer key={n.slug} video={video} active={i === shown} /> : null;
+          })}
+          <TextSide />
+        </div>
+      ) : (
+        /* Pointer-following ambient light */
+        <div aria-hidden className="hero-glow pointer-events-none absolute inset-0" />
+      )}
       <Container className="relative grid gap-12 pt-12 pb-16 sm:pt-16 lg:grid-cols-[1fr_1.08fr] lg:items-center lg:gap-6 lg:pt-20 lg:pb-24">
         <div className="min-w-0">
-          <Eyebrow>{eyebrow}</Eyebrow>
-          <h1 className="mt-6 text-[2.55rem] leading-[1.06] font-semibold tracking-[-0.035em] text-midnight sm:text-6xl lg:text-[3.3rem] xl:text-[3.55rem]">
+          <Eyebrow tone={onVideo ? "dark" : "light"} className={onVideo ? "hero-on-video-text" : undefined}>
+            {eyebrow}
+          </Eyebrow>
+          <h1 className="mt-6 text-[2.55rem] leading-[1.1] font-semibold tracking-[-0.035em] text-midnight sm:text-6xl lg:text-[3.3rem] xl:text-[3.55rem]">
             <span className="sr-only">Software that moves businesses forward.</span>
             <span aria-hidden>
               {["Software", "that", "moves"].map((w, i) => (
@@ -178,7 +201,7 @@ export function HeroStage({ nodes, eyebrow, children }: { nodes: HeroNode[]; eye
 
         <figure aria-label="Illustration of the Medhavya product ecosystem" className="hidden sm:block">
           <Ecosystem3D nodes={nodes} active={active} onHover={setHovered} sceneRef={sceneRef} reduced={reduced} />
-          <figcaption className="mt-10 text-center font-mono text-[0.66rem] tracking-wide text-muted">Illustrative ecosystem · demo product listings · hover a product</figcaption>
+          <figcaption className={`mt-10 text-center font-mono text-[0.72rem] tracking-wide ${onVideo ? "hero-on-video-text text-white" : "text-muted"}`}>Illustrative ecosystem · demo product listings · hover a product</figcaption>
         </figure>
       </Container>
     </div>

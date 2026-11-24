@@ -5,6 +5,7 @@ import { CtaBand } from "@/components/CtaBand";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { HeroStage } from "@/components/home/hero/HeroStage";
+import { heroVideos } from "@/lib/hero-videos";
 import { ProductShowcase } from "@/components/home/ProductShowcase";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container, SectionHeading } from "@/components/ui/Section";
@@ -56,7 +57,9 @@ export default function HomePage() {
   const featured = getFeaturedProducts();
   const allProducts = getProducts();
   const services = getEnterpriseServices().slice(0, 3);
-  const industries = getIndustries().slice(0, 4);
+  const allIndustries = getIndustries();
+  const industries = allIndustries.slice(0, 4);
+  const moreIndustries = allIndustries.slice(4);
   const resources = getResources().slice(0, 3);
 
   const ecosystem = ["medhavya-agro", "mediai", "medhavya-crm", "medhavya-edusphere", "medhavya-erp", "medhavya-logitrack"]
@@ -71,14 +74,15 @@ export default function HomePage() {
       summary: p.summary,
     }));
 
+  // One background clip per hero product; the hero crossfades between them as the story moves on.
+  const heroClips = Object.fromEntries(ecosystem.flatMap((n) => (heroVideos[n.slug] ? [[n.slug, heroVideos[n.slug]]] : [])));
+
   return (
     <>
       {/* 2. Hero */}
       <section className="relative overflow-hidden">
-        <div aria-hidden className="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_at_70%_40%,black_20%,transparent_75%)]" />
-        <div aria-hidden className="absolute top-20 right-[-10%] size-[620px] rounded-full bg-electric/10 blur-[120px]" />
-        <HeroStage nodes={ecosystem} eyebrow={site.descriptor}>
-            <p className="mt-6 max-w-xl animate-rise text-lg leading-relaxed text-pretty text-muted [animation-delay:520ms]">
+        <HeroStage nodes={ecosystem} eyebrow={site.descriptor} videos={heroClips}>
+            <p className="mt-6 max-w-xl animate-rise text-lg leading-relaxed font-medium text-pretty text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.65),0_0_14px_rgb(0_0_0/0.7)] [animation-delay:520ms]">
               Purpose-built products and intelligent enterprise solutions for a changing world — from farms and schools to hospitals, warehouses and boardrooms.
             </p>
             <div className="mt-9 flex animate-rise flex-col gap-3 [animation-delay:640ms] sm:flex-row">
@@ -89,15 +93,15 @@ export default function HomePage() {
                 Discuss an Enterprise Project
               </ButtonLink>
             </div>
-            <dl className="mt-12 grid max-w-lg animate-rise grid-cols-3 gap-6 border-t border-line pt-6 [animation-delay:760ms]">
+            <dl className="mt-12 grid max-w-lg animate-rise grid-cols-3 grid-rows-[auto_1fr] gap-x-4 gap-y-0 border-t border-white/30 pt-6 [animation-delay:760ms] sm:gap-x-6">
               {[
-                { k: "Product categories", v: String(categories.length) },
-                { k: "Business lines", v: "Products + Services" },
-                { k: "Markets", v: "India & global" },
+                { k: "Categories", v: String(categories.length) },
+                { k: "Products", v: String(allProducts.length) },
+                { k: "Industries", v: String(allIndustries.length) },
               ].map((s) => (
-                <div key={s.k}>
-                  <dt className="text-xs text-muted">{s.k}</dt>
-                  <dd className="mt-1 text-sm font-semibold text-midnight">{s.v}</dd>
+                <div key={s.k} className="row-span-2 grid grid-rows-subgrid">
+                  <dt className="text-xs font-medium text-white/90 [text-shadow:0_1px_3px_rgb(0_0_0/0.65),0_0_14px_rgb(0_0_0/0.7)]">{s.k}</dt>
+                  <dd className="mt-1 text-sm font-semibold text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.65),0_0_14px_rgb(0_0_0/0.7)]">{s.v}</dd>
                 </div>
               ))}
             </dl>
@@ -119,7 +123,7 @@ export default function HomePage() {
               return (
                 <li key={c.slug} className="border-b border-line md:odd:border-r md:odd:pr-8 md:even:pl-8">
                   <Link href={`/product-categories/${c.slug}`} className="row-sweep group -mx-3 flex items-start gap-5 rounded-[var(--radius-md)] px-3 py-6 transition-colors">
-                    <span className="font-mono text-xs text-muted tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="w-5 shrink-0 pt-[0.8rem] font-mono text-xs text-muted tabular-nums">{String(i + 1).padStart(2, "0")}</span>
                     <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-line text-primary transition-colors group-hover:border-primary group-hover:bg-primary group-hover:text-white">
                       <CategoryIcon icon={c.icon} className="size-5" />
                     </span>
@@ -233,9 +237,9 @@ export default function HomePage() {
           </div>
           <div data-reveal-group="90" className="mt-12 overflow-hidden rounded-[var(--radius-lg)] border border-line bg-white">
             {industries.map((ind) => (
-              <div key={ind.slug} className="row-sweep grid gap-4 border-b border-line p-6 last:border-b-0 md:grid-cols-[200px_1fr_1fr] md:items-center md:gap-8 md:px-8">
+              <div key={ind.slug} className="row-sweep grid gap-4 border-b border-line p-6 last:border-b-0 md:grid-cols-[200px_minmax(0,1fr)_minmax(0,1.25fr)] md:items-center md:gap-8 md:px-8">
                 <h3 className="text-lg font-semibold tracking-tight text-midnight">
-                  <Link href={`/industries/${ind.slug}`} className="hover:text-primary">
+                  <Link href={`/industries/${ind.slug}`} className="inline-block py-1.5 hover:text-primary">
                     {ind.name}
                   </Link>
                 </h3>
@@ -245,7 +249,7 @@ export default function HomePage() {
                 </p>
                 <div className="flex flex-wrap items-center gap-2 md:justify-end">
                   {getProductsBySlugs(ind.relatedProducts).map((p) => (
-                    <Link key={p.slug} href={`/products/${p.slug}`} className="inline-flex items-center gap-1 rounded-full border border-line px-3 py-1 text-xs font-medium text-ink transition-colors hover:border-primary hover:text-primary">
+                    <Link key={p.slug} href={`/products/${p.slug}`} className="inline-flex items-center gap-1 rounded-full border border-line px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-primary hover:text-primary">
                       {p.name}
                       <ArrowRight aria-hidden className="size-3" />
                     </Link>
@@ -254,6 +258,20 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+          {moreIndustries.length > 0 && (
+            <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2">
+              <p className="text-sm font-medium text-muted">More industries</p>
+              <ul className="flex flex-wrap gap-2">
+                {moreIndustries.map((ind) => (
+                  <li key={ind.slug}>
+                    <Link href={`/industries/${ind.slug}`} className="inline-flex min-h-9 items-center rounded-full border border-line bg-white px-3.5 text-sm font-medium text-ink transition-colors hover:border-primary hover:text-primary">
+                      {ind.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </Container>
       </section>
 
@@ -295,7 +313,7 @@ export default function HomePage() {
               intro="Rather than borrow credibility, we would rather show you how we work. Verified client outcomes will appear here as they are earned."
             />
           </div>
-          <ul data-reveal-group="100" className="grid gap-4 sm:grid-cols-2">
+          <ul data-reveal-group="100" className="grid gap-4 sm:grid-cols-2 sm:pb-8">
             {principles.map(({ Icon, title, text }, i) => (
               <li key={title} className={i % 2 === 1 ? "sm:translate-y-8" : undefined}>
                 <div data-spotlight="light" className="card-glow group h-full rounded-[var(--radius-lg)] p-6 hover:shadow-[var(--shadow-panel)]">
@@ -325,7 +343,7 @@ export default function HomePage() {
               <li key={r.slug}>
                 <article className="group relative flex h-full flex-col border-t-2 border-midnight pt-5">
                   <span aria-hidden className="absolute -top-0.5 left-0 h-0.5 w-0 bg-gradient-to-r from-primary to-cyan transition-[width] duration-700 ease-out group-hover:w-full" />
-                  <p className="flex items-center gap-2 font-mono text-[0.7rem] tracking-wider text-muted uppercase">
+                  <p className="flex items-center gap-2 font-mono text-[0.75rem] tracking-wider text-muted uppercase">
                     {r.type} · {r.readingMinutes} min read
                   </p>
                   <h3 className="mt-3 text-xl font-semibold tracking-tight text-midnight group-hover:text-primary">
