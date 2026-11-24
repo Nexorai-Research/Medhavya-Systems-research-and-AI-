@@ -35,8 +35,6 @@ export function HeroVideoLayer({ video, active = true }: { video: HeroVideoSourc
     if (!el) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     const saveData = (navigator as Navigator & { connection?: NetworkInfo }).connection?.saveData === true;
-    if (video.uhd && wantsUhd()) el.src = video.uhd;
-    if (el.readyState >= 2) setReady(true);
 
     let visible = true;
     const sync = () => {
@@ -49,12 +47,24 @@ export function HeroVideoLayer({ video, active = true }: { video: HeroVideoSourc
       sync();
     });
     io.observe(el);
+
+    // The file is attached only after the window `load` event. A media element that is loading holds `load` open
+    // (and this hero can mount several clips over time), which would delay load indicators, Lighthouse and tests
+    // for as long as footage is still downloading. Until then the dark base shows.
+    const attach = () => {
+      el.src = video.uhd && wantsUhd() ? video.uhd : video.hd;
+      sync();
+    };
+    if (document.readyState === "complete") attach();
+    else window.addEventListener("load", attach, { once: true });
+
     el.addEventListener("hero:sync", sync);
     document.addEventListener("visibilitychange", sync);
     reduced.addEventListener("change", sync);
     sync();
     return () => {
       io.disconnect();
+      window.removeEventListener("load", attach);
       el.removeEventListener("hero:sync", sync);
       document.removeEventListener("visibilitychange", sync);
       reduced.removeEventListener("change", sync);
@@ -66,7 +76,6 @@ export function HeroVideoLayer({ video, active = true }: { video: HeroVideoSourc
       <video
         ref={ref}
         className={`hero-video-drift absolute inset-0 size-full object-cover transition-opacity duration-1000 ${ready ? "opacity-100" : "opacity-0"}`}
-        src={video.hd}
         muted
         loop
         playsInline

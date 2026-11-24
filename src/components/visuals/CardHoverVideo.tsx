@@ -99,7 +99,9 @@ function useHoverPlay(src: string, start: number) {
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          load();
+          // Wait for the window `load` event so loading footage never holds it open.
+          if (document.readyState === "complete") load();
+          else window.addEventListener("load", load, { once: true });
           io.disconnect();
         }
       },
@@ -119,6 +121,7 @@ function useHoverPlay(src: string, start: number) {
     card.addEventListener("pointerleave", leave);
     return () => {
       io.disconnect();
+      window.removeEventListener("load", load);
       video.removeEventListener("error", retry);
       card.removeEventListener("pointerenter", enter);
       card.removeEventListener("pointerleave", leave);
