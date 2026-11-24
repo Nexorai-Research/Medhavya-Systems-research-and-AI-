@@ -24,7 +24,18 @@ function chartPath(values: number[], w: number, h: number) {
  * Concept interface for a product. Always labelled as illustrative so it is never
  * mistaken for a released product screenshot (Module 05 §5).
  */
-export function ProductMockup({ product, compact = false, className }: { product: Product; compact?: boolean; className?: string }) {
+export function ProductMockup({
+  product,
+  compact = false,
+  className,
+  captionClassName,
+}: {
+  product: Product;
+  compact?: boolean;
+  className?: string;
+  /** Extra classes for the caption, e.g. a backing pill when the mockup sits on a photo or video. */
+  captionClassName?: string;
+}) {
   const { mockup } = product;
   const { line, area } = chartPath(mockup.chart, 320, 90);
   const gradientId = `grad-${product.slug}`;
@@ -99,7 +110,7 @@ export function ProductMockup({ product, compact = false, className }: { product
           </div>
         </div>
       </div>
-      <figcaption className="mt-2.5 font-mono text-[0.72rem] tracking-wide text-muted">Illustrative concept UI · sample data</figcaption>
+      <figcaption className={cn("mt-2.5 font-mono text-[0.72rem] tracking-wide text-muted", captionClassName)}>Illustrative concept UI · sample data</figcaption>
     </figure>
   );
 }

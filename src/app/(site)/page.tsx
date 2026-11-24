@@ -5,6 +5,7 @@ import { CtaBand } from "@/components/CtaBand";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { HeroStage } from "@/components/home/hero/HeroStage";
+import { heroVideos } from "@/lib/hero-videos";
 import { ProductShowcase } from "@/components/home/ProductShowcase";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container, SectionHeading } from "@/components/ui/Section";
@@ -73,14 +74,15 @@ export default function HomePage() {
       summary: p.summary,
     }));
 
+  // One background clip per hero product; the hero crossfades between them as the story moves on.
+  const heroClips = Object.fromEntries(ecosystem.flatMap((n) => (heroVideos[n.slug] ? [[n.slug, heroVideos[n.slug]]] : [])));
+
   return (
     <>
       {/* 2. Hero */}
       <section className="relative overflow-hidden">
-        <div aria-hidden className="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_at_70%_40%,black_20%,transparent_75%)]" />
-        <div aria-hidden className="absolute top-20 right-[-10%] size-[620px] rounded-full bg-electric/10 blur-[120px]" />
-        <HeroStage nodes={ecosystem} eyebrow={site.descriptor}>
-            <p className="mt-6 max-w-xl animate-rise text-lg leading-relaxed text-pretty text-muted [animation-delay:520ms]">
+        <HeroStage nodes={ecosystem} eyebrow={site.descriptor} videos={heroClips}>
+            <p className="mt-6 max-w-xl animate-rise text-lg leading-relaxed font-medium text-pretty text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.65),0_0_14px_rgb(0_0_0/0.7)] [animation-delay:520ms]">
               Purpose-built products and intelligent enterprise solutions for a changing world — from farms and schools to hospitals, warehouses and boardrooms.
             </p>
             <div className="mt-9 flex animate-rise flex-col gap-3 [animation-delay:640ms] sm:flex-row">
@@ -91,15 +93,15 @@ export default function HomePage() {
                 Discuss an Enterprise Project
               </ButtonLink>
             </div>
-            <dl className="mt-12 grid max-w-lg animate-rise grid-cols-3 grid-rows-[auto_1fr] gap-x-4 gap-y-0 border-t border-line pt-6 [animation-delay:760ms] sm:gap-x-6">
+            <dl className="mt-12 grid max-w-lg animate-rise grid-cols-3 grid-rows-[auto_1fr] gap-x-4 gap-y-0 border-t border-white/30 pt-6 [animation-delay:760ms] sm:gap-x-6">
               {[
                 { k: "Categories", v: String(categories.length) },
                 { k: "Products", v: String(allProducts.length) },
                 { k: "Industries", v: String(allIndustries.length) },
               ].map((s) => (
                 <div key={s.k} className="row-span-2 grid grid-rows-subgrid">
-                  <dt className="text-xs text-muted">{s.k}</dt>
-                  <dd className="mt-1 text-sm font-semibold text-midnight">{s.v}</dd>
+                  <dt className="text-xs font-medium text-white/90 [text-shadow:0_1px_3px_rgb(0_0_0/0.65),0_0_14px_rgb(0_0_0/0.7)]">{s.k}</dt>
+                  <dd className="mt-1 text-sm font-semibold text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.65),0_0_14px_rgb(0_0_0/0.7)]">{s.v}</dd>
                 </div>
               ))}
             </dl>

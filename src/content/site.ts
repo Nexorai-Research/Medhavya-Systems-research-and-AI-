@@ -10,7 +10,7 @@ export const site = {
     "Medhavya Systems builds intelligent software products and delivers practical enterprise technology solutions that help organizations operate, adapt, and grow.",
   // TODO(founder): confirm public contact channels and office address.
   contact: {
-    email: null as string | null,
+    email: "support.medhavyasystems@gmail.com" as string | null,
     phone: null as string | null,
     /** International number (with country code) for wa.me; leave null until the founder supplies it. */
     whatsapp: null as string | null,

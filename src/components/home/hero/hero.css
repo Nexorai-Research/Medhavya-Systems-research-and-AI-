@@ -44,6 +44,33 @@
   }
 }
 
+/* ---- Text over the background video ---------------------------------------
+   The clip is shown unwashed, so the hero copy turns white with a dark glow. */
+.hero-stage[data-on-video] h1 {
+  color: #fff;
+  text-shadow:
+    0 1px 3px rgb(0 0 0 / 0.6),
+    0 0 16px rgb(0 0 0 / 0.75),
+    0 0 32px rgb(0 0 0 / 0.45);
+}
+.hero-stage[data-on-video] .hero-flip {
+  /* Background-clipped text cannot take text-shadow, so the glow is a drop-shadow filter. */
+  background: linear-gradient(100deg, #fff 10%, #c9efff 55%, #8fe3f5 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  /* Inherited text-shadow would paint over the clipped gradient and turn the word grey. */
+  text-shadow: none;
+  filter: drop-shadow(0 1px 3px rgb(0 0 0 / 0.6)) drop-shadow(0 0 14px rgb(0 0 0 / 0.7));
+}
+.hero-stage[data-on-video] .hero-on-video-text {
+  color: #fff;
+}
+.hero-on-video-text {
+  text-shadow:
+    0 1px 3px rgb(0 0 0 / 0.65),
+    0 0 14px rgb(0 0 0 / 0.7);
+}
+
 /* ---- Camera & scene ------------------------------------------------------ */
 .eco3d-camera {
   perspective: 1500px;

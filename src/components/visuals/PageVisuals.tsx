@@ -180,20 +180,23 @@ export function ProductHeroVisual({ product }: { product: Product }) {
   return (
     <Stage3D className="aspect-[6/5] max-w-[600px]" base={{ rx: 8, ry: -16 }}>
       <div className="z3d absolute inset-x-[4%] top-[6%]" style={v({ "--z": "0px" })}>
-        <ProductMockup product={product} />
+        <ProductMockup product={product} captionClassName="inline-block rounded-full bg-white/85 px-2.5 py-1 shadow-sm" />
       </div>
+      {/* Floating cards sit in the empty corners (header bar, sidebar foot) so they never cover real UI. */}
       {t1 && (
-        <div className="p3d absolute top-[20%] -left-[9%] hidden w-[30%] sm:block">
+        <div className="p3d absolute -top-[3%] right-[-3%] hidden w-[30%] sm:block">
           <div className="z3d" style={v({ "--z": "90px" })}>
-            <div className="float3d card-glow rounded-2xl p-3 shadow-[var(--shadow-lift)]" style={v({ "--dur": "7s" })}>
-              <p className="truncate text-[0.72rem] text-muted">{t1.label}</p>
+            <div className="float3d glass rounded-2xl p-3" style={v({ "--dur": "7s" })}>
+              <p className="flex items-center gap-1.5 truncate text-[0.72rem] text-muted">
+                <span className="size-1.5 shrink-0 rounded-full bg-success" /> {t1.label}
+              </p>
               <p className="mt-0.5 text-lg font-semibold whitespace-nowrap text-midnight tabular-nums">{t1.value}</p>
             </div>
           </div>
         </div>
       )}
       {t2 && (
-        <div className="p3d absolute top-[54%] -right-[7%] hidden w-[28%] sm:block">
+        <div className="p3d absolute top-[60%] -left-[8%] hidden w-[27%] sm:block">
           <div className="z3d" style={v({ "--z": "60px" })}>
             <div className="float3d glass rounded-2xl p-3" style={v({ "--dur": "8.5s", "--delay": "-2s" })}>
               <p className="truncate text-[0.72rem] text-muted">{t2.label}</p>
@@ -203,7 +206,7 @@ export function ProductHeroVisual({ product }: { product: Product }) {
         </div>
       )}
       {kind && (
-        <div className="p3d absolute bottom-0 left-0 w-[46%] sm:-bottom-[2%] sm:-left-[8%]">
+        <div className="p3d absolute bottom-0 left-0 w-[46%] sm:-right-[6%] sm:bottom-[-4%] sm:left-auto sm:w-[40%]">
           <div className="z3d" style={v({ "--z": "130px" })}>
             <div className="float3d glass rounded-2xl p-2" style={v({ "--dur": "9s", "--delay": "-3s" })}>
               <ProductVignette kind={kind} />
