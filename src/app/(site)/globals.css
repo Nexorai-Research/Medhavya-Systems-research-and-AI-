@@ -356,6 +356,71 @@ body {
   transform: scaleX(1);
 }
 
+/*
+ * Home category cards with a clip: the card shows a still frame of the video behind a dark shade at rest, so its copy
+ * is white; hovering plays the clip (see CardHoverVideo). The dark base keeps the copy readable if the clip is slow.
+ */
+.eco-card--video {
+  text-shadow:
+    0 1px 3px rgb(0 0 0 / 0.6),
+    0 0 12px rgb(0 0 0 / 0.55);
+}
+.eco-card--video :is(.eco-title, .eco-text, .eco-num, .eco-arrow) {
+  color: #fff;
+}
+.eco-card--video .eco-text {
+  font-weight: 500;
+}
+.eco-card--video .eco-icon {
+  background: rgb(255 255 255 / 0.2);
+  border-color: rgb(255 255 255 / 0.5);
+  color: #fff;
+}
+.eco-card--video .eco-chip {
+  background: rgb(255 255 255 / 0.22);
+  color: #fff;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .eco-card--video:is(:hover, :focus-visible) .eco-icon {
+    transform: rotate(-6deg) scale(1.1);
+  }
+}
+
+/* Hero visual that pops in, then leaves (TimedPop); only animates when motion is allowed. */
+@media (prefers-reduced-motion: no-preference) {
+  .pop-in {
+    animation: pop-in 0.7s var(--ease-out-expo) both;
+  }
+  .pop-out {
+    animation: pop-out 0.8s var(--ease-in-out) both;
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.82) translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes pop-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.88) translateY(-16px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pop-out {
+    opacity: 0;
+  }
+}
+
 /* Scroll-linked progress bar and timeline fill (CSS scroll-driven animations). */
 .scroll-progress {
   transform-origin: left;
@@ -627,4 +692,18 @@ html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+/* Side-marked callout: the bar is clipped by the rounded corners (a left border would curve and look cut). Set the bar colour with before:bg-*. */
+.callout-bar {
+  position: relative;
+  overflow: hidden;
+  padding-left: 1.25rem;
+}
+.callout-bar::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 0.25rem;
 }

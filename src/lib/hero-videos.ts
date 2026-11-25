@@ -11,6 +11,21 @@ export interface HeroVideoSource {
   uhd?: string;
 }
 
+/**
+ * Hover clips for the home page's category cards, by category slug. They reuse the product hero files (already
+ * cached by the hero) except agriculture, which has its own small clip (the supplied Agro360AI clip is not reused).
+ */
+export const categoryVideos: Record<string, string> = {
+  agriculture: "/videos/categories/agriculture.mp4",
+  "retail-business": "/videos/heroes/manage-hd.mp4",
+  "ai-automation": "/videos/heroes/autoflow-hd.mp4",
+  "financial-intelligence": "/videos/heroes/finsight-hd.mp4",
+  enterprise: "/videos/heroes/erp-hd.mp4",
+  education: "/videos/heroes/edusphere-hd.mp4",
+  healthcare: "/videos/heroes/mediai-hd.mp4",
+  other: "/videos/heroes/logitrack-hd.mp4",
+};
+
 export const heroVideos: Record<string, HeroVideoSource> = {
   "medhavya-agro": { hd: "/videos/agro360ai-hero.mp4" },
   mediai: { hd: "/videos/heroes/mediai-hd.mp4", uhd: "/videos/heroes/mediai-4k.mp4" }, // doctor reading an X-ray

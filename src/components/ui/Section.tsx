@@ -20,6 +20,44 @@ export function Eyebrow({ children, tone = "light", className }: { children: Rea
   );
 }
 
+/**
+ * The one top accent bar for cards. Use it only where the colour carries meaning (category, type, status);
+ * the card must be `relative overflow-hidden` so the bar follows the rounded corners.
+ */
+export function AccentBar({ className }: { className?: string }) {
+  return <span aria-hidden className={cn("absolute inset-x-0 top-0 z-10 h-1.5 bg-gradient-to-r", className)} />;
+}
+
+const labelTones = {
+  muted: "text-muted",
+  emerald: "text-emerald-800",
+  amber: "text-amber-800",
+  primary: "text-primary",
+  cyan: "text-cyan",
+} as const;
+
+/** The one small uppercase label used *inside* cards and panels. Section headings use `Eyebrow` (with its rule) instead. */
+export function CardLabel({
+  children,
+  icon,
+  tone = "muted",
+  as: Tag = "h2",
+  className,
+}: {
+  children: ReactNode;
+  icon?: ReactNode;
+  tone?: keyof typeof labelTones;
+  as?: "h2" | "h3" | "dt";
+  className?: string;
+}) {
+  return (
+    <Tag className={cn("flex items-center gap-2 text-xs font-semibold tracking-[0.14em] uppercase", labelTones[tone], className)}>
+      {icon}
+      {children}
+    </Tag>
+  );
+}
+
 export function SectionHeading({
   eyebrow,
   title,

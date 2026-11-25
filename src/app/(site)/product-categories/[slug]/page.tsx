@@ -7,7 +7,7 @@ import { PageHero } from "@/components/PageHero";
 import { ProductMockup } from "@/components/ProductMockup";
 import { DemoBadge, LifecycleBadge } from "@/components/ui/Badges";
 import { ButtonLink } from "@/components/ui/Button";
-import { Container, SectionHeading } from "@/components/ui/Section";
+import { Container, SectionHeading, CardLabel } from "@/components/ui/Section";
 import { CategoryVisual } from "@/components/visuals/PageVisuals";
 import { getCategories, getCategory, getIndustries, getProducts } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
@@ -45,13 +45,16 @@ export default async function CategoryPage({ params }: PageProps<"/product-categ
         visual={<CategoryVisual icon={category.icon} products={products.map(({ slug, name }) => ({ slug, name }))} />}
       />
 
-      <section className="py-16 sm:py-20">
-        <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+      <section className="relative overflow-hidden bg-gradient-to-b from-canvas to-[#f1f6fd] py-16 sm:py-20">
+        <div aria-hidden className="pointer-events-none absolute -top-24 -left-32 size-[26rem] rounded-full bg-electric/15 blur-3xl" />
+        <Container className="relative grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <SectionHeading eyebrow="Industry context" title="What we hear from teams in this space" />
-          <ul className="space-y-4">
-            {category.context.map((c) => (
-              <li key={c} className="flex gap-4 rounded-[var(--radius-md)] border border-line bg-white p-5 text-ink">
-                <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-cyan" />
+          <ul data-reveal-group="70" className="space-y-4">
+            {category.context.map((c, i) => (
+              <li key={c} className="group relative flex items-start gap-4 overflow-hidden rounded-[var(--radius-md)] border border-line bg-white p-5 text-ink transition-[translate,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)]">
+                <span aria-hidden className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-cyan font-mono text-sm font-semibold text-white shadow-sm">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
                 {c}
               </li>
             ))}
@@ -59,8 +62,9 @@ export default async function CategoryPage({ params }: PageProps<"/product-categ
         </Container>
       </section>
 
-      <section className="border-y border-line bg-white py-16 sm:py-24">
-        <Container>
+      <section className="relative overflow-hidden border-y border-line bg-white py-16 sm:py-24">
+        <div aria-hidden className="bg-grid pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_50%_0%,black,transparent_70%)]" />
+        <Container className="relative">
           <SectionHeading eyebrow="Products" title={products.length ? `${category.shortName} products` : "Products coming soon"} />
           {products.length === 0 ? (
             <p className="mt-6 max-w-xl text-muted">We are not yet listing a product in this category. If you have a need here, we would like to hear about it.</p>
@@ -101,9 +105,9 @@ export default async function CategoryPage({ params }: PageProps<"/product-categ
       </section>
 
       {relatedIndustries.length > 0 && (
-        <section className="py-16">
+        <section className="bg-gradient-to-b from-white to-[#f1f6fd] py-16">
           <Container>
-            <h2 className="text-sm font-semibold tracking-[0.14em] text-muted uppercase">Relevant industries</h2>
+            <CardLabel>Relevant industries</CardLabel>
             <ul className="mt-4 flex flex-wrap gap-2">
               {relatedIndustries.map((i) => (
                 <li key={i.slug}>
@@ -117,9 +121,9 @@ export default async function CategoryPage({ params }: PageProps<"/product-categ
         </section>
       )}
 
-      <section className="pb-4">
+      <section className="bg-[#f1f6fd] py-14">
         <Container>
-          <h2 className="text-sm font-semibold tracking-[0.14em] text-muted uppercase">Other categories</h2>
+          <CardLabel>Other categories</CardLabel>
           <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
             {others.map((c) => (
               <li key={c.slug}>

@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { PageHero } from "@/components/PageHero";
 import { Container } from "@/components/ui/Section";
+import { Starfield } from "@/components/visuals/Starfield";
 import { CompareView } from "@/features/compare/CompareView";
 import type { CompareProduct } from "@/features/compare/shared";
 import { getCategories, getIndustries, getProducts } from "@/lib/content";
@@ -32,13 +33,16 @@ export default function CompareProductsPage() {
   return (
     <>
       <PageHero
+        tone="dark"
+        backdrop={<Starfield />}
         eyebrow="Compare"
         title="Compare products side by side."
         intro="Pick two or three products to see how their capabilities, deployment and lifecycle stage line up."
         crumbs={[{ label: "Products", href: "/products" }, { label: "Compare" }]}
       />
-      <section className="py-12 sm:py-16">
-        <Container>
+      <section className="relative overflow-hidden bg-gradient-to-b from-canvas to-[#f1f6fd] py-12 sm:py-16">
+        <div aria-hidden className="pointer-events-none absolute -top-24 -left-32 size-[26rem] rounded-full bg-electric/15 blur-3xl" />
+        <Container className="relative">
           <Suspense fallback={<p className="text-sm text-muted">Loading comparison…</p>}>
             <CompareView products={products} />
           </Suspense>

@@ -2,16 +2,29 @@
 
 import Link from "next/link";
 import { useId, useMemo, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BarChart3, Blocks, Compass, FileCog, Link2, Sparkles, Truck, Users, Workflow, type LucideIcon } from "lucide-react";
 import { LifecycleBadge } from "@/components/ui/Badges";
 import type { LifecycleStatus } from "@/content/types";
 import { NEEDS, SIZES, findSolutions, type FinderIndustry, type FinderProduct, type FinderService } from "./match";
+import { AccentBar } from "@/components/ui/Section";
 
 interface Props {
   products: FinderProduct[];
   services: FinderService[];
   industries: FinderIndustry[];
 }
+
+/** Icon + accent per need (full class names so Tailwind keeps them). */
+const needStyle: Record<string, { Icon: LucideIcon; tint: string }> = {
+  "customers-sales": { Icon: Users, tint: "bg-blue-100 text-primary" },
+  "operations-finance": { Icon: Workflow, tint: "bg-violet-100 text-violet-700" },
+  "automate-documents": { Icon: FileCog, tint: "bg-fuchsia-100 text-fuchsia-700" },
+  "reports-insight": { Icon: BarChart3, tint: "bg-cyan/20 text-cyan-ink" },
+  "field-logistics": { Icon: Truck, tint: "bg-emerald-100 text-emerald-700" },
+  "custom-build": { Icon: Blocks, tint: "bg-amber-100 text-amber-700" },
+  modernise: { Icon: Link2, tint: "bg-sky-100 text-sky-700" },
+  "not-sure": { Icon: Compass, tint: "bg-slate-100 text-slate-700" },
+};
 
 export function SolutionFinder({ products, services, industries }: Props) {
   const id = useId();
@@ -25,19 +38,26 @@ export function SolutionFinder({ products, services, industries }: Props) {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr]">
-      <form onSubmit={(e) => e.preventDefault()} className="space-y-7 rounded-[var(--radius-lg)] border border-line bg-white p-6 sm:p-8">
+      <form onSubmit={(e) => e.preventDefault()} className="relative space-y-7 overflow-hidden rounded-[var(--radius-lg)] border border-white/80 bg-white/85 p-6 shadow-[var(--shadow-lift)] backdrop-blur-md sm:p-8">
+        <AccentBar className="from-primary via-electric to-cyan" />
         <fieldset>
           <legend className="text-base font-semibold text-midnight">1. What do you need most?</legend>
           <div className="mt-3 grid gap-2">
-            {NEEDS.map((n) => (
-              <label key={n.id} className="flex min-h-11 cursor-pointer items-start gap-3 rounded-[var(--radius-md)] border border-line p-3 has-[:checked]:border-primary has-[:checked]:bg-primary/5 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-electric">
-                <input type="radio" name={`${id}-need`} value={n.id} checked={need === n.id} onChange={() => setNeed(n.id)} className="mt-1 size-4 accent-[var(--color-primary)]" />
+            {NEEDS.map((n) => {
+              const { Icon, tint } = needStyle[n.id] ?? needStyle["not-sure"];
+              return (
+              <label key={n.id} className="group flex min-h-11 cursor-pointer items-center gap-3 rounded-[var(--radius-md)] border border-line bg-white p-3 transition-[translate,box-shadow,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md has-[:checked]:border-primary has-[:checked]:bg-gradient-to-r has-[:checked]:from-blue-50 has-[:checked]:to-cyan/10 has-[:checked]:shadow-md has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-electric">
+                <input type="radio" name={`${id}-need`} value={n.id} checked={need === n.id} onChange={() => setNeed(n.id)} className="size-4 shrink-0 accent-[var(--color-primary)]" />
+                <span aria-hidden className={`flex size-9 shrink-0 items-center justify-center rounded-lg transition-transform duration-200 group-hover:scale-110 ${tint}`}>
+                  <Icon className="size-[1.1rem]" />
+                </span>
                 <span>
                   <span className="block text-sm font-medium text-midnight">{n.label}</span>
                   <span className="block text-xs text-muted">{n.hint}</span>
                 </span>
               </label>
-            ))}
+              );
+            })}
           </div>
         </fieldset>
 
@@ -86,7 +106,14 @@ export function SolutionFinder({ products, services, industries }: Props) {
 
       <div aria-live="polite" className="space-y-6">
         {!answered ? (
-          <div className="rounded-[var(--radius-lg)] border border-dashed border-line-strong p-8 text-center text-sm text-muted">Choose what you need most, or your industry, and your suggestions will appear here.</div>
+          <div className="relative overflow-hidden rounded-[var(--radius-lg)] border border-dashed border-primary/40 bg-gradient-to-br from-blue-50 via-white to-cyan/10 p-10 text-center">
+            <span aria-hidden className="pointer-events-none absolute -top-16 -right-16 size-48 rounded-full bg-electric/25 blur-3xl" />
+            <span aria-hidden className="relative mx-auto flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-electric text-white shadow-[0_12px_28px_-10px_rgb(49_95_213/0.7)]">
+              <Sparkles className="size-7" />
+            </span>
+            <p className="relative mt-5 text-base font-semibold text-midnight">Your suggestions will appear here</p>
+            <p className="relative mt-1 text-sm text-muted">Choose what you need most, or your industry, and your suggestions will appear here.</p>
+          </div>
         ) : (
           <>
             <section aria-labelledby={`${id}-products`}>

@@ -12,7 +12,7 @@ import { HeroVideoBackground } from "@/components/visuals/HeroVideoBackground";
 import { ProductHeroVisual } from "@/components/visuals/PageVisuals";
 import { DemoBadge, LifecycleBadge } from "@/components/ui/Badges";
 import { ButtonLink } from "@/components/ui/Button";
-import { Container, Eyebrow, SectionHeading } from "@/components/ui/Section";
+import { Container, Eyebrow, SectionHeading, CardLabel } from "@/components/ui/Section";
 import { getCategory, getIndustry, getProduct, getProducts } from "@/lib/content";
 import { heroVideos } from "@/lib/hero-videos";
 import { pageMetadata } from "@/lib/seo";
@@ -122,19 +122,23 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
       )}
 
       {/* Problem & outcomes */}
-      <section className="py-20 sm:py-24">
-        <Container className="grid gap-12 lg:grid-cols-[1fr_1fr]">
+      <section className="relative overflow-hidden bg-gradient-to-b from-canvas to-[#f1f6fd] py-20 sm:py-24">
+        <div aria-hidden className="pointer-events-none absolute -top-24 -left-32 size-[26rem] rounded-full bg-electric/15 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -right-32 bottom-0 size-[24rem] rounded-full bg-cyan/15 blur-3xl" />
+        <Container className="relative grid gap-12 lg:grid-cols-[1fr_1fr]">
           <div>
             <Eyebrow>The problem</Eyebrow>
             <p className="mt-5 text-2xl leading-snug font-medium tracking-tight text-balance text-midnight sm:text-3xl">{product.problem}</p>
             <p className="mt-6 leading-relaxed text-muted">{product.description}</p>
           </div>
           <div data-spotlight="light" className="card-glow rounded-[var(--radius-lg)] p-6 shadow-[var(--shadow-panel)] sm:p-8">
-            <h2 className="text-sm font-semibold tracking-[0.14em] text-muted uppercase">Intended outcomes</h2>
+            <CardLabel>Intended outcomes</CardLabel>
             <ol data-reveal-group="110" className="mt-6 space-y-5">
               {product.outcomes.map((o, i) => (
                 <li key={o} className="flex gap-4">
-                  <span className="font-mono text-sm text-primary tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                  <span aria-hidden className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-cyan font-mono text-sm font-semibold text-white tabular-nums shadow-sm">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   <span className="text-lg font-medium text-midnight">{o}</span>
                 </li>
               ))}
@@ -201,9 +205,9 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
           <dl className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {facts.map(({ Icon, label, value }) => (
               <div key={label}>
-                <dt className="flex items-center gap-2 text-xs font-semibold tracking-[0.14em] text-cyan uppercase">
-                  <Icon aria-hidden className="size-4" /> {label}
-                </dt>
+                <CardLabel as="dt" tone="cyan" icon={<Icon aria-hidden className="size-4" />}>
+                  {label}
+                </CardLabel>
                 <dd className="mt-3 text-sm leading-relaxed text-white/80">{value}</dd>
               </div>
             ))}
@@ -227,8 +231,9 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
 
       {/* FAQs */}
       {product.faqs.length > 0 && (
-        <section className="py-20 sm:py-24">
-          <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+        <section className="relative overflow-hidden bg-gradient-to-b from-canvas to-[#f1f6fd] py-20 sm:py-24">
+          <div aria-hidden className="pointer-events-none absolute -top-24 -right-32 size-[26rem] rounded-full bg-electric/15 blur-3xl" />
+          <Container className="relative grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
             <SectionHeading eyebrow="FAQs" title="Questions buyers ask" />
             <Faq items={product.faqs} />
           </Container>
@@ -238,7 +243,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
       {alsoConsider.length > 0 && (
         <section className="border-t border-line bg-white py-16 sm:py-20">
           <Container>
-            <h2 className="text-2xl font-semibold tracking-tight text-midnight">Related products</h2>
+            <SectionHeading eyebrow="More products" title="Related products" />
             <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {alsoConsider.map((p) => {
                 const c = getCategory(p.categorySlug)!;
