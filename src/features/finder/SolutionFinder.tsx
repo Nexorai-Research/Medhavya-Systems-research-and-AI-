@@ -111,7 +111,7 @@ export function SolutionFinder({ products, services, industries }: Props) {
             <span aria-hidden className="relative mx-auto flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-electric text-white shadow-[0_12px_28px_-10px_rgb(49_95_213/0.7)]">
               <Sparkles className="size-7" />
             </span>
-            <p className="relative mt-5 text-base font-semibold text-midnight">Your suggestions will appear here</p>
+            <p className="relative mt-5 text-base font-semibold text-midnight">Ready when you are</p>
             <p className="relative mt-1 text-sm text-muted">Choose what you need most, or your industry, and your suggestions will appear here.</p>
           </div>
         ) : (
