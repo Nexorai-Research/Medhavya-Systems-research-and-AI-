@@ -3,6 +3,8 @@ import { PageHero } from "@/components/PageHero";
 import { Container } from "@/components/ui/Section";
 import { CatalogueBrowser } from "@/features/products/CatalogueBrowser";
 import { DeckVisual } from "@/components/visuals/PageVisuals";
+import { CyclingHeroVideo } from "@/components/visuals/HeroVideoBackground";
+import { heroVideos } from "@/lib/hero-videos";
 import { getCategories, getFeaturedProducts, getProducts } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
@@ -18,6 +20,10 @@ export default function ProductsPage() {
   const deck = getFeaturedProducts()
     .slice(0, 5)
     .map((p) => ({ title: p.name, sub: iconOf[p.categorySlug].shortName, icon: iconOf[p.categorySlug].icon, lifecycle: p.lifecycle }));
+  // The supplied Agro360AI clip is low resolution, so the full-bleed catalogue hero uses the Full HD clips only.
+  const heroClips = getProducts()
+    .filter((p) => p.slug !== "medhavya-agro" && heroVideos[p.slug])
+    .map((p) => ({ label: p.name, video: heroVideos[p.slug] }));
   return (
     <>
       <PageHero
@@ -26,9 +32,12 @@ export default function ProductsPage() {
         intro="Search the portfolio by name or capability, or browse by category. Every listing shows its real lifecycle stage, so you know what is available today and what is still being built."
         crumbs={[{ label: "Products" }]}
         visual={<DeckVisual cards={deck} />}
+        background={<CyclingHeroVideo clips={heroClips} />}
       />
-      <section className="py-12 sm:py-16">
-        <Container>
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#eef3ff] via-[#f3f9fd] to-canvas py-12 sm:py-16">
+        <div aria-hidden className="pointer-events-none absolute -top-24 right-[-8rem] size-[30rem] rounded-full bg-electric/15 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute bottom-0 left-[-8rem] size-[28rem] rounded-full bg-cyan/15 blur-3xl" />
+        <Container className="relative">
           <CatalogueBrowser products={getProducts()} categories={categories} />
         </Container>
       </section>

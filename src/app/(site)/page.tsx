@@ -5,10 +5,11 @@ import { CtaBand } from "@/components/CtaBand";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { HeroStage } from "@/components/home/hero/HeroStage";
-import { heroVideos } from "@/lib/hero-videos";
+import { categoryVideos, heroVideos } from "@/lib/hero-videos";
+import { CardHoverVideo } from "@/components/visuals/CardHoverVideo";
 import { ProductShowcase } from "@/components/home/ProductShowcase";
 import { ButtonLink } from "@/components/ui/Button";
-import { Container, SectionHeading } from "@/components/ui/Section";
+import { Container, SectionHeading, AccentBar } from "@/components/ui/Section";
 import { deliveryLifecycle } from "@/content/enterprise";
 import { site } from "@/content/site";
 import { getCategories, getEnterpriseServices, getFeaturedProducts, getIndustries, getProducts, getProductsBySlugs, getResources } from "@/lib/content";
@@ -49,6 +50,14 @@ const homeFaqs = [
     question: "How quickly will you reply to an enquiry?",
     answer: site.contact.responseExpectation,
   },
+];
+
+/** Per-card accent colours for the home industry cards (full class names so Tailwind keeps them). */
+const industryAccents = [
+  { bar: "from-emerald-500 to-teal-400", glow: "bg-emerald-300/40", callout: "before:bg-emerald-500 bg-emerald-50", chip: "border-emerald-200 bg-emerald-50 hover:border-emerald-600 hover:bg-emerald-600" },
+  { bar: "from-rose-500 to-orange-400", glow: "bg-rose-300/40", callout: "before:bg-rose-500 bg-rose-50", chip: "border-rose-200 bg-rose-50 hover:border-rose-600 hover:bg-rose-600" },
+  { bar: "from-primary to-electric", glow: "bg-electric/30", callout: "before:bg-primary bg-blue-50", chip: "border-blue-200 bg-blue-50 hover:border-primary hover:bg-primary" },
+  { bar: "from-amber-500 to-yellow-400", glow: "bg-amber-300/40", callout: "before:bg-amber-500 bg-amber-50", chip: "border-amber-200 bg-amber-50 hover:border-amber-600 hover:bg-amber-600" },
 ];
 
 export default function HomePage() {
@@ -109,34 +118,43 @@ export default function HomePage() {
       </section>
 
       {/* 3. Product ecosystem — eight categories */}
-      <section aria-labelledby="categories-heading" className="border-t border-line bg-white py-20 sm:py-28">
-        <Container>
+      <section aria-labelledby="categories-heading" className="relative overflow-hidden border-t border-line bg-white py-20 sm:py-28">
+        {/* Soft ambient depth behind the cards (decorative; static, so no motion cost) */}
+        <div aria-hidden className="pointer-events-none absolute -top-32 -left-24 size-[28rem] rounded-full bg-electric/10 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute top-1/3 -right-32 size-[30rem] rounded-full bg-cyan/10 blur-3xl" />
+        <div aria-hidden className="bg-grid pointer-events-none absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_50%_0%,black,transparent_65%)]" />
+        <Container className="relative">
           <div className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
             <SectionHeading eyebrow="Product ecosystem" title={<span id="categories-heading">Eight categories. One standard of engineering.</span>} />
             <p className="max-w-xl leading-relaxed text-muted lg:justify-self-end">
               Every Medhavya product shares the same foundations — identity, data, AI services and integrations — so what you adopt today connects with what you need next.
             </p>
           </div>
-          <ol data-reveal-group="55" className="mt-14 grid border-t border-line md:grid-cols-2">
+          <ol data-reveal-group="55" className="mt-14 grid gap-4 md:grid-cols-2">
             {categories.map((c, i) => {
               const inCategory = allProducts.filter((p) => p.categorySlug === c.slug);
               return (
-                <li key={c.slug} className="border-b border-line md:odd:border-r md:odd:pr-8 md:even:pl-8">
-                  <Link href={`/product-categories/${c.slug}`} className="row-sweep group -mx-3 flex items-start gap-5 rounded-[var(--radius-md)] px-3 py-6 transition-colors">
-                    <span className="w-5 shrink-0 pt-[0.8rem] font-mono text-xs text-muted tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-                    <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-line text-primary transition-colors group-hover:border-primary group-hover:bg-primary group-hover:text-white">
+                <li key={c.slug} className="h-full">
+                  <Link
+                    href={`/product-categories/${c.slug}`}
+                    data-spotlight="light"
+                    className={`eco-card card-glow group relative isolate flex h-full items-start gap-5 overflow-hidden rounded-[var(--radius-lg)] p-6 transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] focus-visible:-translate-y-1 ${categoryVideos[c.slug] ? "eco-card--video" : ""}`}
+                  >
+                    {categoryVideos[c.slug] && <CardHoverVideo src={categoryVideos[c.slug]} start={2} />}
+                    <span className="eco-num w-5 shrink-0 pt-[0.8rem] font-mono text-xs text-muted tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="eco-icon flex size-11 shrink-0 items-center justify-center rounded-xl border border-line bg-white text-primary transition duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-white">
                       <CategoryIcon icon={c.icon} className="size-5" />
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="flex items-center justify-between gap-3">
-                        <span className="text-lg font-semibold tracking-tight text-midnight group-hover:text-primary">{c.name}</span>
-                        <ArrowUpRight aria-hidden className="size-4 shrink-0 text-line-strong transition-[color,translate] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary" />
+                        <span className="eco-title text-lg font-semibold tracking-tight text-midnight group-hover:text-primary">{c.name}</span>
+                        <ArrowUpRight aria-hidden className="eco-arrow size-4 shrink-0 text-line-strong transition-[color,translate] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary" />
                       </span>
-                      <span className="mt-1 block text-sm leading-relaxed text-muted">{c.tagline}</span>
+                      <span className="eco-text mt-1 block text-sm leading-relaxed text-muted">{c.tagline}</span>
                       {inCategory.length > 0 && (
                         <span className="mt-3 flex flex-wrap gap-1.5">
                           {inCategory.map((p) => (
-                            <span key={p.slug} className="rounded-full bg-canvas px-2.5 py-0.5 text-xs font-medium text-ink">
+                            <span key={p.slug} className="eco-chip rounded-full bg-canvas px-2.5 py-0.5 text-xs font-medium text-ink transition-colors">
                               {p.name}
                             </span>
                           ))}
@@ -152,8 +170,12 @@ export default function HomePage() {
       </section>
 
       {/* 4. Featured products */}
-      <section aria-labelledby="featured-heading" className="py-20 sm:py-28">
-        <Container>
+      <section aria-labelledby="featured-heading" className="relative overflow-hidden bg-gradient-to-b from-[#eef3ff] via-[#f3f9fd] to-canvas py-20 sm:py-28">
+        {/* Decorative colour (static; no motion cost) */}
+        <div aria-hidden className="pointer-events-none absolute -top-24 right-[-8rem] size-[32rem] rounded-full bg-electric/20 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute bottom-[-8rem] left-[-8rem] size-[30rem] rounded-full bg-cyan/20 blur-3xl" />
+        <div aria-hidden className="bg-grid pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_at_50%_20%,black,transparent_70%)]" />
+        <Container className="relative">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <SectionHeading
               eyebrow="Featured products"
@@ -227,36 +249,48 @@ export default function HomePage() {
       </section>
 
       {/* 6. Industry solutions */}
-      <section aria-labelledby="industries-heading" className="py-20 sm:py-28">
-        <Container>
+      <section aria-labelledby="industries-heading" className="relative overflow-hidden bg-gradient-to-b from-canvas via-[#f1f6fd] to-canvas py-20 sm:py-28">
+        <div aria-hidden className="pointer-events-none absolute top-1/4 -left-40 size-[30rem] rounded-full bg-electric/15 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -right-40 bottom-0 size-[28rem] rounded-full bg-cyan/15 blur-3xl" />
+        <Container className="relative">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <SectionHeading eyebrow="Industry solutions" title={<span id="industries-heading">Business problems first. Products second.</span>} />
             <ButtonLink href="/industries" variant="ghost" arrow>
               All industries
             </ButtonLink>
           </div>
-          <div data-reveal-group="90" className="mt-12 overflow-hidden rounded-[var(--radius-lg)] border border-line bg-white">
-            {industries.map((ind) => (
-              <div key={ind.slug} className="row-sweep grid gap-4 border-b border-line p-6 last:border-b-0 md:grid-cols-[200px_minmax(0,1fr)_minmax(0,1.25fr)] md:items-center md:gap-8 md:px-8">
-                <h3 className="text-lg font-semibold tracking-tight text-midnight">
-                  <Link href={`/industries/${ind.slug}`} className="inline-block py-1.5 hover:text-primary">
-                    {ind.name}
-                  </Link>
-                </h3>
-                <p className="text-sm leading-relaxed text-muted">
-                  <span className="font-medium text-ink">The challenge: </span>
-                  {ind.painPoints[0]}.
-                </p>
-                <div className="flex flex-wrap items-center gap-2 md:justify-end">
-                  {getProductsBySlugs(ind.relatedProducts).map((p) => (
-                    <Link key={p.slug} href={`/products/${p.slug}`} className="inline-flex items-center gap-1 rounded-full border border-line px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-primary hover:text-primary">
-                      {p.name}
-                      <ArrowRight aria-hidden className="size-3" />
-                    </Link>
-                  ))}
+          <div data-reveal-group="90" className="mt-12 grid gap-5 md:grid-cols-2">
+            {industries.map((ind, i) => {
+              const a = industryAccents[i % industryAccents.length];
+              return (
+                <div key={ind.slug} className="group relative flex flex-col overflow-hidden rounded-[var(--radius-lg)] border border-line bg-white p-6 transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
+                  <AccentBar className={a.bar} />
+                  <span aria-hidden className={`pointer-events-none absolute -top-16 -right-16 size-44 rounded-full opacity-60 blur-2xl transition-opacity duration-300 group-hover:opacity-100 ${a.glow}`} />
+                  <div className="relative flex items-center gap-3">
+                    <span aria-hidden className={`flex size-10 items-center justify-center rounded-xl bg-gradient-to-br font-mono text-sm font-semibold text-white shadow-sm ${a.bar}`}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="text-xl font-semibold tracking-tight text-midnight">
+                      <Link href={`/industries/${ind.slug}`} className="inline-block py-1.5 hover:text-primary">
+                        {ind.name}
+                      </Link>
+                    </h3>
+                  </div>
+                  <p className={`callout-bar mt-4 rounded-[var(--radius-md)] py-3 pr-4 text-sm leading-relaxed text-muted ${a.callout}`}>
+                    <span className="font-semibold text-ink">The challenge: </span>
+                    {ind.painPoints[0]}.
+                  </p>
+                  <div className="relative mt-5 flex flex-wrap items-center gap-2">
+                    {getProductsBySlugs(ind.relatedProducts).map((p) => (
+                      <Link key={p.slug} href={`/products/${p.slug}`} className={`inline-flex items-center gap-1 rounded-full border px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:text-white ${a.chip}`}>
+                        {p.name}
+                        <ArrowRight aria-hidden className="size-3" />
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           {moreIndustries.length > 0 && (
             <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -264,7 +298,7 @@ export default function HomePage() {
               <ul className="flex flex-wrap gap-2">
                 {moreIndustries.map((ind) => (
                   <li key={ind.slug}>
-                    <Link href={`/industries/${ind.slug}`} className="inline-flex min-h-9 items-center rounded-full border border-line bg-white px-3.5 text-sm font-medium text-ink transition-colors hover:border-primary hover:text-primary">
+                    <Link href={`/industries/${ind.slug}`} className="inline-flex min-h-9 items-center rounded-full border border-line bg-white px-3.5 text-sm font-medium text-ink shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-white">
                       {ind.name}
                     </Link>
                   </li>

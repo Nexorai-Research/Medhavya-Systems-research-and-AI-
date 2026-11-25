@@ -50,7 +50,8 @@ test.describe("runtime health", () => {
       const errors: string[] = [];
       page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
       page.on("pageerror", (e) => errors.push(e.message));
-      await page.goto(path, { waitUntil: "networkidle" });
+      // "load", not "networkidle": hero videos keep streaming (and cycling) so the network never goes idle.
+      await page.goto(path, { waitUntil: "load" });
       await page.waitForTimeout(1500);
       expect(errors).toEqual([]);
     });

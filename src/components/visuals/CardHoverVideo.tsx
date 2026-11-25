@@ -8,23 +8,30 @@ import { useEffect, useRef } from "react";
  * wash; hovering the card lifts the wash and plays it, leaving pauses it. The file is only requested once the
  * card is near the viewport. Touch and reduced-motion visitors keep the still frame and never autoplay.
  * `start` picks the frame (seconds) so cards sharing one clip do not all show the same moment.
+ *
+ * `reveal="hover"` is for dense grids: nothing is requested or drawn until the card is hovered or focused, then
+ * the layer fades in over a dark base (so light text can switch to white at once) and the video fades in when its
+ * first frame is ready. Leaving pauses it. Touch visitors never trigger it and the card stays plain.
  */
 export function CardHoverVideo({
   src,
   start = 0,
+  reveal = "rest",
 }: {
   src: string;
   start?: number;
+  reveal?: "rest" | "hover";
 }) {
-  const ref = useHoverPlay(src, start);
+  const ref = useHoverPlay(src, start, reveal);
+  const onHover = reveal === "hover";
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-0 -z-10 overflow-hidden bg-midnight"
+      className={`pointer-events-none absolute inset-0 -z-10 overflow-hidden bg-midnight ${onHover ? "opacity-0 transition-opacity duration-500 ease-out group-focus-visible:opacity-100 group-hover:opacity-100 motion-reduce:hidden [@media(hover:none)]:hidden" : ""}`}
     >
       <video
         ref={ref}
-        className="size-full scale-110 object-cover saturate-110 transition duration-700 ease-out group-hover:scale-100 group-hover:saturate-125"
+        className={`size-full scale-110 object-cover saturate-110 transition duration-700 ease-out group-hover:scale-100 group-hover:saturate-125 ${onHover ? "opacity-0 data-ready:opacity-100" : ""}`}
         muted
         loop
         playsInline
@@ -59,7 +66,7 @@ function enqueueLoad(video: HTMLVideoElement, begin: () => void) {
   );
 }
 
-function useHoverPlay(src: string, start: number) {
+function useHoverPlay(src: string, start: number, reveal: "rest" | "hover") {
   const ref = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     const video = ref.current;
@@ -96,36 +103,58 @@ function useHoverPlay(src: string, start: number) {
     };
     video.addEventListener("error", retry);
 
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          // Wait for the window `load` event so loading footage never holds it open.
-          if (document.readyState === "complete") load();
-          else window.addEventListener("load", load, { once: true });
-          io.disconnect();
-        }
-      },
-      { rootMargin: "300px" },
-    );
-    io.observe(card);
+    // Hover-reveal cards fade their video in once the first frame exists.
+    const markReady = () => (video.dataset.ready = "");
+    video.addEventListener("loadeddata", markReady);
+
+    // "rest" cards show a still frame, so they load as they near the viewport; "hover" cards wait for hover.
+    const io =
+      reveal === "rest"
+        ? new IntersectionObserver(
+            ([entry]) => {
+              if (entry.isIntersecting) {
+                // Wait for the window `load` event so loading footage never holds it open.
+                if (document.readyState === "complete") load();
+                else window.addEventListener("load", load, { once: true });
+                io?.disconnect();
+              }
+            },
+            { rootMargin: "300px" },
+          )
+        : null;
+    io?.observe(card);
 
     const canPlay = !window.matchMedia("(prefers-reduced-motion: reduce)")
       .matches;
-    const enter = (e: PointerEvent) => {
-      if (!canPlay || e.pointerType !== "mouse") return;
+    const play = () => {
+      if (!canPlay) return;
       begin(); // hovered before its turn in the queue: load now
       void video.play().catch(() => {});
+    };
+    // Keyboard focus only (:focus-visible), matching the CSS that turns the card text white.
+    const focusPlay = () => {
+      if (card.matches(":focus-visible")) play();
+    };
+    const enter = (e: PointerEvent) => {
+      if (e.pointerType === "mouse") play();
     };
     const leave = () => video.pause();
     card.addEventListener("pointerenter", enter);
     card.addEventListener("pointerleave", leave);
+    if (reveal === "hover") {
+      card.addEventListener("focusin", focusPlay);
+      card.addEventListener("focusout", leave);
+    }
     return () => {
-      io.disconnect();
+      io?.disconnect();
       window.removeEventListener("load", load);
       video.removeEventListener("error", retry);
+      video.removeEventListener("loadeddata", markReady);
       card.removeEventListener("pointerenter", enter);
       card.removeEventListener("pointerleave", leave);
+      card.removeEventListener("focusin", focusPlay);
+      card.removeEventListener("focusout", leave);
     };
-  }, [src, start]);
+  }, [src, start, reveal]);
   return ref;
 }

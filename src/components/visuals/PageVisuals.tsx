@@ -1,5 +1,6 @@
+import { GalaxyMark } from "@/components/visuals/GalaxyMark";
 import Image from "next/image";
-import type { CSSProperties, ReactNode } from "react";
+import { Suspense, type CSSProperties, type ReactNode } from "react";
 import {
   CalendarDays,
   CheckCircle2,
@@ -290,7 +291,9 @@ export function BrandOrbitVisual({ values }: { values: string[] }) {
       <div className="p3d absolute top-1/2 left-1/2 w-[40%] -translate-x-1/2 -translate-y-1/2">
         <div className="z3d" style={v({ "--z": "120px" })}>
           <div className="float3d" style={v({ "--dur": "7s" })}>
-            <Image src="/brand/medhavya-mark.png" alt="" width={218} height={192} className="w-full drop-shadow-[0_24px_30px_rgb(16_26_45/0.35)]" />
+            <Suspense fallback={<div className="aspect-[218/192] w-full" />}>
+              <GalaxyMark />
+            </Suspense>
           </div>
         </div>
       </div>

@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import type { CSSProperties, ReactNode } from "react";
+import { Suspense, type CSSProperties, type ReactNode } from "react";
 import { JsonLd } from "@/components/JsonLd";
 import { Container, Eyebrow } from "@/components/ui/Section";
+import { TimedPop } from "@/components/visuals/TimedPop";
 import { siteUrl } from "@/lib/env";
 import { cn } from "@/lib/cn";
 import "@/components/visuals/visuals.css";
@@ -76,6 +77,8 @@ export function PageHero({
   crumbs,
   tone = "light",
   visual,
+  background,
+  backdrop,
   children,
 }: {
   eyebrow: string;
@@ -84,30 +87,48 @@ export function PageHero({
   crumbs: Crumb[];
   tone?: "light" | "dark";
   visual?: ReactNode;
+  /** Full-bleed video behind the hero (e.g. CyclingHeroVideo). Text turns white with a shadow. */
+  background?: ReactNode;
+  /** Decorative layer behind the content that does not switch the hero into video mode (visual stays). */
+  backdrop?: ReactNode;
   children?: ReactNode;
 }) {
-  const dark = tone === "dark";
+  const onVideo = Boolean(background);
+  const dark = tone === "dark" || onVideo;
+  const ts = onVideo ? "[text-shadow:0_1px_3px_rgb(0_0_0/0.65),0_0_14px_rgb(0_0_0/0.5)]" : "";
   return (
     <section className={cn("relative overflow-hidden border-b", dark ? "dark-section border-white/10 bg-midnight text-white" : "border-line bg-canvas")}>
-      <div aria-hidden className={cn("absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent)]", dark ? "bg-grid-dark" : "bg-grid")} />
-      <div aria-hidden className={cn("pointer-events-none absolute inset-0", dark ? "page-glow-dark" : "page-glow")} />
-      {dark && <div aria-hidden className="absolute -top-40 right-0 size-[520px] rounded-full bg-electric/20 blur-[120px]" />}
+      {onVideo ? (
+        // Video backgrounds are client components; the Suspense boundary keeps the static shell valid for Cache Components.
+        <Suspense fallback={<div aria-hidden className="absolute inset-0 bg-midnight" />}>{background}</Suspense>
+      ) : (
+        <>
+          <div aria-hidden className={cn("absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent)]", dark ? "bg-grid-dark" : "bg-grid")} />
+          <div aria-hidden className={cn("pointer-events-none absolute inset-0", dark ? "page-glow-dark" : "page-glow")} />
+        </>
+      )}
+      {backdrop}
+      {dark && !onVideo && !backdrop && <div aria-hidden className="absolute -top-40 right-0 size-[520px] rounded-full bg-electric/20 blur-[120px]" />}
       <Container className="relative pt-5 pb-14 sm:pt-7 sm:pb-20">
-        <Breadcrumbs items={crumbs} tone={tone} />
+        <div className={ts}>
+          <Breadcrumbs items={crumbs} tone={dark ? "dark" : "light"} />
+        </div>
         <div className={cn("mt-8 grid gap-10", visual && "lg:grid-cols-[1.05fr_1fr] lg:items-start lg:gap-6")}>
           <div className="min-w-0">
             <div className="animate-rise">
-              <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
+              <Eyebrow tone={dark ? "dark" : "light"} className={cn(ts, onVideo && "font-semibold !text-white")}>
+                {eyebrow}
+              </Eyebrow>
             </div>
-            <h1 className={cn("mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-5xl", dark ? "text-white" : "text-midnight")}>
+            <h1 className={cn("mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-5xl", dark ? "text-white" : "text-midnight", ts)}>
               <AnimatedTitle>{title}</AnimatedTitle>
             </h1>
             {intro && (
-              <p className={cn("mt-5 max-w-2xl animate-rise text-lg leading-relaxed text-pretty [animation-delay:380ms]", dark ? "text-white/70" : "text-muted")}>{intro}</p>
+              <p className={cn("mt-5 max-w-2xl animate-rise text-lg leading-relaxed text-pretty [animation-delay:380ms]", dark ? (onVideo ? "font-medium text-white" : "text-white/70") : "text-muted", ts)}>{intro}</p>
             )}
             {children && <div className="animate-rise [animation-delay:480ms]">{children}</div>}
           </div>
-          {visual && <div className="min-w-0 lg:self-center">{visual}</div>}
+          {visual && <div className="min-w-0 lg:self-center">{onVideo ? <TimedPop visibleMs={6000}>{visual}</TimedPop> : visual}</div>}
         </div>
       </Container>
     </section>

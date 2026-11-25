@@ -110,3 +110,32 @@ export function HeroVideoBackground({ video }: { video: HeroVideoSource }) {
     </div>
   );
 }
+
+/**
+ * Full-bleed hero background that crossfades through several clips (one every `every` ms). A clip's file is only
+ * requested once it is first shown, and clips that are not current are paused. Reduced-motion visitors stay on
+ * the first clip (its first frame).
+ */
+export function CyclingHeroVideo({ clips, every = 7000 }: { clips: { label: string; video: HeroVideoSource }[]; every?: number }) {
+  const [current, setCurrent] = useState(0);
+  // Clips are shown in order, so everything up to the furthest index reached has been requested already.
+  const [reached, setReached] = useState(0);
+
+  useEffect(() => {
+    if (clips.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let index = 0;
+    const timer = window.setInterval(() => {
+      index = (index + 1) % clips.length;
+      setCurrent(index);
+      setReached((r) => Math.max(r, index));
+    }, every);
+    return () => window.clearInterval(timer);
+  }, [clips.length, every]);
+
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden bg-midnight">
+      {clips.map((c, i) => i <= reached && <HeroVideoLayer key={c.label} video={c.video} active={i === current} />)}
+      <TextSide />
+    </div>
+  );
+}

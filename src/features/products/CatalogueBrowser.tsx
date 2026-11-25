@@ -42,7 +42,7 @@ export function CatalogueBrowser({ products, categories }: { products: Product[]
 
   return (
     <div>
-      <div className="flex flex-col gap-3 rounded-[var(--radius-lg)] border border-line bg-white p-3 sm:flex-row sm:items-center">
+      <div className="flex flex-col gap-3 rounded-[var(--radius-lg)] border border-white/80 bg-white/80 p-3 shadow-[var(--shadow-panel)] backdrop-blur-md sm:flex-row sm:items-center">
         <label className="relative flex-1">
           <span className="sr-only">Search products</span>
           <Search aria-hidden className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted" />
@@ -178,7 +178,7 @@ function FilterChip({ pressed, onClick, children }: { pressed: boolean; onClick:
       onClick={onClick}
       className={cn(
         "inline-flex min-h-10 items-center gap-1.5 rounded-full border px-3.5 text-sm font-medium transition-colors",
-        pressed ? "border-midnight bg-midnight text-white [&>span]:text-white/60" : "border-line bg-white text-ink hover:border-primary hover:text-primary",
+        pressed ? "border-transparent bg-gradient-to-r from-primary to-electric text-white shadow-[0_8px_20px_-8px_rgb(49_95_213/0.6)] [&>span]:text-white/80" : "border-line bg-white text-ink hover:border-primary hover:text-primary",
       )}
     >
       {children}
